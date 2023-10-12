@@ -1,9 +1,11 @@
 <?php
 include 'config.php';
 ?>
+
 <!doctype html>
 <html lang="en">
   <head>
+
     <title>Royale Bakery &mdash;  </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -29,9 +31,17 @@ include 'config.php';
     <link rel="stylesheet" href="css/style.css">
 
     <link rel="stylesheet" type="text/css" href="css/basket.css">
+    <link rel="stylesheet" type="text/css" href="css/animation.css">
 
-  </head>
+</head>
 <body class="bg-light">
+
+<div class="preloader">
+    <div class="animation royale-bakery">
+        <span>R</span><span>o</span><span>y</span><span>a</span><span>l</span><span>e</span> <span>B</span><span>a</span><span>k</span><span>e</span><span>r</span><span>y</span><span>🍰</span>
+    </div>
+    <!-- You can still add more animations if needed -->
+</div>
 
     <body data-spy="scroll" data-target=".navbar" data-offset="50">
 
@@ -85,20 +95,22 @@ include 'config.php';
             </div>
          
         </header> <!-- site-header -->
-        -->
       
       <div class="main-wrap " id="section-home">
-
         <div class="cover_1 overlay bg-slant-white bg-light">
-          <div class="img_bg" style="background-image: url(images/slider-1.jpg);" data-stellar-background-ratio="0.5">
-            <div class="container">
+          <div class="img_bg" style="background-image: url(images/bc.jpg);" data-stellar-background-ratio="0.5">
+            <div class="container" style="padding-top: 100px;">
               <div class="row align-items-center justify-content-center text-center">
                 <div class="col-md-10" data-aos="fade-up">
                   <h2 class="heading mb-5">Royale Bakery </h2>
                   <h2 class="heading mb-5">The Taste of royalty,at your fingertips</h2>
-                  <p><a href="#section-reservation" class="smoothscroll btn btn-outline-white px-5 py-3">Reserve A Table</a></p>
-                  <p><a href="#section-menu" class="smoothscroll btn btn-outline-white px-5 py-3">Menu</a></p>
-                
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+                  <!-- .<p><a href="#section-reservation" class="smoothscroll btn btn-outline-white px-5 py-3">Reserve A Table</a></p>
+                  <p><a href="#section-menu" class="smoothscroll btn btn-outline-white px-5 py-3">Menu</a></p>-->
                 </div>
               </div>
             </div>
@@ -803,7 +815,25 @@ function updateBasketDisplay() {
     basketTotal.textContent = total.toFixed(2);
     itemCount.textContent = basket.length;
 }
+document.addEventListener('DOMContentLoaded', function() {
+  let currentAnimation = 0;
+    const animations = document.querySelectorAll('.preloader .animation');
 
+    // Function to switch between animations (if you have more than one)
+    function switchAnimation() {
+        animations[currentAnimation].style.display = 'none';
+        currentAnimation = (currentAnimation + 1) % animations.length;
+        animations[currentAnimation].style.display = 'block';
+    }
+
+    // You can adjust or remove this interval if you're only showing "Royale Bakery"
+    setInterval(switchAnimation, 2000);
+
+    // Hide preloader once the website is fully loaded
+    const preloader = document.querySelector('.preloader');
+    preloader.style.display = 'none';
+    document.body.style.overflow = 'auto'; // Restore scroll
+});
 </script>
 
   </body>
