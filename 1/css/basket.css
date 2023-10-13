@@ -1,0 +1,64 @@
+
+.menu-food-item {
+    flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    .menu-food-item .text, .menu-food-item .price {
+        width: 100%;
+        text-align: left;
+    }
+}
+#floatingBasket {
+    position: fixed;
+    bottom: 20px;  /* Adjust according to where you want it on the screen */
+    right: 20px;   /* Adjust according to where you want it on the screen */
+    z-index: 1000; /* Ensures the basket stays above other elements */
+}
+
+
+#basketIcon {
+background-color: #f7f7f7;
+border: 1px solid #e0e0e0;
+padding: 10px 20px;
+border-radius: 50px;
+cursor: pointer;
+display: flex;
+align-items: center;
+}
+
+#itemCount {
+margin-left: 10px;
+}
+
+#basketDropdown {
+position: absolute;
+bottom: 60px;
+right: 0;
+background-color: #f7f7f7;
+border: 1px solid #e0e0e0;
+padding: 10px;
+width: 250px;
+box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.hidden {
+    display: none !important; 
+}
+
+#checkoutArea {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+#customerEmail {
+    margin: 10px 0;
+    padding: 5px;
+    width: 100%;
+}
+
+#checkoutButton {
+    padding: 5px 10px;
+    cursor: pointer;
+}
