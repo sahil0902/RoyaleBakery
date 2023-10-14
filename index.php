@@ -11,6 +11,7 @@ include 'config.php';
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:300,400,700,800|Open+Sans:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/animate.css">
@@ -413,86 +414,87 @@ document.getElementById('checkoutButton').addEventListener('click', function() {
 </div> <!-- .section -->
 
 
-        <div class="section bg-white services-section" data-aos="fade-up">
-          <div class="container">
-            <div class="row section-heading justify-content-center mb-5">
-              <div class="col-md-8 text-center">
-                <h2 class="heading mb-3">Other Services</h2>
-                <p class="sub-heading mb-5">Sub heading here</p>  
-              </div>
+<div class="section bg-white services-section" data-aos="fade-up">
+    <div class="container">
+        <div class="row section-heading justify-content-center mb-5">
+            <div class="col-md-8 text-center">
+                <h2 class="heading mb-3">Desi Bakery Delights</h2>
+                <p class="sub-heading mb-5">Experience the taste of traditional baked goods</p>  
             </div>
-            <div class="row">
-              <div class="col-m mb-5d-6 col-lg-4" data-aos="fade-up">
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-4" data-aos="fade-up">
                 <div class="media feature-icon d-block text-center">
-                  <div class="icon">
-                    <span class="flaticon-soup"></span>
-                  </div>
-                  <div class="media-body">
-                    <h3>Quality Cuisine</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                  </div>
+                    <div class="icon">
+                        <i class="fas fa-birthday-cake"></i>
+                    </div>
+                    <div class="media-body">
+                        <h3>Traditional Cakes</h3>
+                        <p>Delicious cakes baked with love, using age-old recipes passed down through generations.</p>
+                    </div>
                 </div>
-              </div>
-              <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="100">
-                <div class="media feature-icon d-block text-center">
-                  <div class="icon">
-                    <span class="flaticon-vegetables"></span>
-                  </div>
-                  <div class="media-body">
-                    <h3>Fresh Food</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="300">
-                <div class="media feature-icon d-block text-center">
-                  <div class="icon">
-                    <span class="flaticon-pancake"></span>
-                  </div>
-                  <div class="media-body">
-                    <h3>Bread &amp; Pancake</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="500">
-                <div class="media feature-icon d-block text-center">
-                  <div class="icon">
-                    <span class="flaticon-tray"></span>
-                  </div>
-                  <div class="media-body">
-                    <h3>Reserve Now</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="300">
-                <div class="media feature-icon d-block text-center">
-                  <div class="icon">
-                    <span class="flaticon-salad"></span>
-                  </div>
-                  <div class="media-body">
-                    <h3>Fresh Vegies Salad</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="500">
-                <div class="media feature-icon d-block text-center">
-                  <div class="icon">
-                    <span class="flaticon-chicken"></span>
-                  </div>
-                  <div class="media-body">
-                    <h3>Whole Chicken</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                  </div>
-                </div>
-              </div>
-
             </div>
-          </div>
-        </div> <!-- .section -->
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+    <div class="media feature-icon d-block text-center">
+        <div class="icon">
+         <i class="fas fa-cookie-bite"></i>
+
+        </div>
+        <div class="media-body">
+            <h3>Desi Pastries</h3>
+            <p>Experience the crispy and savory pastries, a perfect companion for your tea.</p>
+        </div>
+    </div>
+</div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="media feature-icon d-block text-center">
+                    <div class="icon">
+                        <i class="fas fa-bread-slice"></i>
+                    </div>
+                    <div class="media-body">
+                        <h3>Fresh Breads</h3>
+                        <p>Soft, fluffy, and fresh breads baked daily, perfect for your breakfast or sandwiches.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="media feature-icon d-block text-center">
+                    <div class="icon">
+                        <i class="fas fa-cookie"></i>
+                    </div>
+                    <div class="media-body">
+                        <h3>Handmade Cookies</h3>
+                        <p>Crunchy, delightful cookies that melt in your mouth. Perfect with a cup of chai.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400">
+                <div class="media feature-icon d-block text-center">
+                    <div class="icon">
+                        <i class="fas fa-candy-cane"></i>
+                    </div>
+                    <div class="media-body">
+                        <h3>Desi Sweets</h3>
+                        <p>Sweeten your moments with our range of traditional desi sweets.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="500">
+                <div class="media feature-icon d-block text-center">
+                    <div class="icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="media-body">
+                        <h3>Place Your Order</h3>
+                        <p>Order your favorite bakery items and get them delivered to your doorstep.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- .section -->
+
+
 
         <div class="section bg-light" data-aos="fade-up" id="section-reservation">
           <div class="container">
@@ -732,10 +734,7 @@ document.getElementById('checkoutButton').addEventListener('click', function() {
         </footer>
       
     </div>
-    <div id="basketDisplay">
-    Items in Basket: <span id="basketCount">0</span>
-    <button id="checkoutButton">Checkout</button>
-</div>
+   
 
     <!-- loader -->
     <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#ff7a5c"/></svg></div>

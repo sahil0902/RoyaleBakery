@@ -9,8 +9,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Execute the statement
     if ($stmt->execute([$id])) {
-        header("Location: menu.php?message=Menu item deleted successfully!");
+        echo json_encode(['status' => 'success', 'message' => 'Menu item deleted successfully!']);
     } else {
-        header("Location: menu.php?message=Error deleting menu item.");
+        echo json_encode(['status' => 'error', 'message' => 'Error deleting menu item.']);
     }
+    exit;
 }
+
