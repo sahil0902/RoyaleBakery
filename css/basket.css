@@ -1,64 +1,129 @@
-
+/* Style for menu food items */
 .menu-food-item {
-    flex-wrap: wrap;
-}
-
-@media (max-width: 768px) {
-    .menu-food-item .text, .menu-food-item .price {
-        width: 100%;
-        text-align: left;
-    }
-}
-#floatingBasket {
-    position: fixed;
-    bottom: 20px;  /* Adjust according to where you want it on the screen */
-    right: 20px;   /* Adjust according to where you want it on the screen */
-    z-index: 1000; /* Ensures the basket stays above other elements */
-}
-
-
-#basketIcon {
-background-color: #f7f7f7;
-border: 1px solid #e0e0e0;
-padding: 10px 20px;
-border-radius: 50px;
-cursor: pointer;
-display: flex;
-align-items: center;
-}
-
-#itemCount {
-margin-left: 10px;
-}
-
-#basketDropdown {
-position: absolute;
-bottom: 60px;
-right: 0;
-background-color: #f7f7f7;
-border: 1px solid #e0e0e0;
-padding: 10px;
-width: 250px;
-box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.hidden {
-    display: none !important; 
-}
-
-#checkoutArea {
-    margin-top: 20px;
     display: flex;
-    flex-direction: column;
-}
-
-#customerEmail {
-    margin: 10px 0;
-    padding: 5px;
-    width: 100%;
-}
-
-#checkoutButton {
-    padding: 5px 10px;
+    flex-wrap: wrap;
+  }
+  
+  /* Responsive style for menu food items */
+  @media (max-width: 768px) {
+    .menu-food-item .text,
+    .menu-food-item .price {
+      width: 100%;
+      text-align: left;
+    }
+  }
+  
+  /* Styling for the floating basket container */
+  #floatingBasket {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+  
+  #basketIcon {
+    font-size: 24px;
+    color: #fff;
+    border: 1px solid rgba(0, 123, 255, 0.7);
+    border-radius: 50%;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+  
+  #basketIcon::before {
+    content: "";
+    position: absolute;
+    top: -2px; /* Adjust the position to not cover the whole icon */
+    left: -2px; /* Adjust the position to not cover the whole icon */
+    width: calc(100% - 4px); /* Adjust the size to not cover the whole icon */
+    height: calc(100% - 4px); /* Adjust the size to not cover the whole icon */
+    background-color: transparent; /* Make it transparent */
+    border-radius: inherit; /* Inherit the border-radius from the parent */
+  }
+  
+  #basketIcon:hover {
+    background-color: rgba(0,123,255,0.5); /* Change the hover color to a nice blue with transparency */
+  }
+  
+  #basketIcon:hover::before {
+    background-color: rgba(0,86,179,0.5); /* Add a touch of color on hover with transparency */
+  }
+  
+  
+  /* Styling for the item count inside the basket icon */
+  .itemCount {
+    margin-left: 8px;
+    color: #008080; /* Change the color to a nice teal */
+    font-weight: bold;
 }
+
+ 
+  
+  /* Styling for the basket dropdown */
+  #basketDropdown {
+    position: absolute;
+    bottom: 60px;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: none;
+  }
+  
+  /* Styling for the "Your Basket" heading */
+  #basketDropdown h4 {
+    margin-top: 0;
+    font-size: 18px;
+  }
+  
+  /* Styling for the basket items list */
+  #basketItemsList {
+    list-style: none;
+    padding: 0;
+  }
+  
+  /* Styling for the total amount */
+  #basketTotal {
+    font-weight: bold;
+  }
+  
+  /* Styling for the checkout form */
+  #checkoutArea {
+    margin-top: 20px;
+  }
+  
+  /* Styling for form labels */
+  label {
+    font-weight: bold;
+  }
+  
+  /* Styling for form inputs */
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #cdbc00;
+    border-radius: 4px;
+  }
+  
+  /* Styling for the checkout button */
+  #checkoutButton {
+    background-color: #FFD700; /* Golden color */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* Hover effect for the checkout button */
+  #checkoutButton:hover {
+    background-color: #FFB300; /* Slightly darker shade of gold for hover effect */
+  }

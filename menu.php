@@ -22,28 +22,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $in_stock = isset($_POST['in_stock']) ? 1 : 0;
 
-    // Validate the price
     if (!is_numeric($price)) {
         $message = 'Error: Price must be a valid number.';
+    } elseif ($_FILES["image"]["error"] !== UPLOAD_ERR_OK) {
+        $message = 'Error uploading the file.';
     } else {
-        // Check for upload errors
-        if ($_FILES["image"]["error"] !== UPLOAD_ERR_OK) {
-            $message = 'Error uploading the file.';
+        $image_data = file_get_contents($_FILES["image"]["tmp_name"]);
+        $stmt = $pdo->prepare("INSERT INTO menu_items (name, description, image_data, price, category) VALUES (?, ?, ?, ?, ?)");
+        if ($stmt->execute([$name, $description, $image_data, $price, $category])) {
+            $message = 'Menu item added successfully!';
         } else {
-            // Read the file's binary data directly from the temporary location
-            $image_data = file_get_contents($_FILES["image"]["tmp_name"]);
-
-            // Store the binary data in the database
-            $stmt = $pdo->prepare("INSERT INTO menu_items (name, description, image_data, price, category) VALUES (?, ?, ?, ?, ?)");
-            if ($stmt->execute([$name, $description, $image_data, $price, $category])) {
-                $message = 'Menu item added successfully!';
-            } else {
-                $message = 'Error adding menu item to the database.';
-            }
+            $message = 'Error adding menu item to the database.';
         }
     }
-    header("Location: menu.php");
-exit;
+    header("Location: menu.php?message=" . urlencode($message));
+    exit;
 }
 
 // Fetch menu items from the database
@@ -183,6 +176,7 @@ if (isset($notification)) {
 <div class="modal-footer">
     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
     <button type="button" class="btn btn-primary save-changes-btn" data-item-id="<?= isset($item['id']) ? $item['id'] : ''; ?>">Save Changes</button>
+    
     <button id="testButton">Test Click</button>
 </div>
 </form>
@@ -238,16 +232,18 @@ if (isset($notification)) {
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    console.log(document.querySelectorAll('save-changes-btn')); // Should show a NodeList
+    console.log(document.querySelectorAll('.save-changes-btn')); // Should show a NodeList
 console.log(document.getElementById('testButton')); // Should show an element or null
-
+window.editMenuItem = function(id, event) {
 function editMenuItem(id, event) {
     if (event) {
         event.preventDefault();
     }
 
     let formData = new FormData(document.querySelector(`#editModal${id} form`));
-
+    for (var pair of formData.entries()) {
+    console.log(pair[0]+ ', ' + pair[1]); 
+}
     fetch('edit_menu.php', {
         method: 'POST',
         body: formData,
@@ -259,6 +255,7 @@ function editMenuItem(id, event) {
         return response.json();
     })
     .then(data => {
+        console.log(data); // Add this line to inspect the response from the server
         if (data.status === 'error') {
             alert(data.message);
             return;
@@ -277,9 +274,11 @@ function editMenuItem(id, event) {
         console.error('There was a problem with the fetch operation:', error.message);
     });
 }
+}
 
 document.querySelectorAll('.save-changes-btn').forEach(button => {
     button.addEventListener('click', function(event) {
+        console.log("Save changes button was clicked!"); // Add this line
         const itemId = this.getAttribute('data-item-id');
         editMenuItem(itemId, event);
     });

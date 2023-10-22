@@ -231,35 +231,42 @@ include 'config.php';
           </div>
         </div> <!-- .section -->
     
-<div id="floatingBasket"> 
-    <div id="basketIcon">🛒 <span id="itemCount">0</span></div>
-    <div id="basketDropdown" class="hidden">
+        <div id="floatingBasket">
+  <div id="basketIcon">🛒 <span id="itemCount">0</span></div>
+  <div id="basketDropdown" class="hidden">
     <h4>Your Basket</h4>
     <ul id="basketItemsList"></ul>
-    <strong>Total: £<span id="basketTotal">0</span></strong>
-
+    <strong>Total: £<span id="basketTotal">0.00</span></strong>
     <!-- Checkout Area -->
     <div id="checkoutArea">
-        <strong>Email:</strong>
-        <input type="email" id="customerEmail" placeholder="Enter your email">
+      <h3>Checkout</h3>
+      <form>
+        <div class="form-group">
+          <label for="customerEmail">Email address</label>
+          <input type="email" class="form-control" id="customerEmail" aria-describedby="emailHelp" placeholder="Enter your email">
+        </div>
+        <div class="form-group">
+          <label for="customerName">Name</label>
+          <input type="text" class="form-control" id="customerName" placeholder="Enter your name">
+        </div>
         <button id="checkoutButton">Checkout</button>
+      </form>
     </div>
+  </div>
 </div>
 
-
-</div>
 <script>
 document.getElementById('basketIcon').addEventListener('click', function() {
-    const dropdown = document.getElementById('basketDropdown');
-    if (dropdown.classList.contains('hidden')) {
-        dropdown.classList.remove('hidden');
-        dropdown.style.display = "block"; // this is just for testing
-        console.log("Dropdown should now be VISIBLE");
-    } else {
-        dropdown.classList.add('hidden');
-        dropdown.style.display = "none"; // this is just for testing
-        console.log("Dropdown should now be HIDDEN");
-    }
+const dropdown = document.getElementById('basketDropdown');
+if (dropdown.classList.contains('hidden')) {
+dropdown.classList.remove('hidden');
+dropdown.style.display = "block"; // this is just for testing
+console.log("Dropdown should now be VISIBLE");
+} else {
+dropdown.classList.add('hidden');
+dropdown.style.display = "none"; // this is just for testing
+console.log("Dropdown should now be HIDDEN");
+}
 });
 function toggleDropdown() {
     const dropdown = document.getElementById('basketDropdown');
@@ -305,32 +312,57 @@ document.getElementById('checkoutButton').addEventListener('click', function() {
         return;
     }
 
-    const items = JSON.stringify(basket);
-    const totalAmount = document.getElementById("basketTotal").textContent;
+    const customerName = document.getElementById('customerName').value; // Get the customer's name
+    if (!customerName) {
+        alert("Please enter your name!");
+        return;
+    }
 
-    // Using fetch to make an AJAX request. You can use jQuery's $.ajax or any other method.
+    const items = basket;
+    const totalAmount = document.getElementById("basketTotal").textContent;
+    const requestData = {
+        email: email,
+        customerName: customerName, // Change 'name' to 'customerName'
+        items: items,
+        total_amount: totalAmount
+    };
+    console.log("Sending request with data:", requestData);  // Add this line
+
     fetch('save_order.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-            email: email,
-            items: items,
-            total_amount: totalAmount
-        })
+        body: JSON.stringify(requestData)
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert("Order saved and email sent!");
-            basket = []; // Empty the basket
-            updateBasketDisplay(); // Refresh the basket display
-        } else {
-            alert("There was an error!");
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
+        return response.text();  // First, get it as text
+    })
+    .then(data => {
+        try {
+            let jsonData = JSON.parse(data);  // Try to parse it as JSON
+            if (jsonData.success) {
+                alert("Order saved and email sent!");
+                basket = []; // Empty the basket
+                updateBasketDisplay(); // Refresh the basket display
+            } else {
+                alert("There was an error!");
+            }
+        } catch (e) {
+            console.error("Error parsing JSON:", e);
+            console.log("Server responded with:", data);  // Log the server response
+            alert("Unexpected server response.");
+        }
+    })
+    .catch(error => {
+        console.error("Fetch error:", error);
+        alert("There was a problem with the network.");
     });
 });
+
 
 </script>
 
@@ -760,11 +792,10 @@ document.getElementById('checkoutButton').addEventListener('click', function() {
     <script src="js/main.js"></script>
     <script>
 let basket = [];
-
 document.addEventListener('DOMContentLoaded', function() {
     const addToBasketButtons = document.querySelectorAll('.addToBasket');
     const basketIcon = document.getElementById('basketIcon');
-
+    
     addToBasketButtons.forEach(button => {
         button.addEventListener('click', function() {
             const itemId = this.getAttribute('data-id');
@@ -776,16 +807,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     basketIcon.addEventListener('click', function() {
-    const dropdown = document.getElementById('basketDropdown');
+        const dropdown = document.getElementById('basketDropdown');
     dropdown.classList.toggle('hidden');
     console.log('Basket icon clicked. Dropdown class:', dropdown.className);
 });
 
-});
+
 
 function addToBasket(id, name, price) {
     basket.push({id, name, price});
-    console.log("Item added:", id, name, price);
+console.log("Item added:", id, name, price);
     console.log("Current Basket:", basket);
     updateBasketDisplay();
 }
@@ -795,14 +826,14 @@ function updateBasketDisplay() {
     const itemCount = document.getElementById('itemCount');
     const basketItemsList = document.getElementById('basketItemsList');
     const basketTotal = document.getElementById('basketTotal');
-
-    // Clear the current list
+    
+// Clear the current list
     basketItemsList.innerHTML = '';
 
-    // Calculate the total price
+// Calculate the total price
     let total = 0;
 
-    // Populate the basket list
+// Populate the basket list
     basket.forEach(item => {
         const listItem = document.createElement('li');
         listItem.textContent = `${item.name} - £${item.price}`;
@@ -814,8 +845,9 @@ function updateBasketDisplay() {
     basketTotal.textContent = total.toFixed(2);
     itemCount.textContent = basket.length;
 }
+});
 document.addEventListener('DOMContentLoaded', function() {
-  let currentAnimation = 0;
+    let currentAnimation = 0;
     const animations = document.querySelectorAll('.preloader .animation');
 
     // Function to switch between animations (if you have more than one)
@@ -825,14 +857,18 @@ document.addEventListener('DOMContentLoaded', function() {
         animations[currentAnimation].style.display = 'block';
     }
 
-    // You can adjust or remove this interval if you're only showing "Royale Bakery"
-    setInterval(switchAnimation, 2000);
+    // Switch between animations every 2 seconds
+    const animationInterval = setInterval(switchAnimation, 2000);
 
     // Hide preloader once the website is fully loaded
-    const preloader = document.querySelector('.preloader');
-    preloader.style.display = 'none';
-    document.body.style.overflow = 'auto'; // Restore scroll
+    window.onload = function() {
+        clearInterval(animationInterval);  // Stop switching animations
+        const preloader = document.querySelector('.preloader');
+        preloader.style.display = 'none';
+        document.body.style.overflow = 'auto'; // Restore scroll
+    }
 });
+
 </script>
 
   </body>
