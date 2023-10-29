@@ -22,18 +22,14 @@
   }
   
   #basketIcon {
-    font-size: 24px;
-    color: #fff;
-    border: 1px solid rgba(0, 123, 255, 0.7);
-    border-radius: 50%;
+    background-color: #f7f7f7;
+    border: 1px solid #e0e0e0;
+    padding: 10px 20px;
+    border-radius: 50px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    transition: background-color 0.3s, border-color 0.3s;
-  }
+    }
   
   #basketIcon::before {
     content: "";
@@ -44,23 +40,20 @@
     height: calc(100% - 4px); /* Adjust the size to not cover the whole icon */
     background-color: transparent; /* Make it transparent */
     border-radius: inherit; /* Inherit the border-radius from the parent */
+    z-index: -1;  /* Place it behind the icon's content */
   }
   
   #basketIcon:hover {
-    background-color: rgba(0,123,255,0.5); /* Change the hover color to a nice blue with transparency */
-  }
-  
-  #basketIcon:hover::before {
-    background-color: rgba(0,86,179,0.5); /* Add a touch of color on hover with transparency */
-  }
+    background-color: #bebb9b;
+}
+
   
   
   /* Styling for the item count inside the basket icon */
-  .itemCount {
-    margin-left: 8px;
-    color: #008080; /* Change the color to a nice teal */
-    font-weight: bold;
-}
+  #itemCount {
+    margin-left: 10px;
+    }
+    
 
  
   
@@ -127,3 +120,53 @@
   #checkoutButton:hover {
     background-color: #FFB300; /* Slightly darker shade of gold for hover effect */
   }
+
+  .quantity-controls {
+    display: flex;
+    align-items: center;
+}
+
+.quantity-controls button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.remove-item {
+    color: red;
+    cursor: pointer;
+}
+
+/* Add styles for the bakery logo at the top-left of the basket */
+#bakeryLogo {
+  display: inline-block;
+  background-image: url('path-to-croissant-logo.png'); /* Replace with your logo path */
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+  margin-right: 10px;
+}
+
+/* Add styles for the chat bubble icon at the bottom-right */
+#chatBubbleIcon {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: #0099cc;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+

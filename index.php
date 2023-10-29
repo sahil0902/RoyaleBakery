@@ -9,6 +9,7 @@ include 'config.php';
     <title>Royale Bakery &mdash;  </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:300,400,700,800|Open+Sans:300,400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
@@ -30,7 +31,7 @@ include 'config.php';
 
     <!-- Theme Style -->
     <link rel="stylesheet" href="css/style.css">
-
+    <link rel="stylesheet" href="css/darkmode.css">
     <link rel="stylesheet" type="text/css" href="css/basket.css">
     <link rel="stylesheet" type="text/css" href="css/animation.css">
 
@@ -70,13 +71,30 @@ include 'config.php';
                 </li>
             </ul>
         </div>
-    </nav>
+         <!-- Add the dark mode toggle icon
+    <div class="dark-mode-toggle" onclick="toggleDarkMode()">
+        <i class="fas fa-moon"></i>
+    </div> -->
+</nav>
+
 
     <script>
-        function collapseNavbar() {
-            var navbar = document.querySelector('.navbar-collapse');
-            navbar.classList.remove('show');
-        }
+//         function toggleDarkMode() {
+//           var body = document.body;
+
+// if (body.classList.contains('dark-mode')) {
+//     console.log("Removing dark-mode class...");
+//     body.classList.remove('dark-mode');
+// } else {
+//     console.log("Adding dark-mode class...");
+//     body.classList.add('dark-mode');
+// }
+// }
+
+function collapseNavbar() {
+    var navbar = document.querySelector('.navbar-collapse');
+    navbar.classList.remove('show');
+}
     </script>
     <div class="site-wrap">
         
@@ -232,6 +250,9 @@ include 'config.php';
         </div> <!-- .section -->
     
         <div id="floatingBasket">
+        <!-- <div id="bakeryLogo"></div>  Add this line for the bakery logo -->
+    <!-- ... -->
+    <!-- <div id="chatBubbleIcon">💬</div> -->
   <div id="basketIcon">🛒 <span id="itemCount">0</span></div>
   <div id="basketDropdown" class="hidden">
     <h4>Your Basket</h4>
@@ -249,122 +270,14 @@ include 'config.php';
           <label for="customerName">Name</label>
           <input type="text" class="form-control" id="customerName" placeholder="Enter your name">
         </div>
-        <button id="checkoutButton">Checkout</button>
+        <button id="checkoutButton" type="button">Checkout</button>
+
       </form>
     </div>
   </div>
 </div>
 
-<script>
-document.getElementById('basketIcon').addEventListener('click', function() {
-const dropdown = document.getElementById('basketDropdown');
-if (dropdown.classList.contains('hidden')) {
-dropdown.classList.remove('hidden');
-dropdown.style.display = "block"; // this is just for testing
-console.log("Dropdown should now be VISIBLE");
-} else {
-dropdown.classList.add('hidden');
-dropdown.style.display = "none"; // this is just for testing
-console.log("Dropdown should now be HIDDEN");
-}
-});
-function toggleDropdown() {
-    const dropdown = document.getElementById('basketDropdown');
-    if (dropdown.classList.contains('hidden')) {
-        dropdown.classList.remove('hidden');
-        console.log("Dropdown should now be VISIBLE");
-    } else {
-        dropdown.classList.add('hidden');
-        console.log("Dropdown should now be HIDDEN");
-    }
-}
 
-document.getElementById('basketIcon').addEventListener('click', toggleDropdown);
-
-
-function updateBasketDisplay() {
-    const basketList = document.getElementById("basketItemsList");
-    const basketTotal = document.getElementById("basketTotal");
-    const itemCount = document.getElementById("itemCount");
-    
-    // Clear the current list
-    basketList.innerHTML = '';
-    
-    // Calculate the total price
-    let total = 0;
-
-    // Populate the basket list
-    basket.forEach(item => {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${item.name} - £${item.price}`;
-        basketList.appendChild(listItem);
-
-        total += parseFloat(item.price);
-    });
-
-    basketTotal.textContent = total.toFixed(2);
-    itemCount.textContent = basket.length;
-}
-document.getElementById('checkoutButton').addEventListener('click', function() {
-    const email = document.getElementById('customerEmail').value;
-    if (!email) {
-        alert("Please enter your email!");
-        return;
-    }
-
-    const customerName = document.getElementById('customerName').value; // Get the customer's name
-    if (!customerName) {
-        alert("Please enter your name!");
-        return;
-    }
-
-    const items = basket;
-    const totalAmount = document.getElementById("basketTotal").textContent;
-    const requestData = {
-        email: email,
-        customerName: customerName, // Change 'name' to 'customerName'
-        items: items,
-        total_amount: totalAmount
-    };
-    console.log("Sending request with data:", requestData);  // Add this line
-
-    fetch('save_order.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(requestData)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.text();  // First, get it as text
-    })
-    .then(data => {
-        try {
-            let jsonData = JSON.parse(data);  // Try to parse it as JSON
-            if (jsonData.success) {
-                alert("Order saved and email sent!");
-                basket = []; // Empty the basket
-                updateBasketDisplay(); // Refresh the basket display
-            } else {
-                alert("There was an error!");
-            }
-        } catch (e) {
-            console.error("Error parsing JSON:", e);
-            console.log("Server responded with:", data);  // Log the server response
-            alert("Unexpected server response.");
-        }
-    })
-    .catch(error => {
-        console.error("Fetch error:", error);
-        alert("There was a problem with the network.");
-    });
-});
-
-
-</script>
 
 
         <div class="section bg-light" id="section-menu" data-aos="fade-up">
@@ -790,86 +703,7 @@ document.getElementById('checkoutButton').addEventListener('click', function() {
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 
     <script src="js/main.js"></script>
-    <script>
-let basket = [];
-document.addEventListener('DOMContentLoaded', function() {
-    const addToBasketButtons = document.querySelectorAll('.addToBasket');
-    const basketIcon = document.getElementById('basketIcon');
-    
-    addToBasketButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const itemId = this.getAttribute('data-id');
-            const itemName = this.getAttribute('data-name');
-            const itemPrice = parseFloat(this.getAttribute('data-price'));
-            
-            addToBasket(itemId, itemName, itemPrice);
-        });
-    });
-
-    basketIcon.addEventListener('click', function() {
-        const dropdown = document.getElementById('basketDropdown');
-    dropdown.classList.toggle('hidden');
-    console.log('Basket icon clicked. Dropdown class:', dropdown.className);
-});
-
-
-
-function addToBasket(id, name, price) {
-    basket.push({id, name, price});
-console.log("Item added:", id, name, price);
-    console.log("Current Basket:", basket);
-    updateBasketDisplay();
-}
-
-
-function updateBasketDisplay() {
-    const itemCount = document.getElementById('itemCount');
-    const basketItemsList = document.getElementById('basketItemsList');
-    const basketTotal = document.getElementById('basketTotal');
-    
-// Clear the current list
-    basketItemsList.innerHTML = '';
-
-// Calculate the total price
-    let total = 0;
-
-// Populate the basket list
-    basket.forEach(item => {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${item.name} - £${item.price}`;
-        basketItemsList.appendChild(listItem);
-
-        total += parseFloat(item.price);
-    });
-
-    basketTotal.textContent = total.toFixed(2);
-    itemCount.textContent = basket.length;
-}
-});
-document.addEventListener('DOMContentLoaded', function() {
-    let currentAnimation = 0;
-    const animations = document.querySelectorAll('.preloader .animation');
-
-    // Function to switch between animations (if you have more than one)
-    function switchAnimation() {
-        animations[currentAnimation].style.display = 'none';
-        currentAnimation = (currentAnimation + 1) % animations.length;
-        animations[currentAnimation].style.display = 'block';
-    }
-
-    // Switch between animations every 2 seconds
-    const animationInterval = setInterval(switchAnimation, 2000);
-
-    // Hide preloader once the website is fully loaded
-    window.onload = function() {
-        clearInterval(animationInterval);  // Stop switching animations
-        const preloader = document.querySelector('.preloader');
-        preloader.style.display = 'none';
-        document.body.style.overflow = 'auto'; // Restore scroll
-    }
-});
-
-</script>
+    <script src = "js/basket.js"></script>
 
   </body>
 </html>

@@ -599,7 +599,7 @@ textarea.form-control {
 .site-tab-nav li {
   float: none;
   display: inline-block;
-  *display: inline;
+  display: inline;
   zoom: 1;
 }
 
@@ -1131,7 +1131,7 @@ textarea.form-control {
   display: -moz-inline-stack;
   display: inline-block;
   zoom: 1;
-  *display: inline;
+  display: inline;
   width: 30px;
   height: 2px;
   font: bold 14px/.4 Helvetica;

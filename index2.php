@@ -1,14 +1,17 @@
 <?php
 include 'config.php';
 ?>
+
 <!doctype html>
 <html lang="en">
   <head>
+
     <title>Royale Bakery &mdash;  </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:300,400,700,800|Open+Sans:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/animate.css">
@@ -27,11 +30,19 @@ include 'config.php';
 
     <!-- Theme Style -->
     <link rel="stylesheet" href="css/style.css">
-
+    <link rel="stylesheet" href="css/darkmode.css">
     <link rel="stylesheet" type="text/css" href="css/basket.css">
+    <link rel="stylesheet" type="text/css" href="css/animation.css">
 
-  </head>
+</head>
 <body class="bg-light">
+
+<div class="preloader">
+    <div class="animation royale-bakery">
+        <span>R</span><span>o</span><span>y</span><span>a</span><span>l</span><span>e</span> <span>B</span><span>a</span><span>k</span><span>e</span><span>r</span><span>y</span><span>🍰</span>
+    </div>
+    <!-- You can still add more animations if needed -->
+</div>
 
     <body data-spy="scroll" data-target=".navbar" data-offset="50">
 
@@ -59,13 +70,30 @@ include 'config.php';
                 </li>
             </ul>
         </div>
-    </nav>
+         <!-- Add the dark mode toggle icon
+    <div class="dark-mode-toggle" onclick="toggleDarkMode()">
+        <i class="fas fa-moon"></i>
+    </div> -->
+</nav>
+
 
     <script>
-        function collapseNavbar() {
-            var navbar = document.querySelector('.navbar-collapse');
-            navbar.classList.remove('show');
-        }
+//         function toggleDarkMode() {
+//           var body = document.body;
+
+// if (body.classList.contains('dark-mode')) {
+//     console.log("Removing dark-mode class...");
+//     body.classList.remove('dark-mode');
+// } else {
+//     console.log("Adding dark-mode class...");
+//     body.classList.add('dark-mode');
+// }
+// }
+
+function collapseNavbar() {
+    var navbar = document.querySelector('.navbar-collapse');
+    navbar.classList.remove('show');
+}
     </script>
     <div class="site-wrap">
         
@@ -85,20 +113,22 @@ include 'config.php';
             </div>
          
         </header> <!-- site-header -->
-        -->
       
       <div class="main-wrap " id="section-home">
-
         <div class="cover_1 overlay bg-slant-white bg-light">
-          <div class="img_bg" style="background-image: url(images/slider-1.jpg);" data-stellar-background-ratio="0.5">
-            <div class="container">
+          <div class="img_bg" style="background-image: url(images/bc.jpg);" data-stellar-background-ratio="0.5">
+            <div class="container" style="padding-top: 100px;">
               <div class="row align-items-center justify-content-center text-center">
                 <div class="col-md-10" data-aos="fade-up">
                   <h2 class="heading mb-5">Royale Bakery </h2>
                   <h2 class="heading mb-5">The Taste of royalty,at your fingertips</h2>
-                  <p><a href="#section-reservation" class="smoothscroll btn btn-outline-white px-5 py-3">Reserve A Table</a></p>
-                  <p><a href="#section-menu" class="smoothscroll btn btn-outline-white px-5 py-3">Menu</a></p>
-                
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+                  <!-- .<p><a href="#section-reservation" class="smoothscroll btn btn-outline-white px-5 py-3">Reserve A Table</a></p>
+                  <p><a href="#section-menu" class="smoothscroll btn btn-outline-white px-5 py-3">Menu</a></p>-->
                 </div>
               </div>
             </div>
@@ -218,35 +248,43 @@ include 'config.php';
           </div>
         </div> <!-- .section -->
     
-<div id="floatingBasket"> 
-    <div id="basketIcon">🛒 <span id="itemCount">0</span></div>
-    <div id="basketDropdown" class="hidden">
+        <div id="floatingBasket">
+  <div id="basketIcon">🛒 <span id="itemCount">0</span></div>
+  <div id="basketDropdown" class="hidden">
     <h4>Your Basket</h4>
     <ul id="basketItemsList"></ul>
-    <strong>Total: £<span id="basketTotal">0</span></strong>
-
+    <strong>Total: £<span id="basketTotal">0.00</span></strong>
     <!-- Checkout Area -->
     <div id="checkoutArea">
-        <strong>Email:</strong>
-        <input type="email" id="customerEmail" placeholder="Enter your email">
-        <button id="checkoutButton">Checkout</button>
+      <h3>Checkout</h3>
+      <form>
+        <div class="form-group">
+          <label for="customerEmail">Email address</label>
+          <input type="email" class="form-control" id="customerEmail" aria-describedby="emailHelp" placeholder="Enter your email">
+        </div>
+        <div class="form-group">
+          <label for="customerName">Name</label>
+          <input type="text" class="form-control" id="customerName" placeholder="Enter your name">
+        </div>
+        <button id="checkoutButton" type="button">Checkout</button>
+
+      </form>
     </div>
+  </div>
 </div>
 
-
-</div>
 <script>
 document.getElementById('basketIcon').addEventListener('click', function() {
-    const dropdown = document.getElementById('basketDropdown');
-    if (dropdown.classList.contains('hidden')) {
-        dropdown.classList.remove('hidden');
-        dropdown.style.display = "block"; // this is just for testing
-        console.log("Dropdown should now be VISIBLE");
-    } else {
-        dropdown.classList.add('hidden');
-        dropdown.style.display = "none"; // this is just for testing
-        console.log("Dropdown should now be HIDDEN");
-    }
+const dropdown = document.getElementById('basketDropdown');
+if (dropdown.classList.contains('hidden')) {
+dropdown.classList.remove('hidden');
+dropdown.style.display = "block"; // this is just for testing
+console.log("Dropdown should now be VISIBLE");
+} else {
+dropdown.classList.add('hidden');
+dropdown.style.display = "none"; // this is just for testing
+console.log("Dropdown should now be HIDDEN");
+}
 });
 function toggleDropdown() {
     const dropdown = document.getElementById('basketDropdown');
@@ -262,29 +300,93 @@ function toggleDropdown() {
 document.getElementById('basketIcon').addEventListener('click', toggleDropdown);
 
 
+
+function toggleBasketDropdown() {
+    const basketDropdown = document.getElementById('basketDropdown');
+    if (basketDropdown.style.display === 'none' || !basketDropdown.style.display) {
+        basketDropdown.style.display = 'block';
+    } else {
+        basketDropdown.style.display = 'none';
+    }
+}
+
+// Add event listener to basket icon to toggle dropdown
+document.getElementById('basketIcon').addEventListener('click', toggleBasketDropdown);
+
+
+
+
 function updateBasketDisplay() {
-    const basketList = document.getElementById("basketItemsList");
-    const basketTotal = document.getElementById("basketTotal");
-    const itemCount = document.getElementById("itemCount");
+    const basketItemsList = document.getElementById('basketItemsList');
+    const basketTotal = document.getElementById('basketTotal');
     
     // Clear the current list
-    basketList.innerHTML = '';
-    
+    basketItemsList.innerHTML = '';
+
     // Calculate the total price
     let total = 0;
 
     // Populate the basket list
     basket.forEach(item => {
         const listItem = document.createElement('li');
-        listItem.textContent = `${item.name} - £${item.price}`;
-        basketList.appendChild(listItem);
+        
+        // Create item name and price span
+        const itemNameAndPrice = document.createElement('span');
+        itemNameAndPrice.textContent = `${item.name} - £${item.price}`;
+        listItem.appendChild(itemNameAndPrice);
+        
+        // Create quantity controls
+        const quantityControls = document.createElement('div');
+        quantityControls.className = 'quantity-controls';
 
-        total += parseFloat(item.price);
+        const decreaseButton = document.createElement('button');
+        decreaseButton.textContent = '-';
+        decreaseButton.className = 'decrease';
+
+        const itemCount = document.createElement('span');
+        itemCount.textContent = item.quantity || 1;  // default to 1 if quantity isn't set
+
+        const increaseButton = document.createElement('button');
+        increaseButton.textContent = '+';
+        increaseButton.className = 'increase';
+
+        quantityControls.appendChild(decreaseButton);
+        quantityControls.appendChild(itemCount);
+        quantityControls.appendChild(increaseButton);
+        listItem.appendChild(quantityControls);
+        
+        // Create remove item span
+        const removeItem = document.createElement('span');
+        removeItem.className = 'remove-item';
+        removeItem.textContent = 'x';
+        listItem.appendChild(removeItem);
+
+        basketItemsList.appendChild(listItem);
+
+        total += parseFloat(item.price) * (item.quantity || 1); // if quantity isn't set, default to 1
     });
+    decreaseButton.addEventListener('click', function() {
+    if (item.quantity > 1) {
+        item.quantity--;
+        updateBasketDisplay(); // Recalculate and refresh display
+    }
+});
+removeItem.addEventListener('click', function() {
+    const index = basket.findIndex(basketItem => basketItem.name === item.name);
+    if (index > -1) {
+        basket.splice(index, 1);
+        updateBasketDisplay(); // Recalculate and refresh display
+    }
+});
+
+increaseButton.addEventListener('click', function() {
+    item.quantity++;
+    updateBasketDisplay(); // Recalculate and refresh display
+});
 
     basketTotal.textContent = total.toFixed(2);
-    itemCount.textContent = basket.length;
 }
+
 document.getElementById('checkoutButton').addEventListener('click', function() {
     const email = document.getElementById('customerEmail').value;
     if (!email) {
@@ -292,32 +394,57 @@ document.getElementById('checkoutButton').addEventListener('click', function() {
         return;
     }
 
-    const items = JSON.stringify(basket);
-    const totalAmount = document.getElementById("basketTotal").textContent;
+    const customerName = document.getElementById('customerName').value; // Get the customer's name
+    if (!customerName) {
+        alert("Please enter your name!");
+        return;
+    }
 
-    // Using fetch to make an AJAX request. You can use jQuery's $.ajax or any other method.
+    const items = basket;
+    const totalAmount = document.getElementById("basketTotal").textContent;
+    const requestData = {
+        email: email,
+        customerName: customerName, // Change 'name' to 'customerName'
+        items: items,
+        total_amount: totalAmount
+    };
+    console.log("Sending request with data:", requestData);  // Add this line
+
     fetch('save_order.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-            email: email,
-            items: items,
-            total_amount: totalAmount
-        })
+        body: JSON.stringify(requestData)
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert("Order saved and email sent!");
-            basket = []; // Empty the basket
-            updateBasketDisplay(); // Refresh the basket display
-        } else {
-            alert("There was an error!");
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
+        return response.text();  // First, get it as text
+    })
+    .then(data => {
+        try {
+            let jsonData = JSON.parse(data);  // Try to parse it as JSON
+            if (jsonData.success) {
+                alert("Order saved and email sent!");
+                basket = []; // Empty the basket
+                updateBasketDisplay(); // Refresh the basket display
+            } else {
+                alert("There was an error!");
+            }
+        } catch (e) {
+            console.error("Error parsing JSON:", e);
+            console.log("Server responded with:", data);  // Log the server response
+            alert("Unexpected server response.");
+        }
+    })
+    .catch(error => {
+        console.error("Fetch error:", error);
+        alert("There was a problem with the network.");
     });
 });
+
 
 </script>
 
@@ -401,86 +528,87 @@ document.getElementById('checkoutButton').addEventListener('click', function() {
 </div> <!-- .section -->
 
 
-        <div class="section bg-white services-section" data-aos="fade-up">
-          <div class="container">
-            <div class="row section-heading justify-content-center mb-5">
-              <div class="col-md-8 text-center">
-                <h2 class="heading mb-3">Other Services</h2>
-                <p class="sub-heading mb-5">Sub heading here</p>  
-              </div>
+<div class="section bg-white services-section" data-aos="fade-up">
+    <div class="container">
+        <div class="row section-heading justify-content-center mb-5">
+            <div class="col-md-8 text-center">
+                <h2 class="heading mb-3">Desi Bakery Delights</h2>
+                <p class="sub-heading mb-5">Experience the taste of traditional baked goods</p>  
             </div>
-            <div class="row">
-              <div class="col-m mb-5d-6 col-lg-4" data-aos="fade-up">
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-4" data-aos="fade-up">
                 <div class="media feature-icon d-block text-center">
-                  <div class="icon">
-                    <span class="flaticon-soup"></span>
-                  </div>
-                  <div class="media-body">
-                    <h3>Quality Cuisine</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                  </div>
+                    <div class="icon">
+                        <i class="fas fa-birthday-cake"></i>
+                    </div>
+                    <div class="media-body">
+                        <h3>Traditional Cakes</h3>
+                        <p>Delicious cakes baked with love, using age-old recipes passed down through generations.</p>
+                    </div>
                 </div>
-              </div>
-              <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="100">
-                <div class="media feature-icon d-block text-center">
-                  <div class="icon">
-                    <span class="flaticon-vegetables"></span>
-                  </div>
-                  <div class="media-body">
-                    <h3>Fresh Food</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="300">
-                <div class="media feature-icon d-block text-center">
-                  <div class="icon">
-                    <span class="flaticon-pancake"></span>
-                  </div>
-                  <div class="media-body">
-                    <h3>Bread &amp; Pancake</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="500">
-                <div class="media feature-icon d-block text-center">
-                  <div class="icon">
-                    <span class="flaticon-tray"></span>
-                  </div>
-                  <div class="media-body">
-                    <h3>Reserve Now</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="300">
-                <div class="media feature-icon d-block text-center">
-                  <div class="icon">
-                    <span class="flaticon-salad"></span>
-                  </div>
-                  <div class="media-body">
-                    <h3>Fresh Vegies Salad</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="500">
-                <div class="media feature-icon d-block text-center">
-                  <div class="icon">
-                    <span class="flaticon-chicken"></span>
-                  </div>
-                  <div class="media-body">
-                    <h3>Whole Chicken</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                  </div>
-                </div>
-              </div>
-
             </div>
-          </div>
-        </div> <!-- .section -->
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+    <div class="media feature-icon d-block text-center">
+        <div class="icon">
+         <i class="fas fa-cookie-bite"></i>
+
+        </div>
+        <div class="media-body">
+            <h3>Desi Pastries</h3>
+            <p>Experience the crispy and savory pastries, a perfect companion for your tea.</p>
+        </div>
+    </div>
+</div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="media feature-icon d-block text-center">
+                    <div class="icon">
+                        <i class="fas fa-bread-slice"></i>
+                    </div>
+                    <div class="media-body">
+                        <h3>Fresh Breads</h3>
+                        <p>Soft, fluffy, and fresh breads baked daily, perfect for your breakfast or sandwiches.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="media feature-icon d-block text-center">
+                    <div class="icon">
+                        <i class="fas fa-cookie"></i>
+                    </div>
+                    <div class="media-body">
+                        <h3>Handmade Cookies</h3>
+                        <p>Crunchy, delightful cookies that melt in your mouth. Perfect with a cup of chai.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400">
+                <div class="media feature-icon d-block text-center">
+                    <div class="icon">
+                        <i class="fas fa-candy-cane"></i>
+                    </div>
+                    <div class="media-body">
+                        <h3>Desi Sweets</h3>
+                        <p>Sweeten your moments with our range of traditional desi sweets.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="500">
+                <div class="media feature-icon d-block text-center">
+                    <div class="icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="media-body">
+                        <h3>Place Your Order</h3>
+                        <p>Order your favorite bakery items and get them delivered to your doorstep.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- .section -->
+
+
 
         <div class="section bg-light" data-aos="fade-up" id="section-reservation">
           <div class="container">
@@ -720,10 +848,7 @@ document.getElementById('checkoutButton').addEventListener('click', function() {
         </footer>
       
     </div>
-    <div id="basketDisplay">
-    Items in Basket: <span id="basketCount">0</span>
-    <button id="checkoutButton">Checkout</button>
-</div>
+   
 
     <!-- loader -->
     <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#ff7a5c"/></svg></div>
@@ -749,11 +874,10 @@ document.getElementById('checkoutButton').addEventListener('click', function() {
     <script src="js/main.js"></script>
     <script>
 let basket = [];
-
 document.addEventListener('DOMContentLoaded', function() {
     const addToBasketButtons = document.querySelectorAll('.addToBasket');
     const basketIcon = document.getElementById('basketIcon');
-
+    
     addToBasketButtons.forEach(button => {
         button.addEventListener('click', function() {
             const itemId = this.getAttribute('data-id');
@@ -765,16 +889,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     basketIcon.addEventListener('click', function() {
-    const dropdown = document.getElementById('basketDropdown');
+        const dropdown = document.getElementById('basketDropdown');
     dropdown.classList.toggle('hidden');
     console.log('Basket icon clicked. Dropdown class:', dropdown.className);
 });
 
-});
+
 
 function addToBasket(id, name, price) {
     basket.push({id, name, price});
-    console.log("Item added:", id, name, price);
+console.log("Item added:", id, name, price);
     console.log("Current Basket:", basket);
     updateBasketDisplay();
 }
@@ -784,14 +908,14 @@ function updateBasketDisplay() {
     const itemCount = document.getElementById('itemCount');
     const basketItemsList = document.getElementById('basketItemsList');
     const basketTotal = document.getElementById('basketTotal');
-
-    // Clear the current list
+    
+// Clear the current list
     basketItemsList.innerHTML = '';
 
-    // Calculate the total price
+// Calculate the total price
     let total = 0;
 
-    // Populate the basket list
+// Populate the basket list
     basket.forEach(item => {
         const listItem = document.createElement('li');
         listItem.textContent = `${item.name} - £${item.price}`;
@@ -803,6 +927,29 @@ function updateBasketDisplay() {
     basketTotal.textContent = total.toFixed(2);
     itemCount.textContent = basket.length;
 }
+});
+document.addEventListener('DOMContentLoaded', function() {
+    let currentAnimation = 0;
+    const animations = document.querySelectorAll('.preloader .animation');
+
+    // Function to switch between animations (if you have more than one)
+    function switchAnimation() {
+        animations[currentAnimation].style.display = 'none';
+        currentAnimation = (currentAnimation + 1) % animations.length;
+        animations[currentAnimation].style.display = 'block';
+    }
+
+    // Switch between animations every 2 seconds
+    const animationInterval = setInterval(switchAnimation, 2000);
+
+    // Hide preloader once the website is fully loaded
+    window.onload = function() {
+        clearInterval(animationInterval);  // Stop switching animations
+        const preloader = document.querySelector('.preloader');
+        preloader.style.display = 'none';
+        document.body.style.overflow = 'auto'; // Restore scroll
+    }
+});
 
 </script>
 
