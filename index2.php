@@ -1,5 +1,25 @@
 <?php
 include 'config.php';
+
+$searchQuery = $_GET['query'] ?? '';
+$searched_items = [];
+$grouped_items = [];
+
+if (!empty($searchQuery)) {
+    $stmt = $pdo->prepare("SELECT * FROM menu_items WHERE in_stock = 1 AND (name LIKE :searchQuery OR description LIKE :searchQuery OR category LIKE :searchQuery) ORDER BY category");
+    $stmt->execute(['searchQuery' => '%' . $searchQuery . '%']);
+    $searched_items = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+$stmt = $pdo->prepare("SELECT * FROM menu_items WHERE in_stock = 1 ORDER BY category");
+$stmt->execute();
+$menu_items = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+foreach ($menu_items as $item) {
+    $grouped_items[$item['category']][] = $item;
+}
+
+
 ?>
 
 <!doctype html>
@@ -9,6 +29,7 @@ include 'config.php';
     <title>Royale Bakery &mdash;  </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:300,400,700,800|Open+Sans:300,400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
@@ -35,7 +56,7 @@ include 'config.php';
     <link rel="stylesheet" type="text/css" href="css/animation.css">
 
 </head>
-<body class="bg-light">
+<body class="bg-black" >
 
 <div class="preloader">
     <div class="animation royale-bakery">
@@ -112,28 +133,29 @@ function collapseNavbar() {
                 </div>
             </div>
          
-        </header> <!-- site-header -->
+        </header> < site-header -->
       
       <div class="main-wrap " id="section-home">
-        <div class="cover_1 overlay bg-slant-white bg-light">
-          <div class="img_bg" style="background-image: url(images/bc.jpg);" data-stellar-background-ratio="0.5">
-            <div class="container" style="padding-top: 100px;">
-              <div class="row align-items-center justify-content-center text-center">
-                <div class="col-md-10" data-aos="fade-up">
-                  <h2 class="heading mb-5">Royale Bakery </h2>
-                  <h2 class="heading mb-5">The Taste of royalty,at your fingertips</h2>
-                </div>
+        <div class="img_logo" style="background-image: url(images/back.png); background-size: cover;" data-stellar-background-ratio="0.5"> 
+          <div class="container" style="padding-top: 100px;">
+            <div class="row align-items-center justify-content-center text-center">
+              <div class="col-md-10" data-aos="fade-up">
+                <h2 class="heading mb-5" style="color: gold; text-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px gold, 0 0 40px #000, 0 0 70px #000, 0 0 80px #000, 0 0 100px #000;">Royale Bakery</h2>
+                <h2 class="heading mb-5" style="color: gold; text-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px gold, 0 0 40px #000, 0 0 70px #000, 0 0 80px #000, 0 0 100px #000;">The Taste of royalty, at your fingertips</h2>
               </div>
             </div>
           </div>
         </div>
+      </div>
                   <!-- .<p><a href="#section-reservation" class="smoothscroll btn btn-outline-white px-5 py-3">Reserve A Table</a></p>
                   <p><a href="#section-menu" class="smoothscroll btn btn-outline-white px-5 py-3">Menu</a></p>-->
                 </div>
               </div>
             </div>
           </div>
-        </div> <!-- .cover_1 -->
+        </div>
+        
+        <!-- I have removef this section temporarily to see what it looks like wthiout - umama)
 
         <div class="section"  data-aos="fade-up">
           <div class="container">
@@ -176,8 +198,8 @@ function collapseNavbar() {
 
             </div>
           </div>
-        </div> <!-- .section -->
-
+        </div>  section -->
+<!-- .section 
         <div class="section pb-3 bg-white" id="section-about" data-aos="fade-up">
           <div class="container">
             <div class="row align-items-center justify-content-center">
@@ -188,12 +210,17 @@ function collapseNavbar() {
               </div>
             </div>
           </div>
-        </div> <!-- .section -->
-        
+        </div> 
+
 
         <div class="section bg-white pt-2 pb-2 text-center" data-aos="fade">
           <p><img src="images/bg_hero.png" alt="" class="img-fluid"></p>
-        </div> <!-- .section -->
+        </div> 
+        -->
+        
+        
+        <!-- 
+          UMAMA HAS REMOVED MEET THE CHEFS SECTION
 
         <div class="section bg-white" data-aos="fade-up">
           <div class="container">
@@ -220,6 +247,7 @@ function collapseNavbar() {
                         <a href="#" class="p-2"><span class="fa fa-instagram"></span></a>
                       </p>
                     </div>
+                    
                   </div>
                 </div>
               </div>
@@ -231,6 +259,7 @@ function collapseNavbar() {
                       <h3 class="ftco-38-heading">Nick Browning</h3>
                       <p class="ftco-38-subheading">Master Chef</p>
                     </div>
+                    .section -->
                     <div class="ftco-38-body">
                       <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
                       <p>Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. It is a paradisematic country.</p>
@@ -249,6 +278,9 @@ function collapseNavbar() {
         </div> <!-- .section -->
     
         <div id="floatingBasket">
+        <!-- <div id="bakeryLogo"></div>  Add this line for the bakery logo -->
+    <!-- ... -->
+    <!-- <div id="chatBubbleIcon">💬</div> -->
   <div id="basketIcon">🛒 <span id="itemCount">0</span></div>
   <div id="basketDropdown" class="hidden">
     <h4>Your Basket</h4>
@@ -273,192 +305,64 @@ function collapseNavbar() {
   </div>
 </div>
 
-<script>
-document.getElementById('basketIcon').addEventListener('click', function() {
-const dropdown = document.getElementById('basketDropdown');
-if (dropdown.classList.contains('hidden')) {
-dropdown.classList.remove('hidden');
-dropdown.style.display = "block"; // this is just for testing
-console.log("Dropdown should now be VISIBLE");
-} else {
-dropdown.classList.add('hidden');
-dropdown.style.display = "none"; // this is just for testing
-console.log("Dropdown should now be HIDDEN");
-}
-});
-function toggleDropdown() {
-    const dropdown = document.getElementById('basketDropdown');
-    if (dropdown.classList.contains('hidden')) {
-        dropdown.classList.remove('hidden');
-        console.log("Dropdown should now be VISIBLE");
-    } else {
-        dropdown.classList.add('hidden');
-        console.log("Dropdown should now be HIDDEN");
-    }
-}
-
-document.getElementById('basketIcon').addEventListener('click', toggleDropdown);
 
 
 
-function toggleBasketDropdown() {
-    const basketDropdown = document.getElementById('basketDropdown');
-    if (basketDropdown.style.display === 'none' || !basketDropdown.style.display) {
-        basketDropdown.style.display = 'block';
-    } else {
-        basketDropdown.style.display = 'none';
-    }
-}
-
-// Add event listener to basket icon to toggle dropdown
-document.getElementById('basketIcon').addEventListener('click', toggleBasketDropdown);
-
-
-
-
-function updateBasketDisplay() {
-    const basketItemsList = document.getElementById('basketItemsList');
-    const basketTotal = document.getElementById('basketTotal');
-    
-    // Clear the current list
-    basketItemsList.innerHTML = '';
-
-    // Calculate the total price
-    let total = 0;
-
-    // Populate the basket list
-    basket.forEach(item => {
-        const listItem = document.createElement('li');
-        
-        // Create item name and price span
-        const itemNameAndPrice = document.createElement('span');
-        itemNameAndPrice.textContent = `${item.name} - £${item.price}`;
-        listItem.appendChild(itemNameAndPrice);
-        
-        // Create quantity controls
-        const quantityControls = document.createElement('div');
-        quantityControls.className = 'quantity-controls';
-
-        const decreaseButton = document.createElement('button');
-        decreaseButton.textContent = '-';
-        decreaseButton.className = 'decrease';
-
-        const itemCount = document.createElement('span');
-        itemCount.textContent = item.quantity || 1;  // default to 1 if quantity isn't set
-
-        const increaseButton = document.createElement('button');
-        increaseButton.textContent = '+';
-        increaseButton.className = 'increase';
-
-        quantityControls.appendChild(decreaseButton);
-        quantityControls.appendChild(itemCount);
-        quantityControls.appendChild(increaseButton);
-        listItem.appendChild(quantityControls);
-        
-        // Create remove item span
-        const removeItem = document.createElement('span');
-        removeItem.className = 'remove-item';
-        removeItem.textContent = 'x';
-        listItem.appendChild(removeItem);
-
-        basketItemsList.appendChild(listItem);
-
-        total += parseFloat(item.price) * (item.quantity || 1); // if quantity isn't set, default to 1
-    });
-    decreaseButton.addEventListener('click', function() {
-    if (item.quantity > 1) {
-        item.quantity--;
-        updateBasketDisplay(); // Recalculate and refresh display
-    }
-});
-removeItem.addEventListener('click', function() {
-    const index = basket.findIndex(basketItem => basketItem.name === item.name);
-    if (index > -1) {
-        basket.splice(index, 1);
-        updateBasketDisplay(); // Recalculate and refresh display
-    }
-});
-
-increaseButton.addEventListener('click', function() {
-    item.quantity++;
-    updateBasketDisplay(); // Recalculate and refresh display
-});
-
-    basketTotal.textContent = total.toFixed(2);
-}
-
-document.getElementById('checkoutButton').addEventListener('click', function() {
-    const email = document.getElementById('customerEmail').value;
-    if (!email) {
-        alert("Please enter your email!");
-        return;
-    }
-
-    const customerName = document.getElementById('customerName').value; // Get the customer's name
-    if (!customerName) {
-        alert("Please enter your name!");
-        return;
-    }
-
-    const items = basket;
-    const totalAmount = document.getElementById("basketTotal").textContent;
-    const requestData = {
-        email: email,
-        customerName: customerName, // Change 'name' to 'customerName'
-        items: items,
-        total_amount: totalAmount
-    };
-    console.log("Sending request with data:", requestData);  // Add this line
-
-    fetch('save_order.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(requestData)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.text();  // First, get it as text
-    })
-    .then(data => {
-        try {
-            let jsonData = JSON.parse(data);  // Try to parse it as JSON
-            if (jsonData.success) {
-                alert("Order saved and email sent!");
-                basket = []; // Empty the basket
-                updateBasketDisplay(); // Refresh the basket display
-            } else {
-                alert("There was an error!");
-            }
-        } catch (e) {
-            console.error("Error parsing JSON:", e);
-            console.log("Server responded with:", data);  // Log the server response
-            alert("Unexpected server response.");
-        }
-    })
-    .catch(error => {
-        console.error("Fetch error:", error);
-        alert("There was a problem with the network.");
-    });
-});
-
-
-</script>
-
-
-        <div class="section bg-light" id="section-menu" data-aos="fade-up">
+<div class="section bg-black" id="section-menu" data-aos="fade-up">
     <div class="container">
+        
+        <!-- Adding the search bar with icon -->
+       <!-- Adding the search bar with icon -->
+<div class="row justify-content-center mb-5">
+    <div class="col-md-8">
+    <form action="index2.php" method="GET" class="text-center mb-4">
+    <input type="text" name="query" placeholder="Search for menu items..." value="<?= htmlspecialchars($_GET['query'] ?? '') ?>">
+    <input type="submit" value="Search">
+</form>
+
+    </div>
+</div>
+
         <div class="row section-heading justify-content-center mb-5">
             <div class="col-md-8 text-center">
                 <h2 class="heading mb-3">Menu</h2>
-                <p class="sub-heading mb-5">Subheading here</p>
+                <p class="sub-heading mb-5">Deliciously curated just for you. Dive into our diverse selection.</p>
             </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-8">
+            <?php if (!empty($searchQuery)): ?>
+    <div class="text-center mb-4">
+        <a href="index2.php" class="btn btn-danger">Clear Search Results</a>
+    </div>
+<?php endif; ?>
+<?php if (empty($menu_items) && !empty($searchQuery)): ?>
+    <div class="text-center mb-4">
+        <p>No results found for "<?php echo htmlspecialchars($searchQuery); ?>"</p>
+    </div>
+<?php endif; ?>
+<?php if (!empty($_GET['query'])): ?>
+<?php if (!empty($searched_items)): ?>
+    <h4 class="mb-4">Search Results</h4>
+    <?php foreach ($searched_items as $item): ?>
+        <div class="d-flex justify-content-between align-items-center menu-food-item">
+            <div class="text">
+                <h4><?= htmlspecialchars($item['category']) ?></h4>
+                <img src="data:image/jpeg;base64,<?= base64_encode($item['image_data']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" style="max-width: 100px;">
+                <h3><a href="#"><?= htmlspecialchars($item['name']) ?></a></h3>
+                <p><?= htmlspecialchars($item['description']) ?></p>
+            </div>
+            <div class="d-flex align-items-center">
+                <strong class="mr-3">£<?= htmlspecialchars($item['price']) ?></strong>
+                <button class="btn btn-primary addToBasket" data-id="<?= $item['id'] ?>" data-name="<?= htmlspecialchars($item['name']) ?>" data-price="<?= htmlspecialchars($item['price']) ?>">Add to Basket</button>
+            </div>
+        </div>
+    <?php endforeach; ?>
+    <hr>
+    
+<?php endif; ?>
+<?php endif; ?>
+
                 <ul class="nav site-tab-nav" id="pills-tab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="pills-starters-tab" data-toggle="pill" href="#pills-starters" role="tab" aria-controls="pills-starters" aria-selected="true">Starters</a>
@@ -503,6 +407,7 @@ document.getElementById('checkoutButton').addEventListener('click', function() {
                       <div class="tab-pane fade <?= $sectionName === 'Starters' ? 'show active' : ''; ?>" id="<?= $sectionId ?>" role="tabpanel" aria-labelledby="<?= $sectionId ?>-tab">
                           <?php if (isset($grouped_items[$sectionName])): ?>
                             <?php foreach ($grouped_items[$sectionName] as $item): ?>
+    <?php if (isset($_GET['query']) && $_GET['query'] === $item['name']): ?>
     <div class="d-flex justify-content-between align-items-center menu-food-item">
         <div class="text">
             <img src="data:image/jpeg;base64,<?= base64_encode($item['image_data']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" style="max-width: 100px;"> <!-- adjust the max-width as per your needs -->
@@ -514,6 +419,7 @@ document.getElementById('checkoutButton').addEventListener('click', function() {
             <button class="btn btn-primary addToBasket" data-id="<?= $item['id'] ?>" data-name="<?= htmlspecialchars($item['name']) ?>" data-price="<?= htmlspecialchars($item['price']) ?>">Add to Basket</button>
         </div>
     </div> <!-- .menu-food-item -->
+    <?php endif; ?>
 <?php endforeach; ?>
 
                             <?php else: ?>
@@ -528,7 +434,7 @@ document.getElementById('checkoutButton').addEventListener('click', function() {
 </div> <!-- .section -->
 
 
-<div class="section bg-white services-section" data-aos="fade-up">
+<div class="section bg-black services-section" data-aos="fade-up">
     <div class="container">
         <div class="row section-heading justify-content-center mb-5">
             <div class="col-md-8 text-center">
@@ -606,7 +512,7 @@ document.getElementById('checkoutButton').addEventListener('click', function() {
             </div>
         </div>
     </div>
-</div> <!-- .section -->
+</div> <!-- .
 
 
 
@@ -681,8 +587,10 @@ document.getElementById('checkoutButton').addEventListener('click', function() {
               </div>
             </div>
           </div>
-        </div> <!-- .section -->
+        </div> section -->
 
+
+        <!--
          <div class="section bg-white"  data-aos="fade-up">
           <div class="container">
             <div class="row section-heading justify-content-center mb-5">
@@ -739,8 +647,8 @@ document.getElementById('checkoutButton').addEventListener('click', function() {
               </div>
             </div>
           </div>  
-        </div> <!-- .section -->
-
+        </div> .section -->
+<!--
         <div class="section" data-aos="fade-up" id="section-contact">
           <div class="container">
             <div class="row section-heading justify-content-center mb-5">
@@ -788,7 +696,7 @@ document.getElementById('checkoutButton').addEventListener('click', function() {
               </div>
             </div>
           </div>
-        </div> <!-- .section -->
+        </div> .section -->
 
         <div class="map-wrap" id="map"  data-aos="fade"></div>
 
@@ -872,86 +780,8 @@ document.getElementById('checkoutButton').addEventListener('click', function() {
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 
     <script src="js/main.js"></script>
-    <script>
-let basket = [];
-document.addEventListener('DOMContentLoaded', function() {
-    const addToBasketButtons = document.querySelectorAll('.addToBasket');
-    const basketIcon = document.getElementById('basketIcon');
-    
-    addToBasketButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const itemId = this.getAttribute('data-id');
-            const itemName = this.getAttribute('data-name');
-            const itemPrice = parseFloat(this.getAttribute('data-price'));
-            
-            addToBasket(itemId, itemName, itemPrice);
-        });
-    });
-
-    basketIcon.addEventListener('click', function() {
-        const dropdown = document.getElementById('basketDropdown');
-    dropdown.classList.toggle('hidden');
-    console.log('Basket icon clicked. Dropdown class:', dropdown.className);
-});
-
-
-
-function addToBasket(id, name, price) {
-    basket.push({id, name, price});
-console.log("Item added:", id, name, price);
-    console.log("Current Basket:", basket);
-    updateBasketDisplay();
-}
-
-
-function updateBasketDisplay() {
-    const itemCount = document.getElementById('itemCount');
-    const basketItemsList = document.getElementById('basketItemsList');
-    const basketTotal = document.getElementById('basketTotal');
-    
-// Clear the current list
-    basketItemsList.innerHTML = '';
-
-// Calculate the total price
-    let total = 0;
-
-// Populate the basket list
-    basket.forEach(item => {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${item.name} - £${item.price}`;
-        basketItemsList.appendChild(listItem);
-
-        total += parseFloat(item.price);
-    });
-
-    basketTotal.textContent = total.toFixed(2);
-    itemCount.textContent = basket.length;
-}
-});
-document.addEventListener('DOMContentLoaded', function() {
-    let currentAnimation = 0;
-    const animations = document.querySelectorAll('.preloader .animation');
-
-    // Function to switch between animations (if you have more than one)
-    function switchAnimation() {
-        animations[currentAnimation].style.display = 'none';
-        currentAnimation = (currentAnimation + 1) % animations.length;
-        animations[currentAnimation].style.display = 'block';
-    }
-
-    // Switch between animations every 2 seconds
-    const animationInterval = setInterval(switchAnimation, 2000);
-
-    // Hide preloader once the website is fully loaded
-    window.onload = function() {
-        clearInterval(animationInterval);  // Stop switching animations
-        const preloader = document.querySelector('.preloader');
-        preloader.style.display = 'none';
-        document.body.style.overflow = 'auto'; // Restore scroll
-    }
-});
-
-</script>
+    <script src = "js/basket.js"></script>
+    <script src="js/scrollPosition.js"></script>
 
   </body>
 </html>

@@ -113,11 +113,11 @@ function collapseNavbar() {
                 </div>
             </div>
          
-        </header> <!-- site-header -->
+        </header> < site-header -->
       
       <div class="main-wrap " id="section-home">
         <div class="cover_1 overlay bg-slant-white bg-light">
-          <div class="img_bg" style="background-image: url(images/bc.jpg);" data-stellar-background-ratio="0.5">
+          <div class="img_logo" style="background-image: url(images/logo.jpg);" data-stellar-background-ratio="0.5"> 
             <div class="container" style="padding-top: 100px;">
               <div class="row align-items-center justify-content-center text-center">
                 <div class="col-md-10" data-aos="fade-up">
@@ -134,7 +134,9 @@ function collapseNavbar() {
               </div>
             </div>
           </div>
-        </div> <!-- .cover_1 -->
+        </div>
+        
+        <!-- I have removef this section temporarily to see what it looks like wthiout - umama)
 
         <div class="section"  data-aos="fade-up">
           <div class="container">
@@ -177,7 +179,7 @@ function collapseNavbar() {
 
             </div>
           </div>
-        </div> <!-- .section -->
+        </div>  section -->
 
         <div class="section pb-3 bg-white" id="section-about" data-aos="fade-up">
           <div class="container">
@@ -194,7 +196,8 @@ function collapseNavbar() {
 
         <div class="section bg-white pt-2 pb-2 text-center" data-aos="fade">
           <p><img src="images/bg_hero.png" alt="" class="img-fluid"></p>
-        </div> <!-- .section -->
+        </div> <!-- 
+          UMAMA HAS REMOVED MEET THE CHEFS SECTION
 
         <div class="section bg-white" data-aos="fade-up">
           <div class="container">
@@ -221,6 +224,7 @@ function collapseNavbar() {
                         <a href="#" class="p-2"><span class="fa fa-instagram"></span></a>
                       </p>
                     </div>
+                    
                   </div>
                 </div>
               </div>
@@ -232,6 +236,7 @@ function collapseNavbar() {
                       <h3 class="ftco-38-heading">Nick Browning</h3>
                       <p class="ftco-38-subheading">Master Chef</p>
                     </div>
+                    .section -->
                     <div class="ftco-38-body">
                       <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
                       <p>Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. It is a paradisematic country.</p>
@@ -289,21 +294,21 @@ function collapseNavbar() {
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <ul class="nav site-tab-nav" id="pills-tab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="pills-starters-tab" data-toggle="pill" href="#pills-starters" role="tab" aria-controls="pills-starters" aria-selected="true">Starters</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="pills-meal-tab" data-toggle="pill" href="#pills-meal" role="tab" aria-controls="pills-meal" aria-selected="false">Meal</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="pills-desserts-tab" data-toggle="pill" href="#pills-desserts" role="tab" aria-controls="pills-desserts" aria-selected="false">Desserts</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="pills-drinks-tab" data-toggle="pill" href="#pills-drinks" role="tab" aria-controls="pills-drinks" aria-selected="false">Drinks</a>
-                    </li>
-                </ul>
+    <div class="col-md-8">
+        <ul class="nav site-tab-nav" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="pills-starters-tab" data-toggle="pill" href="#pills-starters" role="tab" aria-controls="pills-starters" aria-selected="true">Starters</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-meal-tab" data-toggle="pill" href="#pills-meal" role="tab" aria-controls="pills-meal" aria-selected="false">Meal</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-desserts-tab" data-toggle="pill" href="#pills-desserts" role="tab" aria-controls="pills-desserts" aria-selected="false">Desserts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-drinks-tab" data-toggle="pill" href="#pills-drinks" role="tab" aria-controls="pills-drinks" aria-selected="false">Drinks</a>
+            </li>
+        </ul>
 
                 <div class="tab-content" id="pills-tabContent">
                     <?php 

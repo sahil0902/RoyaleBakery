@@ -1,15 +1,19 @@
 html {
   overflow-x: hidden;
 }
+body.bg-black {
+  background-color: #111111; /* or #222222 for a slightly lighter shade */
+}
 
 body {
-  background: #fff;
+  background-color: #000000; /* Black color for background */
   font-family: "Open Sans", Arial, sans-serif;
   font-size: 20px;
   line-height: 1.8;
   font-weight: 300;
-  color: gray;
+  color: #F5F5DC; /* Cream color for text */
 }
+
 
 p, ul, ol {
   margin-bottom: 30px;
@@ -121,7 +125,7 @@ textarea.form-control {
 }
 
 .site-menu ul > li a {
-  color: #000;
+  color: var(--rich-gold);
   font-size: 20px;
 }
 
@@ -150,7 +154,8 @@ textarea.form-control {
 }
 
 .bg-slant-white.bg-light:after {
-  background: #f8f9fa;
+  background: #111111;
+  
 }
 
 .site-logo-wrap {
@@ -591,9 +596,23 @@ textarea.form-control {
 }
 
 .site-tab-nav {
-  display: block;
-  text-align: center;
-  margin-bottom: 80px !important;
+  border-bottom: 2px solid #ccc;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+}
+.nav-item {
+  margin: 0;
+}
+.nav-link {
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: background-color 0.2s;
+  color: #333;
+  text-decoration: none;
+  margin: 0 5px;
 }
 
 .site-tab-nav li {
@@ -627,74 +646,110 @@ textarea.form-control {
 .site-tab-nav, .nav-pills {
   text-align: center;
 }
+/* General styling for the section */
+.section.bg-black {
+  padding: 50px 0;
+  background-color: #000;
+  color: #fff;
+}
 
+
+/* General styling for the section */
+.section.bg-black {
+  padding: 50px 0;
+  background-color: #000;
+  color: #fff;
+}
+
+/* Search bar styling */
+.section.bg-black input[type="text"] {
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 80%;
+  margin-right: 5px;
+}
+
+.section.bg-black input[type="submit"] {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ff7a5c;  /* Existing color for better consistency */
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.section.bg-black input[type="submit"]:hover {
+  background-color: #e46950;
+}
+
+/* Heading styles */
+.section-heading h2 {
+  font-size: 2em;
+  margin-bottom: 15px;
+}
+
+.section-heading p.sub-heading {
+  font-size: 1.2em;
+  color: #aaa;
+}
+
+/* Existing menu-food-item style with some modifications */
 .menu-food-item {
-  border-bottom: 1px dotted #ccc;
-  float: left;
+  border-bottom: 1px dotted #ccc;  /* Retained the border style */
+  display: flex;                   /* Changed from float to flex for better alignment */
+  justify-content: space-between;  /* Aligns content space-wise */
+  align-items: center;             /* Vertically aligns items in the center */
   width: 100%;
-  padding-bottom: 30px;
+  padding: 20px 0;                /* Adjusted padding for top and bottom */
   margin-bottom: 30px;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Added transform to transition properties */
+  background-color: #fff;         /* Added a default background color */
 }
 
-.menu-food-item .text {
-  width: calc(100%);
-}
-
-.menu-food-item .text img {
-  width: 100px;
-  margin-bottom: 20px;
-  border-radius: 7px;
-  float: left;
-  margin-right: 30px;
-}
-
-@media (max-width: 991.98px) {
-  .menu-food-item .text img {
-    float: none;
-  }
-}
-
-@media (min-width: 768px) {
-  .menu-food-item .text {
-    width: calc(100% - 70px);
-  }
-}
-
-.menu-food-item .price {
-  text-align: left;
-  width: 100%;
-}
-
-@media (min-width: 768px) {
-  .menu-food-item .price {
-    width: 70px;
-    text-align: right;
-  }
-}
-
-.menu-food-item .price strong {
-  color: #ff7a5c;
-  font-size: 20px;
-}
-
-.menu-food-item h3 {
-  font-size: 22px;
+.menu-food-item:hover {
+  background-color: rgba(255, 122, 92, 0.1);  /* Consistent with existing color scheme */
+  transform: scale(1.02);
 }
 
 .menu-food-item h3 a {
   color: #000;
-  -webkit-transition: .3s all ease;
-  -o-transition: .3s all ease;
-  transition: .3s all ease;
+  transition: color 0.3s ease;
+  margin: 0;                      /* Removes default margin */
+  font-size: 1.4em; 
+  text-decoration: none;         /* Removes underline from link */
+}
+
+/* Style for the menu item's image */
+.menu-food-item img {
+  margin-right: 15px;             /* Adds space between the image and the text */
+  max-width: 80px;               /* Adjust to your preference */
+  border-radius: 5px;            /* Optional: Adds a rounded corner to images */
+}
+
+/* Style for the price and button container */
+.menu-food-item .d-flex.align-items-center {
+  align-items: baseline;         /* Adjusts alignment to look more organized */
 }
 
 .menu-food-item h3 a:hover {
   color: gray;
 }
 
-.menu-food-item p:last-child {
-  margin-bottom: 0;
+/* Tab styling */
+.nav.site-tab-nav a {
+  border: none;
+  color: #aaa;
 }
+
+.nav.site-tab-nav a.active,
+.nav.site-tab-nav a:hover {
+  color: #fff;
+  background-color: transparent;
+  border-bottom: 2px solid #ff7a5c; /* Consistent with the existing color scheme */
+}
+
 
 .footer-contact-widget .contact-email {
   color: #ff7a5c;
@@ -1366,20 +1421,24 @@ textarea.form-control {
   background-size: cover;
   background-position: center center;
 }
-
+:root {
+  --rich-gold: #FFD700;
+  --light-black: #333; 
+  --white: #FFFFFF;/* Approximation of a lighter black, adjust as needed */
+}
 .menus .item .text {
   padding: 40px;
-  background: #000;
+  background: var(--light-black);
 }
 
 .menus .item .text h3 {
-  color: #fff;
+  color: var(--rich-gold);
   font-size: 22px;
   margin-bottom: 20px;
 }
 
 .menus .item .text p {
-  color: #fff;
+  color: var(--rich-gold);
   font-size: 13px;
   opacity: .5;
 }
@@ -1790,4 +1849,202 @@ textarea.form-control {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -136px;
   }
+}
+/* Define light gold color */
+:root {
+  --rich-gold: #dcca62;
+}
+
+/* Overriding Bootstrap styles for the navbar */
+.navbar-light {
+  background-color: #000 !important; /* sets navbar to black */
+}
+
+.navbar-light .navbar-brand, 
+.navbar-light .nav-link {
+  color: var(--light-gold) !important; /* sets text and icons to light gold */
+}
+
+.navbar-light .navbar-toggler-icon {
+  filter: invert(80%) sepia(90%) saturate(1000%) hue-rotate(-10deg) brightness(100%) contrast(85%); /* adjusts for light gold */
+}
+
+.navbar-light .nav-link.active, 
+.navbar-light .nav-link:hover {
+  color: #ffd700 !important; /* sets hover and active link color to a slightly different shade for distinction */
+}
+.nav-link:hover, .nav-link:focus {
+  background-color: #e9e9e9;
+}
+
+.nav-link.active {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Updating the color scheme for the Menu section */
+div#section-menu.section.bg-lig {
+  background-color: #000; /* setting the background to black */
+  color: var(--rich-gold); /* setting the text color to rich gold */
+}
+
+/* If you want to have specific titles or subheadings in rich gold */
+div#section-menu.section.bg-lig h1,  /* Assuming your "Menu" is an h1 tag */
+div#section-menu.section.bg-lig h2,  /* And your "Subheading here", "STARTERS", etc. are h2 tags */
+div#section-menu.section.bg-lig h3 { /* Just in case there are h3 tags */
+  color: var(--rich-gold);
+}
+
+/* If there are links within this section */
+div#section-menu.section.bg-lig a {
+  color: var(--rich-gold);
+  transition: color 0.3s ease; /* smooth transition for hover effect */
+}
+
+div#section-menu.section.bg-lig a:hover {
+  color: #EAC210; /* slightly different shade of gold for hover state */
+}
+
+/* Heading and Subheading Color Scheme */
+h2.heading,
+p.sub-heading {
+    color: var(--rich-gold);
+}
+
+/* Tab Navigation Color Scheme */
+.nav.site-tab-nav li a {
+    color: var(--light-black); /* Default text color */
+    border: 1px solid var(--light-black);
+    transition: color 0.3s ease, background-color 0.3s ease; 
+}
+
+.nav.site-tab-nav li a.active,
+.nav.site-tab-nav li a:hover {
+    color: var(--rich-gold); 
+    background-color: var(--light-black);
+}
+
+/* Menu Items Color Scheme */
+/* Heading and Subheading Color Scheme */
+/* Heading and Subheading Color Scheme */
+/* Heading and Subheading Color Scheme */
+h2.heading,
+p.sub-heading {
+    color: var(--rich-gold);
+}
+
+/* Tab Navigation Color Scheme */
+.nav.site-tab-nav li a {
+    color: var(--rich-gold); 
+}
+
+.nav.site-tab-nav li a.active,
+.nav.site-tab-nav li a:hover {
+    background-color: var(--rich-gold);
+    color: var(--light-black);
+}
+
+/* Menu Items Color Scheme */
+.menu-food-item .text h3 a {
+    color: var(--rich-gold);
+}
+
+.menu-food-item .text p {
+    color: var(--light-black);
+}
+
+.menu-food-item .d-flex.align-items-center strong {
+    color: var(--rich-gold);
+}
+
+.btn-primary {
+    background-color: var(--rich-gold);
+    color: var(--light-black);
+}
+
+.btn-primary:hover {
+    background-color: #EAC210;
+    color: var(--light-black);
+}
+/* Background color for the section */
+.bg-black {
+  background-color: var(--light-black);
+}
+
+/* Heading and Subheading Color Scheme */
+.section-heading h2.heading {
+  color: var(--rich-gold);
+}
+
+.section-heading p.sub-heading {
+  color: var(--white);
+}
+
+/* Icons color */
+.feature-icon .icon i {
+  color: var(--rich-gold);
+}
+
+/* Feature text color */
+.feature-icon h3 {
+  color: var(--white);
+}
+
+.feature-icon p {
+  color: var(--white);
+}
+
+/* For the search bar */
+.input-group {
+  border: 1px solid var(--rich-gold);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.input-group .form-control {
+  border: none;
+  background-color: var(--light-black);
+  color: var(--white);
+  border-radius: 0;
+}
+
+.input-group .btn-outline-secondary {
+  border: none;
+  background-color: var(--rich-gold);
+  color: var(--light-black);
+}
+
+/* To ensure there's space between the search results title and the meal item */
+.search-results {
+  margin-top: 20px;
+  padding: 15px 0;
+  clear: both; /* Clear any floating elements */
+}
+
+/* Styling for the meal item to prevent overlapping and fix alignment */
+.meal-item {
+  display: flex;
+  align-items: center; /* Vertically center the content */
+  justify-content: space-between; /* Space out the elements horizontally */
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.meal-item img {
+  margin-right: 15px; /* Add space between the image and the text */
+  max-width: 100px; /* Adjust the image width as per your needs */
+}
+
+/* Ensure the button is aligned properly and has enough padding */
+.add-to-basket-btn {
+  padding: 10px 15px;
+  border: none;
+  background-color: #f56a6a; /* Adjust color if needed */
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Ensure no text is overlapping with other elements */
+.clear-results-btn, .search-label, .meal-title {
+  clear: both; /* Clear floating elements */
 }
