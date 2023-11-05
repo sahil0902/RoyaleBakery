@@ -126,8 +126,8 @@ if (isset($notification)) {
                             <img src="data:image/jpeg;base64,<?php echo base64_encode($item['image_data']); ?>" alt="<?php echo htmlspecialchars($item['name']); ?>" class="img-fluid mb-3">
                             <div class="card-footer">
                             <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal<?php echo $item['id']; ?>">Edit</button>
-                    <button onclick="deleteItem(<?php echo $item['id']; ?>)" class="btn btn-danger">Delete</button>
-                    
+                            <button class="btn btn-danger delete-btn" data-item-id="<?php echo $item['id']; ?>">Delete</button>
+
                         </div>
                     </div>
                 </div>

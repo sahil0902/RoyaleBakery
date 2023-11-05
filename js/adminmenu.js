@@ -59,6 +59,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Add a click event listener to all delete buttons
+    // This code snippet should be inside the DOMContentLoaded callback
+document.querySelectorAll('.delete-btn').forEach(button => {
+    button.addEventListener('click', function(event) {
+        const itemId = this.getAttribute('data-item-id');
+        deleteItem(itemId);
+    });
+});
+
     // Add a click event listener to the test button
     document.getElementById('testButton').addEventListener('click', function() {
         console.log("Test button was clicked!");
