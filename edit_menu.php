@@ -1,5 +1,12 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+session_start(); // Start the session.
 include 'config.php';
+
+header('Content-Type: application/json'); // Specify the content type as JSON
 
 $response = array('status' => 'error', 'message' => 'Unknown error.');
 
@@ -25,14 +32,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $execute_array = [$name, $description, $price, $in_stock, $category, $id];
     }
 
-    // Execute the statement
+    // Execute the statement and prepare the response
     if ($stmt->execute($execute_array)) {
         $response = ['status' => 'success', 'message' => 'Menu item updated successfully!'];
     } else {
         $response = ['status' => 'error', 'message' => 'Error updating menu item.'];
     }
-}
 
-// Return the response as JSON
-echo json_encode($response);
+    // Return the response as JSON
+    echo json_encode($response);
+    exit; // Make sure no further output is sent after this point
+}
 ?>

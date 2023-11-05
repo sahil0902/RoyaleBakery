@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
 html {
   overflow-x: hidden;
 }
@@ -648,9 +650,11 @@ textarea.form-control {
 }
 /* General styling for the section */
 .section.bg-black {
-  padding: 50px 0;
   background-color: #000;
   color: #fff;
+  height: 50%; /* Set a fixed height (adjust as needed) */
+  padding-top: 20px; /* Adjust the top padding as needed */
+  padding-bottom: 20px; /* Adjust the bottom padding as needed */
 }
 
 
@@ -674,14 +678,14 @@ textarea.form-control {
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
-  background-color: #ff7a5c;  /* Existing color for better consistency */
+  background-color: #2e2a02;  /* Existing color for better consistency */
   color: #fff;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .section.bg-black input[type="submit"]:hover {
-  background-color: #e46950;
+  background-color: rgba(55, 56, 22, 0.677)
 }
 
 /* Heading styles */
@@ -692,7 +696,7 @@ textarea.form-control {
 
 .section-heading p.sub-heading {
   font-size: 1.2em;
-  color: #aaa;
+  color: green;
 }
 
 /* Existing menu-food-item style with some modifications */
@@ -1262,7 +1266,7 @@ textarea.form-control {
   margin: 0;
   border-radius: 50% !important;
   font-size: 16px;
-  background: #ff7a5c;
+  background: green;
   color: #fff;
 }
 
@@ -1445,7 +1449,7 @@ textarea.form-control {
 
 .menus .item .text .price {
   font-size: 30px;
-  color: #ff7a5c;
+  color: green;
   opacity: 1;
 }
 
@@ -1506,7 +1510,7 @@ textarea.form-control {
 }
 
 .accordion .btn-block[aria-expanded="true"] {
-  color: #ff7a5c;
+  color:green;
 }
 
 .accordion .btn-block[aria-expanded="true"] .icon:before {
@@ -1878,7 +1882,7 @@ textarea.form-control {
 }
 
 .nav-link.active {
-  background-color: #007bff;
+  background-color: #2e2a02;
   color: white;
 }
 
@@ -1914,7 +1918,7 @@ p.sub-heading {
 /* Tab Navigation Color Scheme */
 .nav.site-tab-nav li a {
     color: var(--light-black); /* Default text color */
-    border: 1px solid var(--light-black);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     transition: color 0.3s ease, background-color 0.3s ease; 
 }
 
@@ -1963,7 +1967,7 @@ p.sub-heading {
 }
 
 .btn-primary:hover {
-    background-color: #EAC210;
+    background-color: green;
     color: var(--light-black);
 }
 /* Background color for the section */
@@ -2039,7 +2043,7 @@ p.sub-heading {
 .add-to-basket-btn {
   padding: 10px 15px;
   border: none;
-  background-color: #f56a6a; /* Adjust color if needed */
+  background-color: gol; /* Adjust color if needed */
   color: #fff;
   cursor: pointer;
 }
@@ -2048,3 +2052,95 @@ p.sub-heading {
 .clear-results-btn, .search-label, .meal-title {
   clear: both; /* Clear floating elements */
 }
+
+.container {
+    padding-top: 400px;
+  }
+
+  /* Media query for screens smaller than 768px (adjust the breakpoint as needed) */
+  @media (max-width: 768px) {
+    .container {
+      padding-top: 200px; /* Adjust the value for smaller screens */
+    }
+    /* Add any other styles needed for smaller screens here */
+  }
+
+
+
+
+  #section-menu .container {
+    height: 50%; /* Set a fixed height (adjust as needed) */
+    padding-top: 20px; /* Adjust the top padding as needed */
+    padding-bottom: 20px; /* Adjust the bottom padding as needed */
+    overflow: hidden; /* Hide any overflowing content if necessary */
+}
+
+
+  #pills-tab .nav-link:hover {
+    color: #ffffff; /* This sets the text color to white when hovering */
+    background-color: #3498db; /* This sets the background color to a light blue when hovering */
+  }
+ 
+  .ftco-38-body {
+      font-family: 'Playfair Display', serif;
+      color: #fafad2;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+  }
+  
+  .ftco-38-body .introduction {
+      font-size: 2em;
+      margin-bottom: 15px;
+      line-height: 1.6;
+      font-weight: bold;
+  }
+  
+  .ftco-38-body .address {
+      font-size: 1.3em;
+      margin-bottom: 15px;
+      font-style: italic;
+      font-weight: lighter;
+  }
+  
+  .ftco-38-body .social-links {
+      font-size: 1em;
+      margin-top: 20px;
+  }
+  
+  .ftco-38-body .social-links .social-icon {
+      margin: 0 10px;
+      transition: transform 0.3s ease;
+  }
+  
+  .ftco-38-body .social-links .social-icon:hover {
+      transform: scale(1.2);
+      color: #ffd700;
+  }
+  
+  .ftco-38-body .social-links .social-icon span {
+      font-size: 2em;
+  }
+  
+  /* Mobile styles */
+  @media (max-width: 768px) {
+      .ftco-38-body {
+          padding: 15px;
+      }
+      
+      .ftco-38-body .introduction {
+          font-size: 1.5em;
+          margin-bottom: 12px;
+      }
+      
+      .ftco-38-body .address {
+          font-size: 1.1em;
+          margin-bottom: 10px;
+      }
+      
+      .ftco-38-body .social-links .social-icon span {
+          font-size: 1.5em;
+      }
+  }
+  

@@ -54,6 +54,7 @@ foreach ($menu_items as $item) {
     <link rel="stylesheet" href="css/darkmode.css">
     <link rel="stylesheet" type="text/css" href="css/basket.css">
     <link rel="stylesheet" type="text/css" href="css/animation.css">
+    <link rel="stylesheet" type="text/css" href="css/noti.css">
 
 </head>
 <body class="bg-black" >
@@ -135,18 +136,23 @@ function collapseNavbar() {
          
         </header> < site-header -->
       
-      <div class="main-wrap " id="section-home">
-        <div class="img_logo" style="background-image: url(images/back.png); background-size: cover;" data-stellar-background-ratio="0.5"> 
-          <div class="container" style="padding-top: 100px;">
-            <div class="row align-items-center justify-content-center text-center">
-              <div class="col-md-10" data-aos="fade-up">
-                <h2 class="heading mb-5" style="color: gold; text-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px gold, 0 0 40px #000, 0 0 70px #000, 0 0 80px #000, 0 0 100px #000;">Royale Bakery</h2>
-                <h2 class="heading mb-5" style="color: gold; text-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px gold, 0 0 40px #000, 0 0 70px #000, 0 0 80px #000, 0 0 100px #000;">The Taste of royalty, at your fingertips</h2>
-              </div>
-            </div>
-          </div>
+        <div class="main-wrap" id="section-home">
+  <div class="img_logo" style="background-image: url(images/paint.png); background-size: cover; background-repeat: no-repeat; background-position: center center;" data-stellar-background-ratio="0.5"> 
+    <div class="container" style="padding-top: 600px;">
+      <div class="row align-items-center justify-content-center text-center">
+        <div class="col-md-10" data-aos="fade-up">
+          <h2 class="heading mb-5" style="color: gold; text-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px gold, 0 0 40px #000, 0 0 70px #000, 0 0 80px #000, 0 0 100px #000;"> </h2>
+          <h2 class="heading mb-5" style="color: gold; text-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px gold, 0 0 40px #000, 0 0 70px #000, 0 0 80px #000, 0 0 100px #000;"></h2>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
                   <!-- .<p><a href="#section-reservation" class="smoothscroll btn btn-outline-white px-5 py-3">Reserve A Table</a></p>
                   <p><a href="#section-menu" class="smoothscroll btn btn-outline-white px-5 py-3">Menu</a></p>-->
                 </div>
@@ -261,13 +267,17 @@ function collapseNavbar() {
                     </div>
                     .section -->
                     <div class="ftco-38-body">
-                      <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-                      <p>Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. It is a paradisematic country.</p>
-                      <p>
-                        <a href="#" class="p-2"><span class="fa fa-facebook"></span></a>
-                        <a href="#" class="p-2"><span class="fa fa-twitter"></span></a>
-                        <a href="#" class="p-2"><span class="fa fa-instagram"></span></a>
-                      </p>
+    <p class="introduction">Welcome to Royale Bakery - where tradition meets taste.</p>
+    <p class="address">Visit Us: [Your Bakery's Address Here]</p>
+    <div class="social-links">
+        Stay connected with our latest offerings and events:
+        <a href="https://www.facebook.com/YourBakeryPage" class="p-2 social-icon"><span class="fa fa-facebook"></span></a>
+        <a href="https://twitter.com/YourBakeryHandle" class="p-2 social-icon"><span class="fa fa-twitter"></span></a>
+        <a href="https://www.instagram.com/YourBakeryHandle" class="p-2 social-icon"><span class="fa fa-instagram"></span></a>
+    </div>
+</div>
+
+
                     </div>
                   </div>
                 </div>
@@ -281,7 +291,11 @@ function collapseNavbar() {
         <!-- <div id="bakeryLogo"></div>  Add this line for the bakery logo -->
     <!-- ... -->
     <!-- <div id="chatBubbleIcon">💬</div> -->
-  <div id="basketIcon">🛒 <span id="itemCount">0</span></div>
+    <div id="basketIcon">
+  <img src="images/basketicon.png" alt="Basket" style="height:50px; width:50px;"> 
+  <span id="itemCount">0</span>
+</div>
+
   <div id="basketDropdown" class="hidden">
     <h4>Your Basket</h4>
     <ul id="basketItemsList"></ul>
@@ -305,7 +319,13 @@ function collapseNavbar() {
   </div>
 </div>
 
-
+<div id="notificationModal" class="center" style="display:none; position:fixed; top:20%; left:50%; transform:translate(-50%, -50%); z-index:1000;">
+    <div class="info">
+        <i class="fa fa-info-circle spin"></i>
+        &nbsp; &nbsp;
+        <span>This feature is currently not available.</span>
+    </div>
+</div>
 
 
 <div class="section bg-black" id="section-menu" data-aos="fade-up">
@@ -315,7 +335,7 @@ function collapseNavbar() {
        <!-- Adding the search bar with icon -->
 <div class="row justify-content-center mb-5">
     <div class="col-md-8">
-    <form action="index2.php" method="GET" class="text-center mb-4">
+    <form action="index2.php#section-menu" method="GET" class="text-center mb-4">
     <input type="text" name="query" placeholder="Search for menu items..." value="<?= htmlspecialchars($_GET['query'] ?? '') ?>">
     <input type="submit" value="Search">
 </form>
@@ -333,7 +353,7 @@ function collapseNavbar() {
             <div class="col-md-8">
             <?php if (!empty($searchQuery)): ?>
     <div class="text-center mb-4">
-        <a href="index2.php" class="btn btn-danger">Clear Search Results</a>
+        <a href="index2.php#section-menu" class="btn btn-danger">Clear Search Results</a>
     </div>
 <?php endif; ?>
 <?php if (empty($menu_items) && !empty($searchQuery)): ?>
@@ -362,76 +382,65 @@ function collapseNavbar() {
     
 <?php endif; ?>
 <?php endif; ?>
+             <?php
+include 'config.php';
 
-                <ul class="nav site-tab-nav" id="pills-tab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="pills-starters-tab" data-toggle="pill" href="#pills-starters" role="tab" aria-controls="pills-starters" aria-selected="true">Starters</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="pills-meal-tab" data-toggle="pill" href="#pills-meal" role="tab" aria-controls="pills-meal" aria-selected="false">Meal</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="pills-desserts-tab" data-toggle="pill" href="#pills-desserts" role="tab" aria-controls="pills-desserts" aria-selected="false">Desserts</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="pills-drinks-tab" data-toggle="pill" href="#pills-drinks" role="tab" aria-controls="pills-drinks" aria-selected="false">Drinks</a>
-                    </li>
-                </ul>
+$query = "SELECT * FROM menu_items WHERE in_stock = 1 ORDER BY category";
+$result = $pdo->query($query);
+$menu_items = $result->fetchAll(PDO::FETCH_ASSOC);
 
-                <div class="tab-content" id="pills-tabContent">
-                    <?php 
-                   include 'config.php';
+$grouped_items = [];
+foreach ($menu_items as $item) {
+    $grouped_items[$item['category']][] = $item;
+}
 
-                   $query = "SELECT * FROM menu_items WHERE in_stock = 1 ORDER BY category";
+$sections = [
+  'ALL' => 'pills-all',
+  'Starters' => 'pills-starters',
+  'Meal' => 'pills-meal',
+  'Desserts' => 'pills-desserts',
+  'Drinks' => 'pills-drinks'
+];
+?>
 
-                   $result = $pdo->query($query);
-                   $menu_items = $result->fetchAll(PDO::FETCH_ASSOC);                   
-                    ?>
+<ul class="nav site-tab-nav" id="pills-tab" role="tablist">
+    <?php foreach ($sections as $sectionName => $sectionId): ?>
+    <li class="nav-item">
+        <a class="nav-link <?= $sectionName === 'ALL' ? 'active' : ''; ?>" id="<?= $sectionId ?>-tab" data-toggle="pill" href="#<?= $sectionId ?>" role="tab" aria-controls="<?= $sectionId ?>" aria-selected="<?= $sectionName === 'ALL' ? 'true' : 'false'; ?>"><?= $sectionName ?></a>
+    </li>
+    <?php endforeach; ?>
+</ul>
 
-                    <?php
-                    //echo "Categories in database: " . implode(", ", array_keys($menu_items));
-                    $grouped_items = [];
-                    foreach ($menu_items as $item) {
-                        $grouped_items[$item['category']][] = $item;
-                    }
-                    $sections = [
-                      'Starters' => 'pills-starters',
-                      'Meal' => 'pills-meal',
-                      'Desserts' => 'pills-desserts',
-                      'Drinks' => 'pills-drinks'
-                  ];
-                
-                    
-                foreach ($sections as $sectionName => $sectionId):
-                  ?>
-                      <div class="tab-pane fade <?= $sectionName === 'Starters' ? 'show active' : ''; ?>" id="<?= $sectionId ?>" role="tabpanel" aria-labelledby="<?= $sectionId ?>-tab">
-                          <?php if (isset($grouped_items[$sectionName])): ?>
-                            <?php foreach ($grouped_items[$sectionName] as $item): ?>
-    <?php if (isset($_GET['query']) && $_GET['query'] === $item['name']): ?>
-    <div class="d-flex justify-content-between align-items-center menu-food-item">
-        <div class="text">
-            <img src="data:image/jpeg;base64,<?= base64_encode($item['image_data']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" style="max-width: 100px;"> <!-- adjust the max-width as per your needs -->
-            <h3><a href="#"><?= htmlspecialchars($item['name']) ?></a></h3>
-            <p><?= htmlspecialchars($item['description']) ?></p>
-        </div>
-        <div class="d-flex align-items-center">
-            <strong class="mr-3">£<?= htmlspecialchars($item['price']) ?></strong>
-            <button class="btn btn-primary addToBasket" data-id="<?= $item['id'] ?>" data-name="<?= htmlspecialchars($item['name']) ?>" data-price="<?= htmlspecialchars($item['price']) ?>">Add to Basket</button>
-        </div>
-    </div> <!-- .menu-food-item -->
-    <?php endif; ?>
-<?php endforeach; ?>
-
-                            <?php else: ?>
-                                <p>No items available in this section.</p>
-                            <?php endif; ?>
-                        </div>
-                    <?php endforeach; ?>
+<div class="tab-content" id="pills-tabContent">
+    <?php foreach ($sections as $sectionName => $sectionId): ?>
+    <div class="tab-pane fade <?= $sectionName === 'ALL' ? 'show active' : ''; ?>" id="<?= $sectionId ?>" role="tabpanel" aria-labelledby="<?= $sectionId ?>-tab">
+        <?php
+        $items_to_display = $sectionName === 'ALL' ? $menu_items : $grouped_items[$sectionName];
+        if (isset($items_to_display) && !empty($items_to_display)):
+            foreach ($items_to_display as $item):
+            ?>
+            <div class="d-flex justify-content-between align-items-center menu-food-item">
+                <div class="text">
+                    <img src="data:image/jpeg;base64,<?= base64_encode($item['image_data']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" style="max-width: 100px;">
+                    <h3><a href="#"><?= htmlspecialchars($item['name']) ?></a></h3>
+                    <p><?= htmlspecialchars($item['description']) ?></p>
+                </div>
+                <div class="d-flex align-items-center">
+                    <strong class="mr-3">£<?= htmlspecialchars($item['price']) ?></strong>
+                    <button class="btn btn-primary addToBasket" data-id="<?= $item['id'] ?>" data-name="<?= htmlspecialchars($item['name']) ?>" data-price="<?= htmlspecialchars($item['price']) ?>">Add to Basket</button>
                 </div>
             </div>
-        </div>
+            <?php
+            endforeach;
+        else:
+        ?>
+        <p>No items available in this section.</p>
+        <?php endif; ?>
     </div>
-</div> <!-- .section -->
+    <?php endforeach; ?>
+</div>
+
+
 
 
 <div class="section bg-black services-section" data-aos="fade-up">
@@ -782,6 +791,7 @@ function collapseNavbar() {
     <script src="js/main.js"></script>
     <script src = "js/basket.js"></script>
     <script src="js/scrollPosition.js"></script>
+    <script src="js/noti.js"></script>
 
   </body>
 </html>

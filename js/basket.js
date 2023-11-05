@@ -115,6 +115,7 @@ function addToBasket(id, name, price) {
 function toggleDropdown() {
     const dropdown = document.getElementById('basketDropdown');
     if (dropdown.style.display === 'none' || !dropdown.style.display) {
+        showNotification();
         dropdown.style.display = 'block';
         console.log("Dropdown should now be VISIBLE");
     } else {
