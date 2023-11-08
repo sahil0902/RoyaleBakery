@@ -1,122 +1,162 @@
-// Wait for the DOM to load before executing any code
-document.addEventListener('DOMContentLoaded', function() {
+console.log('Script loaded');
 
-    // Define a function to edit a menu item
-    function editMenuItem(id, event) {
-        if (event) {
+// Ensure the toggleEditForm function is defined in the global scope
+window.toggleEditForm = function(itemId) {
+  
+    // Ensure that the element with the ID exists
+    const menuItem = document.getElementById(`menuItem${itemId}`);
+    console.log('menuItem${itemId}');
+    if (menuItem) {
+        const editForm = menuItem.querySelector('.edit-form');
+        if (editForm) {
+            editForm.style.display = editForm.style.display === 'none' ? 'block' : 'none';
+        } else {
+            console.error('Edit form not found for itemId:', itemId);
+        }
+    } else {
+        console.error('Menu item not found for itemId:', itemId);
+    }
+};
+// Global function to explicitly hide the edit form
+window.hideEditForm = function(itemId) {
+    const menuItem = document.getElementById(`menuItem${itemId}`);
+    const editForm = menuItem ? menuItem.querySelector('.edit-form') : null;
+    if (editForm) {
+        editForm.style.display = 'none'; // Explicitly hide the form
+    } else {
+        console.error('Edit form not found for itemId:', itemId);
+    }
+};
+document.addEventListener('DOMContentLoaded', () => {
+    
+    window.toggleEditForm = function(itemId) {
+        const menuItem = document.getElementById(`menuItem${itemId}`);
+        const editForm = menuItem ? menuItem.querySelector('.edit-form') : null;
+        if (editForm) {
+            editForm.style.display = editForm.style.display === 'none' ? 'block' : 'none';
+        } else {
+            console.error('Edit form not found for itemId:', itemId);
+        }
+    };
+
+
+
+
+    // Add event listeners to Edit buttons to open the edit form
+    document.querySelectorAll('.btn-warning').forEach(button => {
+        button.addEventListener('click', () => {
+            const itemId = button.getAttribute('data-item-id');
+            toggleEditForm(itemId);
+        });
+    });
+    document.querySelectorAll('.edit-form form').forEach(form => {
+        form.addEventListener('submit', (event) => {
             event.preventDefault();
-        }
+            const itemId = form.querySelector('input[name="id"]').value;
+            const formData = new FormData(form);
 
-        // Get the form data
-        let formData = new FormData(document.querySelector(`#editModal${id} form`));
-
-        // Log the form data
-        for (var pair of formData.entries()) {
-            console.log(pair[0] + ', ' + pair[1]); 
-        }
-
-        // Send a fetch request to the server to update the menu item
-        fetch('edit_menu.php', {
-            method: 'POST',
-            body: formData,
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log(data); // Add this line to inspect the response from the server
-            if (data.status === 'error') {
-                alert(data.message);
-                return;
-            }
-
-            // Show a notification with the message from the server
-            showNotification(data.message);
-
-            // Update the menu item on the page if the update was successful
-            if (data.status === 'success') {
-                document.querySelector(`#menuItem${id} .card-title`).innerText = formData.get('name');
-                // Add updates for other fields if needed
-            }
-
-            // Hide the edit modal
-            $(`#editModal${id}`).modal('hide');
-        })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error.message);
-        });
-    }
-
-    // Add a click event listener to all save changes buttons
-    document.querySelectorAll('.save-changes-btn').forEach(button => {
-        button.addEventListener('click', function(event) {
-            console.log("Save changes button was clicked!"); // Add this line
-            const itemId = this.getAttribute('data-item-id');
-            editMenuItem(itemId, event);
-        });
-    });
-
-    // Add a click event listener to all delete buttons
-    // This code snippet should be inside the DOMContentLoaded callback
-document.querySelectorAll('.delete-btn').forEach(button => {
-    button.addEventListener('click', function(event) {
-        const itemId = this.getAttribute('data-item-id');
-        deleteItem(itemId);
-    });
-});
-
-    // Add a click event listener to the test button
-    document.getElementById('testButton').addEventListener('click', function() {
-        console.log("Test button was clicked!");
-    });
-
-    // Define a function to delete a menu item
-    function deleteItem(id) {
-        if (confirm('Are you sure you want to delete this item?')) {
-            // Send a fetch request to the server to delete the menu item
-            fetch('delete_menu_item.php', {
+            fetch('edit_menu.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: `id=${id}`,
+                body: formData
             })
-            .then(response => response.json())
+            .then(response => {
+                console.log(response); // Check the raw response
+                return response.json(); // This will fail if the response is not proper JSON
+            })
             .then(data => {
-                // Show a notification with the message from the server
-                showNotification(data.message);
+                showNotification(data.message, itemId); // Use this for styled notification
                 if (data.status === 'success') {
-                    // Optionally, you can refresh the page or remove the deleted item from the DOM
-                    location.reload();
+                    updateMenuItemDisplay(itemId, formData);
+                    hideEditForm(itemId); // Hide the form when changes are saved
                 }
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+                showNotification('Error updating item.', itemId);
             });
+        });
+    });
+
+    const updateMenuItemDisplay = (itemId, formData) => {
+        // Grab the menu item card element
+        const menuItem = document.querySelector(`#menuItem${itemId}`);
+        if (!menuItem) {
+            console.error('Menu item element not found:', `#menuItem${itemId}`);
+            return;
         }
-    }
+    
+        // Update the menu item's name
+        const titleElement = menuItem.querySelector('.card-title');
+        if (titleElement) titleElement.textContent = formData.get('name');
+    
+        // Update the menu item's description
+        const descriptionElement = menuItem.querySelectorAll('.card-text')[0];
+        if (descriptionElement) descriptionElement.textContent = formData.get('description');
+    
+        // Update the menu item's category
+        const categoryElement = menuItem.querySelectorAll('.card-text')[1];
+        if (categoryElement) categoryElement.textContent = "Category: " + formData.get('category');
+    
+        // Update the menu item's price
+        const priceElement = menuItem.querySelectorAll('.card-text')[2];
+        if (priceElement) priceElement.textContent = "Price: £" + formData.get('price');
+    
+        // Update the In Stock status
+        // Add an element with class 'in-stock-status' in your HTML to display this status
+        const inStockElement = menuItem.querySelector('.in-stock-status');
+        if (inStockElement) {
+            const inStockValue = formData.has('in_stock') && formData.get('in_stock') === '1';
+            inStockElement.textContent = `In Stock: ${inStockValue ? 'Yes' : 'No'}`;
+        } else {
+            console.error('In-stock status element not found:', '.in-stock-status');
+        }
+    
+        // Image update logic goes here...
+    };
+    
+    
 
-    // Define a function to strip HTML tags from a string
-    function stripHtml(html) {
-        let doc = new DOMParser().parseFromString(html, 'text/html');
-        return doc.body.textContent || "";
-    }
+    // Add event listeners to Delete buttons
+    document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const itemId = button.getAttribute('data-item-id');
+            if (confirm('Are you sure you want to delete this item?')) {
+                fetch('delete_menu_item.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `id=${itemId}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    showNotification(data.message);
+                    if (data.status === 'success') {
+                        document.querySelector(`#menuItem${itemId}`).remove();
+                        toggleEditForm(itemId);
+                    }
+                })
+                .catch(error => {
+                    console.error('Delete operation failed:', error);
+                    showNotification('Error deleting item.');
+                });
+            }
+        });
+    });
 
-    // Define a function to show a notification
-    function showNotification(message) {
+    const showNotification = (message, itemId) => {
+        // Create the notification element
         let notification = document.createElement('div');
-        notification.className = 'fixed bottom-0 right-0 mb-4 mr-4 p-2 max-w-sm bg-red-500 text-white rounded shadow-lg';
-        notification.innerText = message;
-        document.body.appendChild(notification);
-        notification.style.display = 'block';
+        notification.className = 'top-notification';
+        notification.textContent = message;
 
-        // Set a timeout to remove the notification after it has been displayed for 10 seconds
+        // Add the notification to the body
+        document.body.appendChild(notification);
+
+        // Remove the notification after a delay
         setTimeout(() => {
             notification.remove();
-        }, 10000);
-    }
-
-    // Log the save changes button NodeList
-    console.log(document.querySelectorAll('.save-changes-btn'));
+        }, 3000); // 3 seconds delay
+    };
 
 });

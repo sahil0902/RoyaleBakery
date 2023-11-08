@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $description = $_POST['description'];
     $price = $_POST['price'];
     $category = $_POST['category'];
-    $in_stock = $_POST['in_stock'];
+    $in_stock = isset($_POST['in_stock']) ? 1 : 0; // Check if in_stock is set, and use 1 or 0 accordingly
 
     $image_data = null;
     if (isset($_FILES["image"]["tmp_name"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK) {
@@ -39,8 +39,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $response = ['status' => 'error', 'message' => 'Error updating menu item.'];
     }
 
-    // Return the response as JSON
-    echo json_encode($response);
-    exit; // Make sure no further output is sent after this point
+    // Before sending the JSON response, clean all previous outputs
+ob_end_clean();
+header('Content-Type: application/json'); // Specify the content type as JSON
+echo json_encode($response);
+exit;
+    
 }
 ?>
