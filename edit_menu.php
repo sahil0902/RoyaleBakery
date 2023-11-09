@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $price = $_POST['price'];
     $category = $_POST['category'];
 // This code assumes that if 'in_stock' is not set, the item is not in stock.
-$in_stock = (isset($_POST['in_stock']) && $_POST['in_stock'] == '1') ? 1 : 0;
+#$in_stock = (isset($_POST['in_stock']) && $_POST['in_stock'] == '1') ? 1 : 0;
 
     $image_data = null;
     if (isset($_FILES["image"]["tmp_name"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK) {
@@ -30,10 +30,10 @@ $in_stock = (isset($_POST['in_stock']) && $_POST['in_stock'] == '1') ? 1 : 0;
 
     // Prepare the SQL statement
     if ($image_data) {
-        $stmt = $pdo->prepare("UPDATE menu_items SET name = ?, description = ?, price = ?, in_stock = ?, image_data = ?, category = ? WHERE id = ?");
-        $execute_array = [$name, $description, $price, $in_stock, $image_data, $category, $id];
+        $stmt = $pdo->prepare("UPDATE menu_items SET name = ?, description = ?,  in_stock = ?, image_data = ?, category = ? WHERE id = ?");
+        $execute_array = [$name, $description, $price, $image_data, $category, $id];
     } else {
-        $stmt = $pdo->prepare("UPDATE menu_items SET name = ?, description = ?, price = ?, in_stock = ?, category = ? WHERE id = ?");
+        $stmt = $pdo->prepare("UPDATE menu_items SET name = ?, description = ?, price = ?,  category = ? WHERE id = ?");
         $execute_array = [$name, $description, $price, $in_stock, $category, $id];
     }
 

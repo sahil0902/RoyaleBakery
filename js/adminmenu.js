@@ -86,12 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const itemId = form.querySelector('input[name="id"]').value;
             const formData = new FormData(form);
             const inStockCheckbox = form.querySelector('input[name="in_stock"]');
-            console.log(inStockCheckbox.checked)
+           // console.log(inStockCheckbox.checked)
             // Use `set` to ensure you overwrite any existing 'in_stock' value
-            formData.set('in_stock', inStockCheckbox.checked ? '1' : '0');
-            
-            console.log(formData.get('in_stock')); // This should log '1' if checked, '0' if not
-            
+           
             fetch('edit_menu.php', {
                 method: 'POST',
                 body: formData
@@ -133,8 +130,7 @@ if (inStockElement) {
             console.error('Menu item element not found:', `#menuItem${itemId}`);
             return;
         }
-        console.log(formData.get('in_stock')); // This should log '1' or '0'
-
+        
 
         // Update the menu item's name
         const titleElement = menuItem.querySelector('.card-title');
@@ -152,12 +148,7 @@ if (inStockElement) {
         const priceElement = menuItem.querySelectorAll('.card-text')[2];
         if (priceElement) priceElement.textContent = "Price: £" + formData.get('price');
        // Inside your form submit event handler
-const inStockCheckbox = form.querySelector('input[name="in_stock"]');
-if (inStockCheckbox && inStockCheckbox.checked) {
-    formData.append('in_stock', '1');
-} else {
-    formData.append('in_stock', '0');
-}
+
         
         // Update the In Stock status
         // Add an element with class 'in-stock-status' in your HTML to display this status
@@ -172,7 +163,42 @@ if (inStockCheckbox && inStockCheckbox.checked) {
         // Image update logic goes here...
     };
     
-
+    function updateInStockStatus(itemId, inStock) {
+        // Prepare the data to be sent in the request
+        const formData = new FormData();
+        formData.append('id', itemId);
+        formData.append('in_stock', inStock ? '1' : '0');
+    
+        // Send the AJAX request to the PHP script
+        fetch('update_in_stock.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.status === 'success') {
+                console.log('In stock status updated successfully');
+                // You can add any success notification or UI update here
+            } else {
+                console.error('Failed to update in stock status');
+                // You can add any error notification here
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+    
+    // Event listener for in-stock checkbox change
+    document.addEventListener('DOMContentLoaded', (event) => {
+        document.querySelectorAll('.in-stock-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const itemId = this.dataset.itemId;
+                updateInStockStatus(itemId, this.checked);
+            });
+        });
+    });
+    
     // Add event listeners to Delete buttons
     document.querySelectorAll('.delete-btn').forEach(button => {
         button.addEventListener('click', () => {

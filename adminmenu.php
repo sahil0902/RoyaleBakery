@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $price = $_POST['price'];
     $category = $_POST['category'];
 
-    $in_stock = isset($_POST['in_stock']) ? 1 : 0;
+    // $in_stock = isset($_POST['in_stock']) ? 1 : 0;
 
     if (!is_numeric($price)) {
         $message = 'Error: Price must be a valid number.';
@@ -100,10 +100,10 @@ if (isset($notification)) {
             <option value="Drinks">Drinks</option>
         </select>
     </div>
-    <div class="form-group form-check">
+    <!-- <div class="form-group form-check">
     <input type="checkbox" id="in_stock" name="in_stock" class="form-check-input" value="1" checked>
     <label for="in_stock" class="form-check-label">In Stock</label>
-</div>
+</div> -->
         <div class="form-group">
             <label for="image">Image:</label>
             <input type="file" id="image" name="image" class="form-control" required>
@@ -116,6 +116,10 @@ if (isset($notification)) {
         <h2 class="my-5">Menu Items</h2>
 <div class="row">
     <?php foreach ($menu_items as $item): ?>
+        <label>
+        In Stock:
+        <input type="checkbox" class="in-stock-checkbox" data-item-id="<?= $item['id'] ?>" <?= $item['in_stock'] ? 'checked' : '' ?>>
+    </label>
         <div class="col-lg-4 col-md-6 mb-4" id="menuItem<?php echo $item['id']; ?>">
             <div class="card">
                 <div class="card-body">
@@ -123,16 +127,11 @@ if (isset($notification)) {
 <p class="card-text"><?php echo htmlspecialchars($item['description']); ?></p>
 <p class="card-text">Category: <?php echo htmlspecialchars($item['category']); ?></p>
 <p class="card-text">Price: £<?php echo htmlspecialchars($item['price']); ?></p>
-<!-- Display In Stock status -->
-<p class="card-text">In Stock: <?php echo $item['in_stock'] ? 'Yes' : 'No'; ?></p>
-<img src="data:image/jpeg;base64,<?php echo base64_encode($item['image_data']); ?>" alt="<?php echo htmlspecialchars($item['name']); ?>" class="img-fluid mb-3">
-
+                    <img src="data:image/jpeg;base64,<?php echo base64_encode($item['image_data']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($item['name']); ?>">
                     <!-- Inline Edit Form Start -->
                     <div class="edit-form" style="display: none;"> <!-- Initially hidden -->
                         <form action="edit_menu.php" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="id" value="<?php echo $item['id']; ?>">
-                            <input type="hidden" name="in_stock" value="<?php echo $item['in_stock']; ?>">
-
                             <div class="form-group">
                                 <label for="edit-name-<?php echo $item['id']; ?>">Name:</label>
                                 <input type="text" id="edit-name-<?php echo $item['id']; ?>" name="name" class="form-control" value="<?php echo htmlspecialchars($item['name']); ?>">
@@ -160,10 +159,6 @@ if (isset($notification)) {
                                 <input type="file" id="edit-image-<?php echo $item['id']; ?>" name="image" class="form-control">
                             </div>
                       <!-- This should be within the loop where you fetch and define $item -->
-<div class="form-group form-check">
-    <input type="checkbox" id="edit-in_stock-<?php echo $item['id']; ?>" name="in_stock" class="form-check-input" value="1" <?php echo $item['in_stock'] ? 'checked' : ''; ?>>
-    <label for="edit-in_stock-<?php echo $item['id']; ?>" class="form-check-label">In Stock</label>
-</div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Save Changes</button>
                                 <button type="button" class="btn btn-secondary" onclick="toggleEditForm(<?php echo $item['id']; ?>)">Cancel</button>
