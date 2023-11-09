@@ -80,43 +80,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-    document.querySelectorAll('.edit-form form').forEach(form => {
-        form.addEventListener('submit', (event) => {
-            event.preventDefault();
-            const itemId = form.querySelector('input[name="id"]').value;
-            const formData = new FormData(form);
-            const inStockCheckbox = form.querySelector('input[name="in_stock"]');
-           // console.log(inStockCheckbox.checked)
-            // Use `set` to ensure you overwrite any existing 'in_stock' value
-           
-            fetch('edit_menu.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json()) // Convert response to JSON
-            .then(data => {
-                if (data.status === 'success') {
-                    const inStockElement = document.querySelector(`#menuItem${itemId} .in-stock-status`);
-if (inStockElement) {
-    inStockElement.textContent = inStockCheckbox.checked ? 'Yes' : 'No';
-}
-                    // Assuming 'data.message' contains the response message you want to show
-                    showNotification(data.message, itemId);
-                    // Further code...
-                } else {
-                    // Handle case where 'data.message' might not exist or 'data' is not the expected object
-                    console.error('Error in response:', data);
-                    showNotification('An error occurred.', itemId); 
-                }
-            })
-            .catch(error => {
-                // Handle fetch error
-                console.error('There was a problem with the fetch operation:', error);
-                showNotification('Error occurred during fetch.', itemId); // Provide a fallback message
-            });
-            
-        });
+document.querySelectorAll('.edit-form form').forEach(form => {
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const itemId = form.querySelector('input[name="id"]').value;
+        const formData = new FormData(form);
+
+        fetch('edit_menu.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json()) // Convert response to JSON
+        .then(data => {
+            if (data.status === 'success') {
+                // Update the UI to reflect the change if necessary
+                showNotification(data.message, itemId); // Show a success notification
+            } else {
+                console.error('Error in response:', data);
+                showNotification('An error occurred.', itemId); // Show an error notification
+            }
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+            showNotification('Error occurred during fetch.', itemId); // Show a fetch error notification
+        });     
     });
+});
 
     const updateMenuItemDisplay = (itemId, formData, form) => {
         // Ensure that the form parameter is defined

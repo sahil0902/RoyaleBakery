@@ -7,12 +7,10 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-session_start(); // Start the session.
+session_start();
 include 'config.php';
 
-header('Content-Type: application/json'); // Specify the content type as JSON
-
-$response = array('status' => 'error', 'message' => 'Unknown error.');
+$response = ['status' => 'error', 'message' => 'Unknown error.'];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = $_POST['id'];
@@ -20,37 +18,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $description = $_POST['description'];
     $price = $_POST['price'];
     $category = $_POST['category'];
-// This code assumes that if 'in_stock' is not set, the item is not in stock.
-#$in_stock = (isset($_POST['in_stock']) && $_POST['in_stock'] == '1') ? 1 : 0;
 
     $image_data = null;
     if (isset($_FILES["image"]["tmp_name"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK) {
         $image_data = file_get_contents($_FILES["image"]["tmp_name"]);
     }
 
-    // Prepare the SQL statement
-    if ($image_data) {
-        $stmt = $pdo->prepare("UPDATE menu_items SET name = ?, description = ?,  in_stock = ?, image_data = ?, category = ? WHERE id = ?");
-        $execute_array = [$name, $description, $price, $image_data, $category, $id];
-    } else {
-        $stmt = $pdo->prepare("UPDATE menu_items SET name = ?, description = ?, price = ?,  category = ? WHERE id = ?");
-        $execute_array = [$name, $description, $price, $in_stock, $category, $id];
-    }
+    $stmt = $pdo->prepare("UPDATE menu_items SET name = ?, description = ?, price = ?, category = ?" . ($image_data ? ", image_data = ?" : "") . " WHERE id = ?");
+    $execute_array = $image_data ? [$name, $description, $price, $category, $image_data, $id] : [$name, $description, $price, $category, $id];
 
-    // Execute the statement and prepare the response
-if ($stmt->execute($execute_array)) {
-    $response = ['status' => 'success', 'message' => 'Menu item updated successfully!'];
-} else {
-    $response = ['status' => 'error', 'message' => 'Error updating menu item.'];
-    error_log(print_r($stmt->errorInfo(), true)); // Log error info if the query fails
-}
+    if ($stmt->execute($execute_array)) {
+        $response = ['status' => 'success', 'message' => 'Menu item updated successfully!'];
+    } else {
+        $response = ['status' => 'error', 'message' => 'Error updating menu item.'];
+        error_log(print_r($stmt->errorInfo(), true));
+    }
     
-//     // Before sending the JSON response, clean all previous outputs
-// ob_end_clean();
-header('Content-Type: application/json'); // Specify the content type as JSON
-echo json_encode($response);
-exit;
-    
+    echo json_encode($response);
+    exit;
 }
+
 error_log("REQUEST Data: " . print_r($_REQUEST, true));
 ?>
