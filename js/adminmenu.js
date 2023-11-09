@@ -80,103 +80,91 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-document.querySelectorAll('.edit-form form').forEach(form => {
-    form.addEventListener('submit', (event) => {
-        event.preventDefault();
-        const itemId = form.querySelector('input[name="id"]').value;
-        const formData = new FormData(form);
+// AJAX Implementation for Inline Editing
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.edit-form form').forEach(form => {
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const itemId = form.querySelector('input[name="id"]').value;
+            const formData = new FormData(form);
 
-        fetch('edit_menu.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json()) // Convert response to JSON
-        .then(data => {
-            if (data.status === 'success') {
-                // Update the UI to reflect the change if necessary
-                showNotification(data.message, itemId); // Show a success notification
-            } else {
-                console.error('Error in response:', data);
-                showNotification('An error occurred.', itemId); // Show an error notification
+            try {
+                const response = await fetch('edit_menu.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                if (data.status === 'success') {
+                    // Update the UI to reflect the change
+                    updateMenuItemDisplay(itemId, formData);
+                    showNotification('Item updated successfully!', itemId);
+                    window.toggleEditForm(itemId); // Hide the form after successful update
+                } else {
+                    showNotification('Failed to update item.', itemId);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showNotification('An error occurred during the update.', itemId);
             }
-        })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-            showNotification('Error occurred during fetch.', itemId); // Show a fetch error notification
-        });     
+        });
     });
 });
 
-    const updateMenuItemDisplay = (itemId, formData, form) => {
-        // Ensure that the form parameter is defined
-    if (!form) {
-        console.error('Form is undefined.');
+
+   // Dynamically Updating the Content
+const updateMenuItemDisplay = (itemId, formData) => {
+    const menuItem = document.querySelector(`#menuItem${itemId}`);
+    if (!menuItem) {
+        console.error('Menu item element not found:', `#menuItem${itemId}`);
         return;
     }
-        // Grab the menu item card element
-        const menuItem = document.querySelector(`#menuItem${itemId}`);
-        if (!menuItem) {
-            console.error('Menu item element not found:', `#menuItem${itemId}`);
-            return;
+
+    // Update the menu item's name, description, category, and price
+    menuItem.querySelector('.card-title').textContent = formData.get('name');
+    menuItem.querySelectorAll('.card-text')[0].textContent = formData.get('description');
+    menuItem.querySelectorAll('.card-text')[1].textContent = "Category: " + formData.get('category');
+    menuItem.querySelectorAll('.card-text')[2].textContent = "Price: £" + formData.get('price');
+
+    // For image updates, a more advanced solution is needed to handle preview and upload
+    // Consider adding an image preview feature here
+};
+document.querySelectorAll('.edit-form input[type="file"]').forEach(fileInput => {
+    fileInput.addEventListener('change', function() {
+        if (this.files && this.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imgElement = document.querySelector(`#menuItem${fileInput.dataset.itemId} img`);
+                imgElement.src = e.target.result;
+            };
+            reader.readAsDataURL(this.files[0]);
         }
-        
+    });
+});
 
-        // Update the menu item's name
-        const titleElement = menuItem.querySelector('.card-title');
-        if (titleElement) titleElement.textContent = formData.get('name');
+    async function updateInStockStatus(itemId, inStock) {
+        try {
+            const formData = new FormData();
+            formData.append('id', itemId);
+            formData.append('in_stock', inStock ? '1' : '0');
     
-        // Update the menu item's description
-        const descriptionElement = menuItem.querySelectorAll('.card-text')[0];
-        if (descriptionElement) descriptionElement.textContent = formData.get('description');
-    
-        // Update the menu item's category
-        const categoryElement = menuItem.querySelectorAll('.card-text')[1];
-        if (categoryElement) categoryElement.textContent = "Category: " + formData.get('category');
-    
-        // Update the menu item's price
-        const priceElement = menuItem.querySelectorAll('.card-text')[2];
-        if (priceElement) priceElement.textContent = "Price: £" + formData.get('price');
-       // Inside your form submit event handler
-
-        
-        // Update the In Stock status
-        // Add an element with class 'in-stock-status' in your HTML to display this status
-        // const inStockElement = menuItem.querySelector('.in-stock-status');
-        // if (inStockElement) {
-        //     const inStockValue = formData.has('in_stock') && formData.get('in_stock') === '1';
-        //     inStockElement.textContent = `In Stock: ${inStockValue ? 'Yes' : 'No'}`;
-        // } else {
-        //     console.error('In-stock status element not found:', '.in-stock-status');
-        // }
-    
-        // Image update logic goes here...
-    };
-    
-    function updateInStockStatus(itemId, inStock) {
-        // Prepare the data to be sent in the request
-        const formData = new FormData();
-        formData.append('id', itemId);
-        formData.append('in_stock', inStock ? '1' : '0');
-    
-        // Send the AJAX request to the PHP script
-        fetch('update_in_stock.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if(data.status === 'success') {
+            const response = await fetch('update_in_stock.php', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+            if (data.status === 'success') {
                 console.log('In stock status updated successfully');
-                // You can add any success notification or UI update here
+                // Add UI update logic here
             } else {
                 console.error('Failed to update in stock status');
-                // You can add any error notification here
+                // Add error notification here
             }
-        })
-        .catch(error => {
+        } catch (error) {
             console.error('Error:', error);
-        });
+            // Add error notification here
+        }
     }
+    
     
     // Event listener for in-stock checkbox change
     document.addEventListener('DOMContentLoaded', (event) => {
