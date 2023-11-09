@@ -172,11 +172,13 @@ if (isset($notification)) {
                     </div>
                     <!-- Inline Edit Form End -->
 
-                    <!-- Edit and Delete buttons... -->
-                    <div class="card-footer">
-                        <button type="button" class="btn btn-warning" onclick="toggleEditForm(<?php echo $item['id']; ?>)">Edit</button>
-                        <button class="btn btn-danger delete-btn" data-item-id="<?php echo $item['id']; ?>">Delete</button>
-                    </div>
+                    <div id="menuItem<?php echo $item['id']; ?>" class="menu-item">
+    <!-- Your menu item content here -->
+    <div class="card-footer">
+        <button type="button" class="btn btn-warning" onclick="toggleEditForm(<?php echo $item['id']; ?>)">Edit</button>
+        <button class="btn btn-danger delete-btn" data-item-id="<?php echo $item['id']; ?>">Delete</button>
+    </div>
+</div>
                 </div>
             </div>
         </div>

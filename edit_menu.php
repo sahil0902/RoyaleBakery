@@ -1,4 +1,8 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -16,7 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $description = $_POST['description'];
     $price = $_POST['price'];
     $category = $_POST['category'];
-    $in_stock = isset($_POST['in_stock']) ? 1 : 0; // Check if in_stock is set, and use 1 or 0 accordingly
+// This code assumes that if 'in_stock' is not set, the item is not in stock.
+$in_stock = (isset($_POST['in_stock']) && $_POST['in_stock'] == '1') ? 1 : 0;
 
     $image_data = null;
     if (isset($_FILES["image"]["tmp_name"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK) {
@@ -33,17 +38,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Execute the statement and prepare the response
-    if ($stmt->execute($execute_array)) {
-        $response = ['status' => 'success', 'message' => 'Menu item updated successfully!'];
-    } else {
-        $response = ['status' => 'error', 'message' => 'Error updating menu item.'];
-    }
-
-    // Before sending the JSON response, clean all previous outputs
-ob_end_clean();
+if ($stmt->execute($execute_array)) {
+    $response = ['status' => 'success', 'message' => 'Menu item updated successfully!'];
+} else {
+    $response = ['status' => 'error', 'message' => 'Error updating menu item.'];
+    error_log(print_r($stmt->errorInfo(), true)); // Log error info if the query fails
+}
+    
+//     // Before sending the JSON response, clean all previous outputs
+// ob_end_clean();
 header('Content-Type: application/json'); // Specify the content type as JSON
 echo json_encode($response);
 exit;
     
 }
+error_log("REQUEST Data: " . print_r($_REQUEST, true));
 ?>
