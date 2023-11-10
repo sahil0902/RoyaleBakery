@@ -104,22 +104,30 @@ if (isset($notification)) {
     <input type="checkbox" id="in_stock" name="in_stock" class="form-check-input" value="1" checked>
     <label for="in_stock" class="form-check-label">In Stock</label>
 </div> -->
-        <div class="form-group">
-            <label for="image">Image:</label>
-            <input type="file" id="image" name="image" class="form-control" required>
-        </div>
+<div class="form-group">
+    <label for="image">Image:</label>
+    <div class="custom-file">
+        <input type="file" id="image" name="image" class="custom-file-input" required>
+        <label class="pic-label" for="image" data-file-name="No file chosen">Tap here to select photo</label>
+
+    </div>
+    <!-- Image Preview Element -->
+    <div id="imagePreview" style="display: none;"></div> <!-- Add this line -->
+</div>
+
+
+
         <input type="submit" value="Add Menu Item" class="btn btn-primary mt-3">
     </form>
-    <h2 class="my-5">Menu Items</h2>
-</form>
 
         <h2 class="my-5">Menu Items</h2>
 <div class="row">
     <?php foreach ($menu_items as $item): ?>
-        <label>
-        In Stock:
-        <input type="checkbox" class="in-stock-checkbox" data-item-id="<?= $item['id'] ?>" <?= $item['in_stock'] ? 'checked' : '' ?>>
-    </label>
+        <label class="custom-checkbox">
+    In Stock:
+    <input type="checkbox" class="in-stock-checkbox" data-item-id="<?= $item['id'] ?>" <?= $item['in_stock'] ? 'checked' : '' ?>>
+    <span class="checkmark"></span>
+</label>
         <div class="col-lg-4 col-md-6 mb-4" id="menuItem<?php echo $item['id']; ?>">
             <div class="card">
                 <div class="card-body">
@@ -154,10 +162,27 @@ if (isset($notification)) {
     </select>
 </div>
 
-                            <div class="form-group">
-                                <label for="edit-image-<?php echo $item['id']; ?>">Image:</label>
-                                <input type="file" id="edit-image-<?php echo $item['id']; ?>" name="image" class="form-control">
-                            </div>
+<div class="form-group">
+    <label for="edit-image-<?php echo $item['id']; ?>">Current Image:</label>
+    <div class="image-preview" id="image-preview-<?php echo $item['id']; ?>"style="min-height: 100px;">
+        <!-- If there's an existing image, show it in a smaller size -->
+        <?php if ($item['image_data']): ?>
+            <img src="data:image/jpeg;base64,<?php echo base64_encode($item['image_data']); ?>" alt="Item Image" style="max-width: 300px; max-height: 300px;" />
+
+        <?php endif; ?>
+    </div>
+    <label> Change Image:</label>
+    <input type="file" id="new-image-<?php echo $item['id']; ?>" name="new_image" class="form-control" 
+           onchange="previewImage(this, '<?php echo $item['id']; ?>')" aria-describedby="imageHelpBlock">
+    <small id="imageHelpBlock" class="form-text text-muted">
+    <label for="new-image-<?php echo $item['id']; ?>">Tap here to Change Image</label>
+    </small>
+    <div class="image-preview" id="new-image-preview-<?php echo $item['id']; ?>" style="display: none;">
+        <!-- New image preview will be shown here -->
+    </div>
+</div>
+
+
                       <!-- This should be within the loop where you fetch and define $item -->
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Save Changes</button>

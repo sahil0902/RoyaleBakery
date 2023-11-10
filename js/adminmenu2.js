@@ -1,14 +1,29 @@
-// // Function to show notifications
-
-const showNotification = (message, itemId) => {
+const showNotification = (message, type) => {
     let notification = document.createElement('div');
-    notification.className = 'top-notification';
+    notification.className = `toast-notification ${type}`; // Add the type of notification as a class
     notification.textContent = message;
-    document.body.appendChild(notification);
+  
+    // Optionally, add a button or icon to close the notification
+    const closeButton = document.createElement('button');
+    closeButton.textContent = '×';
+    closeButton.className = 'toast-close-button';
+    closeButton.onclick = () => notification.remove();
+    notification.appendChild(closeButton);
+  
+    // Append the notification to a container div for toasts, if it exists; otherwise, append to body
+    const toastContainer = document.getElementById('toast-container') || document.body;
+    toastContainer.appendChild(notification);
+  
+    // Automatically remove the notification after 3 seconds
     setTimeout(() => {
-        notification.remove();
-    }, 3000); // 3 seconds delay
-};
+      notification.remove();
+    }, 3000);
+  };
+  
+  // Call this function to create a notification
+  // showNotification('Your message here', 'success'); // Call it with types like 'success', 'error', etc.
+  
+
 console.log('Script loaded');
 
 // Ensure the toggleEditForm function is defined in the global scope
@@ -97,14 +112,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (data.status === 'success') {
                     // Update the UI to reflect the change
                     updateMenuItemDisplay(itemId, formData);
-                    showNotification('Item updated successfully!', itemId);
+                    //showNotification('Item updated successfully!', itemId);
+                    showNotification(data.message, success)
                     window.toggleEditForm(itemId); // Hide the form after successful update
                 } else {
-                    showNotification('Failed to update item.', itemId);
+                    showNotification(data.message, error)
+                   // showNotification('Failed to update item.', itemId);
                 }
             } catch (error) {
                 console.error('Error:', error);
-                showNotification('An error occurred during the update.', itemId);
+                showNotification('An error occurred during the update.', error);
             }
         });
     });
@@ -209,17 +226,18 @@ function previewImage(input, previewId) {
             if (data.status === 'success') {
                 console.log('In stock status updated successfully');
                // showNotification('In stock status updated successfully', itemId);
-                showNotification(data.message, itemId)
+               // showNotification(data.message, itemId)
+                showNotification('In stock status updated successfully', success);
                 // Add UI update logic here
             } else {
                 console.error('Failed to update in stock status');
-               /// showNotification(data.message, itemId)
-                showNotification('Failed to update in stock status.', itemId);
+                showNotification(data.message, error)
+                //showNotification('Failed to update in stock status.', itemId);
                 // Add error notification here
             }
         } catch (error) {
             console.error('Error:', error);
-            showNotification('An error occurred during the update.', itemId);
+            showNotification('An error occurred during the update.', error);
             // Add error notification here
         }
     }
@@ -253,13 +271,14 @@ function previewImage(input, previewId) {
                 .then(data => {
                     showNotification(data.message);
                     if (data.status === 'success') {
+                        showNotification('Item deleted successfully', success);
                         document.querySelector(`#menuItem${itemId}`).remove();
                         toggleEditForm(itemId);
                     }
                 })
                 .catch(error => {
                     console.error('Delete operation failed:', error);
-                    showNotification('Error deleting item.');
+                    showNotification('Error deleting item.',error);
                 });
             }
         });
