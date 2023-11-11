@@ -1,14 +1,44 @@
 // // Function to show notifications
 
-const showNotification = (message, itemId) => {
-    let notification = document.createElement('div');
-    notification.className = 'top-notification';
+function showNotification(message) {
+    // Determine the type of notification based on message content
+    let type = 'info'; // Default type
+    if (message.toLowerCase().includes('error')) {
+        type = 'error';
+    } else if (message.toLowerCase().includes('success')) {
+        type = 'success';
+    } else if (message.toLowerCase().includes('warning')) {
+        type = 'warning';
+    }
+
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `toast-notification ${type}`;
     notification.textContent = message;
+
+    // Close button for the notification
+    const closeButton = document.createElement('button');
+    closeButton.textContent = '×';
+    closeButton.className = 'toast-close-button';
+    closeButton.onclick = () => notification.remove();
+
+    // Append the close button to the notification
+    notification.appendChild(closeButton);
+
+    // Append the notification to the body
     document.body.appendChild(notification);
+
+    // Remove the notification after 3 seconds
     setTimeout(() => {
         notification.remove();
-    }, 3000); // 3 seconds delay
-};
+    }, 3000);
+}
+
+// Ensure global availability of the function
+window.showNotification = showNotification;
+
+console.log('Toast notification script loaded and ready.');
+
 console.log('Script loaded');
 
 // Ensure the toggleEditForm function is defined in the global scope
@@ -80,13 +110,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-// AJAX Implementation for Inline Editing
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.edit-form form').forEach(form => {
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
             const itemId = form.querySelector('input[name="id"]').value;
             const formData = new FormData(form);
+
+            // Check if a new image is selected and append it under the 'image' key
+            const imageInput = form.querySelector('input[type="file"]');
+            if (imageInput && imageInput.files.length > 0) {
+                formData.append('image', imageInput.files[0]);
+            }
 
             try {
                 const response = await fetch('edit_menu.php', {
@@ -111,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-   // Dynamically Updating the Content
+
 const updateMenuItemDisplay = (itemId, formData) => {
     const menuItem = document.querySelector(`#menuItem${itemId}`);
     if (!menuItem) {
@@ -119,26 +154,47 @@ const updateMenuItemDisplay = (itemId, formData) => {
         return;
     }
 
-    // Update the menu item's name, description, category, and price
+    // Update the menu item's details
     menuItem.querySelector('.card-title').textContent = formData.get('name');
     menuItem.querySelectorAll('.card-text')[0].textContent = formData.get('description');
     menuItem.querySelectorAll('.card-text')[1].textContent = "Category: " + formData.get('category');
     menuItem.querySelectorAll('.card-text')[2].textContent = "Price: £" + formData.get('price');
-    
 
+    // Update the image
+    const imgElement = menuItem.querySelector(`#image-preview-${itemId} img`);
+    if (imgElement) {
+        // Update the image source to force reload the image
+        // This assumes the image URL/path remains the same, but a query string is added to bypass the cache
+        imgElement.src = imgElement.src.split('?')[0] + '?timestamp=' + new Date().getTime();
+    } else {
+        console.error('Image element not found in menu item:', `#image-preview-${itemId}`);
+        showNotification('Failed to update item.', itemId);
+    }
 };
-document.querySelectorAll('.edit-form input[type="file"]').forEach(fileInput => {
+
+
+ent.querySelectorAll('.edit-form input[type="file"]').forEach(fileInput => {
     fileInput.addEventListener('change', function() {
         if (this.files && this.files[0]) {
             const reader = new FileReader();
             reader.onload = function(e) {
                 const imgElement = document.querySelector(`#menuItem${fileInput.dataset.itemId} img`);
-                imgElement.src = e.target.result;
+                
+                // Debugging: Log the imgElement and itemId
+                console.log('imgElement:', imgElement, 'itemId:', fileInput.dataset.itemId);
+
+                // Error handling: Check if imgElement is not null
+                if (imgElement) {
+                    imgElement.src = e.target.result;
+                } else {
+                    console.error('Image element not found for itemId:', fileInput.dataset.itemId);
+                }
             };
             reader.readAsDataURL(this.files[0]);
         }
     });
 });
+
 document.getElementById('image').addEventListener('change', function(event) {
     var label = document.querySelector("label[for='image']");
     var fileInput = event.target;
@@ -160,39 +216,19 @@ document.getElementById('image').addEventListener('change', function(event) {
     }
 });
 
-function previewImage(input, previewId) {
-    var previewContainer = document.getElementById(previewId);
-
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
+function previewImage(input, itemId) {
+    const file = input.files[0];
+    if (file) {
+        const reader = new FileReader();
         reader.onload = function(e) {
-            // Clear any existing content in the preview container
-            previewContainer.innerHTML = '';
-            // Create an img element and set its source to the file content
-            var img = document.createElement('img');
-            img.src = e.target.result;
-            img.style.maxWidth = '300px'; // Adjust this value to your preference
-            img.style.maxHeight = '300px'; // Adjust this value to your preference
-            img.alt = 'Image preview';
-            // Append the image to the preview container
-            previewContainer.appendChild(img);
-            // Make sure the preview container is visible
-            previewContainer.style.display = 'block';
+            const previewDiv = document.getElementById(`new-image-preview-${itemId}`);
+            previewDiv.style.display = 'block';
+            previewDiv.innerHTML = '<img src="' + e.target.result + '" class="img-fluid" />'; // Adjust image styling as needed
         };
-
-        reader.onerror = function(e) {
-            // Handle errors here
-            console.error('File could not be read! Code ' + e.target.error.code);
-        };
-
-        // Read the image file as a data URL to trigger the onload event
-        reader.readAsDataURL(input.files[0]);
-    } else {
-        // Hide the preview container if no image is selected
-        previewContainer.style.display = 'none';
+        reader.readAsDataURL(file);
     }
 }
+
 
 
     async function updateInStockStatus(itemId, inStock) {

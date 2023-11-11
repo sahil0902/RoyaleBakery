@@ -63,6 +63,7 @@ $menu_items = $pdo->query("SELECT * FROM menu_items ORDER BY category")->fetchAl
    
 </head>
 <body class="bg-light">
+<div id="toast-container"></div>
 <div id="loadingBarContainer">
     <div id="loadingBar"></div>
     <span id="loadingPercentage">0%</span>

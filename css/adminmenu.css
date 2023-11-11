@@ -666,20 +666,44 @@ select.form-control:focus {
     align-items: flex-end;
   }
   
-  /* Toast notification basic styles */
-  .toast-notification {
-    margin-bottom: 15px;
-    padding: 15px;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0,0,0,.2);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    min-width: 250px;
-    max-width: 300px;
-  }
-  
+/* Toast Notifications Styles */
+.toast-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #333;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    z-index: 1000; /* High z-index to ensure visibility */
+    opacity: 0;
+    animation: fadeIn 0.5s forwards, fadeOut 0.5s 2.5s forwards;
+}
+
+.toast-close-button {
+    margin-left: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+
+/* Animations for fading in and out */
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; }
+}
+
+/* Optional: Styles for different types of notifications */
+.toast-notification.info { background-color: #d9edf7; color: #31708f; }
+.toast-notification.warning { background-color: #fcf8e3; color: #8a6d3b; }
+.toast-notification.error { background-color: #f2dede; color: #a94442; }
+
   /* Close button inside toast */
   .toast-close-button {
     background-color: transparent;

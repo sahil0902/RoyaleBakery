@@ -39,6 +39,7 @@ if (empty($name)) {
         echo json_encode(['status' => 'error', 'message' => 'Invalid image data.']);
         exit;
     }
+    
 }
 
     // Construct the SQL query
