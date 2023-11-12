@@ -39,6 +39,8 @@ if (empty($name)) {
         echo json_encode(['status' => 'error', 'message' => 'Invalid image data.']);
         exit;
     }
+     // Encode the image data to base64 for response
+     $encoded_image = base64_encode($image_data);
     
 }
 
@@ -58,7 +60,8 @@ if (empty($name)) {
                 'price' => $price,
                 'category' => $category,
                 // If you want to include image data in the response (e.g., a flag to indicate success)
-                'imageUpdated' => $image_data ? true : false,
+                'imageUpdated' => isset($encoded_image),
+                'imageData' => $encoded_image ?? null, // Include the base64 encoded image data
             ]
         ];
     } else {

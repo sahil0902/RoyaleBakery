@@ -54,7 +54,7 @@ foreach ($menu_items as $item) {
     <link rel="stylesheet" href="css/darkmode.css">
     <link rel="stylesheet" type="text/css" href="css/basket.css">
     <link rel="stylesheet" type="text/css" href="css/animation.css">
-    <link rel="stylesheet" type="text/css" href="css/noti.css">
+    <link rel="stylesheet" type="text/css" href="css/adminmenu.css">
 
 </head>
 <body class="bg-black" >
@@ -319,13 +319,13 @@ function collapseNavbar() {
   </div>
 </div>
 
-<div id="notificationModal" class="center" style="display:none; position:fixed; top:20%; left:50%; transform:translate(-50%, -50%); z-index:1000;">
+<!-- <div id="notificationModal" class="center" style="display:none; position:fixed; top:20%; left:50%; transform:translate(-50%, -50%); z-index:1000;">
     <div class="info">
         <i class="fa fa-info-circle spin"></i>
         &nbsp; &nbsp;
         <span>This feature is currently not available.</span>
     </div>
-</div>
+</div> -->
 
 
 <div class="section bg-black" id="section-menu" data-aos="fade-up">
@@ -787,11 +787,11 @@ $sections = [
     
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-
+    <script src="js/adminmenu.js"></script>
     <script src="js/main.js"></script>
     <script src = "js/basket.js"></script>
     <script src="js/scrollPosition.js"></script>
-    <script src="js/noti.js"></script>
+   
 
   </body>
 </html>

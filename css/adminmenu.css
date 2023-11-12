@@ -35,25 +35,40 @@ body, html {
     text-shadow: none; /* For a cleaner look */
 }
 
-/* Notification styles */
+/* Notification container styles */
+#notification-container {
+    position: fixed;
+    top: 10px; /* Adjust as needed */
+    right: 10px; /* Adjust as needed */
+    width: 300px; /* Set a fixed width */
+    z-index: 1000; /* Ensure it's above other elements */
+    max-height: 80vh; /* Adjust as needed */
+    overflow-y: auto; /* Allow scrolling for many notifications */
+}
+
+/* Individual notification styles */
 .top-notification {
     padding: 10px;
-    background-color: #17a2b8; /* Bootstrap's info color for a neutral look */
+    margin-bottom: 10px; /* Add space between notifications */
+    background-color: #17a2b8;
     color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-bottom: 3px solid #138496; /* Darker shade for depth */
+    border-bottom: 3px solid #138496;
     animation: slideDown 0.5s ease-out forwards;
 }
 
-/* Animations */
+/* Animation for sliding down notifications */
 @keyframes slideDown {
-    0% {
+    from {
         transform: translateY(-100%);
+        opacity: 0;
     }
-    100% {
+    to {
         transform: translateY(0);
+        opacity: 1;
     }
 }
+
 
 /* Form styles */
 form {
@@ -665,55 +680,77 @@ select.form-control:focus {
     flex-direction: column;
     align-items: flex-end;
   }
-  
-/* Toast Notifications Styles */
+  /* Base styles for notifications */
 .toast-notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
     padding: 10px 20px;
-    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    position: fixed;
+  
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Centering adjustment */
+    width: 90%;
+    max-width: 350px;
     background-color: #fff;
     color: #333;
-    border-radius: 5px;
+    text-align: center;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    z-index: 1000; /* High z-index to ensure visibility */
+    z-index: 1000;
+    top: 80px; 
     opacity: 0;
     animation: fadeIn 0.5s forwards, fadeOut 0.5s 2.5s forwards;
 }
 
 .toast-close-button {
-    margin-left: 15px;
-    background: none;
+    position: absolute;
+    bottom: 0.25rem;
+    right: 0.25rem;
+    background-color: transparent;
     border: none;
+    color: #333; /* Adjust the color as needed for visibility */
+    font-size: 1.5em; /* Adjust the size as needed */
     cursor: pointer;
-    font-size: 1.2em;
+}
+@media (max-width: 768px) {
+    .toast-notification {
+        font-size: 14px;
+        max-width: calc(100% - 40px); /* Subtracts 20px padding from each side */
+        top: auto; /* Reset top position */
+        left: 50%;
+        transform: translateX(-50%);
+    }
 }
 
 /* Animations for fading in and out */
 @keyframes fadeIn {
+    from { opacity: 0; }
     to { opacity: 1; }
 }
 
 @keyframes fadeOut {
+    from { opacity: 1; }
     to { opacity: 0; }
 }
 
-/* Optional: Styles for different types of notifications */
-.toast-notification.info { background-color: #d9edf7; color: #31708f; }
-.toast-notification.warning { background-color: #fcf8e3; color: #8a6d3b; }
-.toast-notification.error { background-color: #f2dede; color: #a94442; }
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+    .toast-notification {
+      
+        font-size: 14px;
+        max-width: calc(100% - 40px); /* Subtracts 20px padding from each side */
+        top: 80px; 
+    }
+}
 
-  /* Close button inside toast */
-  .toast-close-button {
-    background-color: transparent;
-    border: none;
-    color: inherit;
-    font-size: 1.5em;
-    cursor: pointer;
-  }
-  
-  /* Different types of notifications */
+/* Styles for different notification types */
+.toast-notification.info { background-color: #e7f5fe; color: #1c3faa; }
+.toast-notification.success { background-color: #d4edda; color: #155724; }
+.toast-notification.warning { background-color: #fff3cd; color: #856404; }
+.toast-notification.error { background-color: #f8d7da; color: #721c24; }
+
+  /* Different types of notifications
   .toast-notification.success {
     background-color: #d4edda;
     color: #155724;
@@ -737,4 +774,4 @@ select.form-control:focus {
     color: #856404;
     border-color: #ffeeba;
   }
-  
+   */

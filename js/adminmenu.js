@@ -1,6 +1,24 @@
 // // Function to show notifications
-
+const notificationQueue = [];
+let isNotificationBeingShown = false;
 function showNotification(message) {
+    // Add the notification message to the queue
+    notificationQueue.push(message);
+
+    // If no notification is currently being shown, display the next one
+    if (!isNotificationBeingShown) {
+        displayNextNotification();
+    }
+}
+function displayNextNotification() {
+    if (notificationQueue.length === 0) {
+        isNotificationBeingShown = false;
+        return;
+    }
+
+    isNotificationBeingShown = true;
+    const message = notificationQueue.shift(); // Get the next message from the queue
+
     // Determine the type of notification based on message content
     let type = 'info'; // Default type
     if (message.toLowerCase().includes('error')) {
@@ -25,14 +43,25 @@ function showNotification(message) {
     // Append the close button to the notification
     notification.appendChild(closeButton);
 
-    // Append the notification to the body
-    document.body.appendChild(notification);
-
-    // Remove the notification after 3 seconds
-    setTimeout(() => {
-        notification.remove();
-    }, 3000);
+      // Find or create the notification container
+      let notificationContainer = document.getElementById('notification-container');
+      if (!notificationContainer) {
+          notificationContainer = document.createElement('div');
+          notificationContainer.id = 'notification-container';
+          document.body.appendChild(notificationContainer);
+      }
+  
+      // Append the notification to the container
+      notificationContainer.appendChild(notification);
+  
+      // Remove the notification after 3 seconds and display the next one
+      setTimeout(() => {
+          notification.remove();
+          displayNextNotification();
+      }, 3000);
+  
 }
+
 
 // Ensure global availability of the function
 window.showNotification = showNotification;
@@ -131,8 +160,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await response.json();
                 if (data.status === 'success') {
                     // Update the UI to reflect the change
-                    updateMenuItemDisplay(itemId, formData);
+                    updateMenuItemDisplay(itemId, formData, data.updatedData.imageData);
+            
                     showNotification('Item updated successfully!', itemId);
+                    showNotification('If you have changed the image, please refresh the page to see the updated image.');
                     window.toggleEditForm(itemId); // Hide the form after successful update
                 } else {
                     showNotification('Failed to update item.', itemId);
@@ -147,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-const updateMenuItemDisplay = (itemId, formData) => {
+const updateMenuItemDisplay = (itemId, formData, imageData) => {
     const menuItem = document.querySelector(`#menuItem${itemId}`);
     if (!menuItem) {
         console.error('Menu item element not found:', `#menuItem${itemId}`);
@@ -163,9 +194,13 @@ const updateMenuItemDisplay = (itemId, formData) => {
     // Update the image
     const imgElement = menuItem.querySelector(`#image-preview-${itemId} img`);
     if (imgElement) {
-        // Update the image source to force reload the image
-        // This assumes the image URL/path remains the same, but a query string is added to bypass the cache
-        imgElement.src = imgElement.src.split('?')[0] + '?timestamp=' + new Date().getTime();
+        // Check if imageData is provided in the response, update the image source with base64 data
+        if (imageData) {
+            imgElement.src = 'data:image/jpeg;base64,' + imageData;
+        } else {
+            // Update the image source to force reload the image
+            imgElement.src = imgElement.src.split('?')[0] + '?timestamp=' + new Date().getTime();
+        }
     } else {
         console.error('Image element not found in menu item:', `#image-preview-${itemId}`);
         showNotification('Failed to update item.', itemId);
@@ -173,27 +208,28 @@ const updateMenuItemDisplay = (itemId, formData) => {
 };
 
 
-ent.querySelectorAll('.edit-form input[type="file"]').forEach(fileInput => {
-    fileInput.addEventListener('change', function() {
-        if (this.files && this.files[0]) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const imgElement = document.querySelector(`#menuItem${fileInput.dataset.itemId} img`);
-                
-                // Debugging: Log the imgElement and itemId
-                console.log('imgElement:', imgElement, 'itemId:', fileInput.dataset.itemId);
 
-                // Error handling: Check if imgElement is not null
-                if (imgElement) {
-                    imgElement.src = e.target.result;
-                } else {
-                    console.error('Image element not found for itemId:', fileInput.dataset.itemId);
-                }
-            };
-            reader.readAsDataURL(this.files[0]);
-        }
-    });
-});
+// ent.querySelectorAll('.edit-form input[type="file"]').forEach(fileInput => {
+//     fileInput.addEventListener('change', function() {
+//         if (this.files && this.files[0]) {
+//             const reader = new FileReader();
+//             reader.onload = function(e) {
+//                 const imgElement = document.querySelector(`#menuItem${fileInput.dataset.itemId} img`);
+                
+//                 // Debugging: Log the imgElement and itemId
+//                 console.log('imgElement:', imgElement, 'itemId:', fileInput.dataset.itemId);
+
+//                 // Error handling: Check if imgElement is not null
+//                 if (imgElement) {
+//                     imgElement.src = e.target.result;
+//                 } else {
+//                     console.error('Image element not found for itemId:', fileInput.dataset.itemId);
+//                 }
+//             };
+//             reader.readAsDataURL(this.files[0]);
+//         }
+//     });
+// });
 
 document.getElementById('image').addEventListener('change', function(event) {
     var label = document.querySelector("label[for='image']");

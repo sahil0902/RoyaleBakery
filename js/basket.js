@@ -100,10 +100,12 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function addToBasket(id, name, price) {
+    showNotification("This feature will be available in the future. We'll send you an email with the total price and products for your reference.");
     console.log(`Adding item with ID: ${id}, Name: ${name}, Price: ${price}`);
     let foundItem = basket.find(item => item.id === id);
     
     if (foundItem) {
+   
         foundItem.quantity++;
     } else {
         basket.push({id, name, price, quantity: 1});
@@ -115,7 +117,7 @@ function addToBasket(id, name, price) {
 function toggleDropdown() {
     const dropdown = document.getElementById('basketDropdown');
     if (dropdown.style.display === 'none' || !dropdown.style.display) {
-        showNotification();
+       // showNotification();
         dropdown.style.display = 'block';
         console.log("Dropdown should now be VISIBLE");
     } else {
@@ -224,13 +226,13 @@ function initializePreloaderAnimations() {
 document.getElementById('checkoutButton').addEventListener('click', function() {
     const email = document.getElementById('customerEmail').value;
     if (!email) {
-        alert("Please enter your email!");
+        showNotification("Please enter your email!");
         return;
     }
 
     const customerName = document.getElementById('customerName').value;
     if (!customerName) {
-        alert("Please enter your name!");
+        showNotification("Please enter your name!");
         return;
     }
 
@@ -254,15 +256,17 @@ document.getElementById('checkoutButton').addEventListener('click', function() {
     })
     .then(data => {
         if (data.success) {
-            alert("Order saved and email sent!");
+            //showNotification("Order saved and email sent!");
+            showNotification("Order saved and email sent!");
             basket = [];
             updateBasketDisplay();
         } else {
-            alert("There was an error!");
+            
+            showNotification("There was an error!");
         }
     })
     .catch(error => {
         console.error("Error:", error);
-        alert("There was a problem with the network.");
+        showNotification("There was a problem with the network.");
     });
 });
