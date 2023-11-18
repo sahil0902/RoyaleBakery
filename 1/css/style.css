@@ -716,7 +716,25 @@ textarea.form-control {
   font-size: 1.2em;
   color: green;
 }
+.interactive-item {
+  border-bottom: 1px dotted #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 20px 0;
+  margin-bottom: 30px;
+  background-color: #fff;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
 
+.interactive-item:hover {
+  border: 1px solid rgba(255, 215, 0, 0.5);
+  background-color: rgba(50, 50, 50, 0.2);
+  color: #ffd700;
+  transform: scale(1.02);
+  opacity: 0.9;
+}
 /* Existing menu-food-item style with some modifications */
 .menu-food-item {
   border-bottom: 1px dotted #ccc;  /* Retained the border style */
@@ -1665,27 +1683,72 @@ textarea.form-control {
   background: black;
 }
 
+
+
+/* Search form styling */
 .search-form {
-  background: #f7f7f7;
-  padding: 10px;
+  background: #fff4e6; /* Cream background */
+  padding: 20px;
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  font-family: 'Playfair Display', serif; /* Consistent typography */
 }
 
-.search-form .form-group {
-  position: relative;
+.search-form input[type="text"] {
+  width: 70%; /* Adjusted width */
+  font-family: 'Playfair Display', serif; /* Match the font family */
+  font-size: 16px; /* Match the font size */
+  color: #fff; /* Use white color for the text */
+  font-weight: normal; /* Match the font weight */
+  background: transparent; /* Optional: if you want the input background to be transparent */
+  border: 1px solid #fff;
+  padding: 10px 15px;
+  font-size: 1em;
+  color: #5c3a0d; /* Consistent text color */
+  border-radius: 5px; /* Rounded corners */
+  margin-right: -4px; /* Align with the button */
+}
+/* Make sure the placeholder text also matches */
+.search-form input[type="text"]::placeholder {
+  color: #fff4e6; /* Light color for placeholder text */
+  opacity: 1; /* Make sure it's fully visible */
 }
 
-.search-form .form-group input {
-  padding-right: 50px;
+.search-form input[type="submit"] {
+  border: 2px solid #5c3a0d; /* Brown border */
+  background-color: #5c3a0d; /* Brown background */
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 1em;
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Hand cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
 }
 
+.search-form input[type="submit"]:hover {
+  background-color: #e0a96d; /* Lighter brown on hover */
+}
+
+/* Icon positioning inside input if exists */
 .search-form .icon {
   position: absolute;
   top: 50%;
-  right: 20px;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
+  right: 35px; /* Adjust as needed */
   transform: translateY(-50%);
+  color: #5c3a0d;
 }
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .search-form .form-group input[type="text"],
+  .search-form .form-group input[type="submit"] {
+      width: auto;
+      display: block;
+      margin-bottom: 10px;
+  }
+}
+
 
 .sidebar-box {
   margin-bottom: 30px;
@@ -1994,7 +2057,7 @@ p.sub-heading {
 
 /* Menu Items Color Scheme */
 .menu-food-item .text h3 a {
-    color: var(--rich-gold);
+    color: var(--rich-gold); 
 }
 
 .menu-food-item .text p {
@@ -2133,32 +2196,39 @@ p.sub-heading {
   }
  
   .ftco-38-body {
-      font-family: 'Playfair Display', serif;
-      color: #fafad2;
-      background-color: rgba(0, 0, 0, 0.8);
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-  }
+    background-color: #fff4e6; /* Cream background */
+    color: #5c3a0d; /* Brown text */
+    font-family: 'Playfair Display', serif; /* Traditional font */
+    padding: 20px;
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0px 0px 10px #ccc; /* Soft shadow */
+}
   
-  .ftco-38-body .introduction {
-      font-size: 2em;
-      margin-bottom: 15px;
-      line-height: 1.6;
-      font-weight: bold;
-  }
-  
-  .ftco-38-body .address {
-      font-size: 1.3em;
-      margin-bottom: 15px;
-      font-style: italic;
-      font-weight: lighter;
-  }
-  
-  .ftco-38-body .social-links {
-      font-size: 1em;
-      margin-top: 20px;
-  }
+.introduction {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+.address {
+  font-size: 1em;
+  color: #7c5c45; /* Darker shade for contrast */
+  margin-bottom: 10px;
+}
+
+.social-links {
+  margin-top: 10px;
+}
+
+.social-icon {
+  color: #5c3a0d; /* Brown icons */
+  font-size: 1.5em; /* Larger icons */
+  margin-right: 5px;
+}
+
+.social-icon:hover {
+  color: #e0a96d; /* Lighter brown on hover */
+  transform: scale(1.1); /* Slightly larger on hover */
+}
   
   .ftco-38-body .social-links .social-icon {
       margin: 0 10px;

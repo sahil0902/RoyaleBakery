@@ -55,7 +55,7 @@ foreach ($menu_items as $item) {
     <link rel="stylesheet" href="css/darkmode.css">
     <link rel="stylesheet" type="text/css" href="css/basket.css">
     <link rel="stylesheet" type="text/css" href="css/animation.css">
-    <link rel="stylesheet" type="text/css" href="css/adminmenu.css">
+    <!-- <link rel="stylesheet" type="text/css" href="css/adminmenu.css"> -->
     <link rel="stylesheet" type="text/css" href="css/intro.css">
 
 </head>
@@ -271,9 +271,10 @@ function collapseNavbar() {
                     <div class="ftco-38-body">
     <p class="introduction">Welcome to Royale Bakery - where tradition meets taste.</p>
     <p class="address" itemscope itemtype="http://schema.org/PostalAddress">
-        Visit Us: <span itemprop="streetAddress">123 Main Street</span>,
-        <span itemprop="addressLocality">Anytown</span>,
-        <span itemprop="addressRegion">AN</span>
+        Visit Us: <span itemprop="streetAddress">203 Otley Road</span>,
+        <span itemprop="addressLocality">Bradford</span>,
+        <span itemprop="addressRegion">BD3 0JF</span>
+        <a href="https://www.google.com/maps?q=203+Otley+Road,+Bradford,+BD3+0JF" target="_blank" rel="noopener noreferrer">View on Google Maps</a>
     </p>
     <div class="social-links">
         Stay connected with our latest offerings and events:
@@ -372,7 +373,7 @@ function collapseNavbar() {
 <?php if (!empty($searched_items)): ?>
     <h4 class="mb-4">Search Results</h4>
     <?php foreach ($searched_items as $item): ?>
-        <div class="d-flex justify-content-between align-items-center menu-food-item">
+        <div class="d-flex justify-content-between align-items-center menu-food-item interactive-item">
             <div class="text">
                 <h4><?= htmlspecialchars($item['category']) ?></h4>
                 <img src="data:image/jpeg;base64,<?= base64_encode($item['image_data']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" style="max-width: 100px;">
@@ -426,7 +427,7 @@ $sections = [
         if (isset($items_to_display) && !empty($items_to_display)):
             foreach ($items_to_display as $item):
             ?>
-            <div class="d-flex justify-content-between align-items-center menu-food-item">
+            <div class="d-flex justify-content-between align-items-center menu-food-item interactive-item">
                 <div class="text">
                     <img src="data:image/jpeg;base64,<?= base64_encode($item['image_data']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" style="max-width: 100px;">
                     <h3><a href="#"><?= htmlspecialchars($item['name']) ?></a></h3>
