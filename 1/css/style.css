@@ -1,15 +1,30 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
 html {
-  overflow-x: hidden;
+  scroll-behavior: smooth;
+  overflow-x: auto ;
+}
+body.bg-black {
+
+  background-color: #111111; /* or #222222 for a slightly lighter shade */
 }
 
 body {
-  background: #fff;
+  background-color: #000000; /* Black color for background */
   font-family: "Open Sans", Arial, sans-serif;
   font-size: 20px;
   line-height: 1.8;
   font-weight: 300;
-  color: gray;
+  color: #F5F5DC; /* Cream color for text */
 }
+
 
 p, ul, ol {
   margin-bottom: 30px;
@@ -91,8 +106,10 @@ textarea.form-control {
   -webkit-box-shadow: 0 -20px 20px -5px rgba(0, 0, 0, 0.05);
   box-shadow: 0 -20px 20px -5px rgba(0, 0, 0, 0.05);
   min-height: 300px;
-  overflow: auto;
+  overflow-y: hidden; /* Changed from overflow to overflow-y */
+  max-height: 100vh; /* Limit the height to viewport height */
 }
+
 
 .site-menu ul {
   position: relative;
@@ -121,7 +138,7 @@ textarea.form-control {
 }
 
 .site-menu ul > li a {
-  color: #000;
+  color: var(--rich-gold);
   font-size: 20px;
 }
 
@@ -150,7 +167,8 @@ textarea.form-control {
 }
 
 .bg-slant-white.bg-light:after {
-  background: #f8f9fa;
+  background: #111111;
+  
 }
 
 .site-logo-wrap {
@@ -591,15 +609,34 @@ textarea.form-control {
 }
 
 .site-tab-nav {
-  display: block;
-  text-align: center;
-  margin-bottom: 80px !important;
+  border-bottom: 2px solid #ccc;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+.nav-item {
+  margin: 0;
+}
+.nav-link {
+  padding: 10px 15px;
+  border-radius: 5px;
+  -webkit-transition: background-color 0.2s;
+  -o-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+  color: #333;
+  text-decoration: none;
+  margin: 0 5px;
 }
 
 .site-tab-nav li {
   float: none;
   display: inline-block;
-  *display: inline;
+  display: inline;
   zoom: 1;
 }
 
@@ -627,74 +664,138 @@ textarea.form-control {
 .site-tab-nav, .nav-pills {
   text-align: center;
 }
+/* General styling for the section */
+.section.bg-black {
+  background-color: #000;
+  color: #fff;
+  height: 50%; /* Set a fixed height (adjust as needed) */
+  padding-top: 20px; /* Adjust the top padding as needed */
+  padding-bottom: 20px; /* Adjust the bottom padding as needed */
+}
 
+
+/* General styling for the section */
+.section.bg-black {
+  padding: 50px 0;
+  background-color: #000;
+  color: #fff;
+}
+
+/* Search bar styling */
+.section.bg-black input[type="text"] {
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 80%;
+  margin-right: 5px;
+}
+
+.section.bg-black input[type="submit"] {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #2e2a02;  /* Existing color for better consistency */
+  color: #fff;
+  cursor: pointer;
+  -webkit-transition: background-color 0.3s ease;
+  -o-transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
+}
+
+.section.bg-black input[type="submit"]:hover {
+  background-color: rgba(55, 56, 22, 0.677)
+}
+
+/* Heading styles */
+.section-heading h2 {
+  font-size: 2em;
+  margin-bottom: 15px;
+}
+
+.section-heading p.sub-heading {
+  font-size: 1.2em;
+  color: green;
+}
+
+/* Existing menu-food-item style with some modifications */
 .menu-food-item {
-  border-bottom: 1px dotted #ccc;
-  float: left;
+  border-bottom: 1px dotted #ccc;  /* Retained the border style */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;                   /* Changed from float to flex for better alignment */
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;  /* Aligns content space-wise */
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;             /* Vertically aligns items in the center */
   width: 100%;
-  padding-bottom: 30px;
+  padding: 20px 0;                /* Adjusted padding for top and bottom */
   margin-bottom: 30px;
+  -webkit-transition: background-color 0.3s ease, -webkit-transform 0.3s ease;
+  transition: background-color 0.3s ease, -webkit-transform 0.3s ease;
+  -o-transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease, -webkit-transform 0.3s ease; /* Added transform to transition properties */
+  background-color: #fff;         /* Added a default background color */
 }
 
-.menu-food-item .text {
-  width: calc(100%);
+.menu-food-item:hover {
+  border: 1px solid rgba(255, 215, 0, 0.5); /* Semi-transparent gold border */
+  background-color: transparent;
+  -webkit-transform: scale(1.02);
+      -ms-transform: scale(1.02);
+          transform: scale(1.02);
+  opacity: 0.9; /* Slightly less opaque */
+  transform: scale(1.02);
+  background-color: rgba(50, 50, 50, 0.2); /* Warm gray for a subtle look */
+  color: #ffd700; /* Gold text */
+  transform: scale(1.02);
 }
 
-.menu-food-item .text img {
-  width: 100px;
-  margin-bottom: 20px;
-  border-radius: 7px;
-  float: left;
-  margin-right: 30px;
-}
 
-@media (max-width: 991.98px) {
-  .menu-food-item .text img {
-    float: none;
-  }
-}
-
-@media (min-width: 768px) {
-  .menu-food-item .text {
-    width: calc(100% - 70px);
-  }
-}
-
-.menu-food-item .price {
-  text-align: left;
-  width: 100%;
-}
-
-@media (min-width: 768px) {
-  .menu-food-item .price {
-    width: 70px;
-    text-align: right;
-  }
-}
-
-.menu-food-item .price strong {
-  color: #ff7a5c;
-  font-size: 20px;
-}
-
-.menu-food-item h3 {
-  font-size: 22px;
-}
 
 .menu-food-item h3 a {
   color: #000;
-  -webkit-transition: .3s all ease;
-  -o-transition: .3s all ease;
-  transition: .3s all ease;
+  -webkit-transition: color 0.3s ease;
+  -o-transition: color 0.3s ease;
+  transition: color 0.3s ease;
+  margin: 0;                      /* Removes default margin */
+  font-size: 1.4em; 
+  text-decoration: none;         /* Removes underline from link */
+}
+
+/* Style for the menu item's image */
+.menu-food-item img {
+  margin-right: 15px;             /* Adds space between the image and the text */
+  max-width: 80px;               /* Adjust to your preference */
+  border-radius: 5px;            /* Optional: Adds a rounded corner to images */
+}
+
+/* Style for the price and button container */
+.menu-food-item .d-flex.align-items-center {
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;         /* Adjusts alignment to look more organized */
 }
 
 .menu-food-item h3 a:hover {
   color: gray;
 }
 
-.menu-food-item p:last-child {
-  margin-bottom: 0;
+/* Tab styling */
+.nav.site-tab-nav a {
+  border: none;
+  color: #aaa;
 }
+
+.nav.site-tab-nav a.active,
+.nav.site-tab-nav a:hover {
+  color: #fff;
+  background-color: transparent;
+  border-bottom: 2px solid #ff7a5c; /* Consistent with the existing color scheme */
+}
+
 
 .footer-contact-widget .contact-email {
   color: #ff7a5c;
@@ -1106,18 +1207,14 @@ textarea.form-control {
 .site-nav-toggle.active i:before {
   top: 0;
   -webkit-transform: rotateZ(45deg);
-  -moz-transform: rotateZ(45deg);
   -ms-transform: rotateZ(45deg);
-  -o-transform: rotateZ(45deg);
   transform: rotateZ(45deg);
 }
 
 .site-nav-toggle.active i:after {
   bottom: 0;
   -webkit-transform: rotateZ(-45deg);
-  -moz-transform: rotateZ(-45deg);
   -ms-transform: rotateZ(-45deg);
-  -o-transform: rotateZ(-45deg);
   transform: rotateZ(-45deg);
 }
 
@@ -1131,7 +1228,7 @@ textarea.form-control {
   display: -moz-inline-stack;
   display: inline-block;
   zoom: 1;
-  *display: inline;
+  display: inline;
   width: 30px;
   height: 2px;
   font: bold 14px/.4 Helvetica;
@@ -1207,7 +1304,7 @@ textarea.form-control {
   margin: 0;
   border-radius: 50% !important;
   font-size: 16px;
-  background: #ff7a5c;
+  background: green;
   color: #fff;
 }
 
@@ -1366,27 +1463,31 @@ textarea.form-control {
   background-size: cover;
   background-position: center center;
 }
-
+:root {
+  --rich-gold: #FFD700;
+  --light-black: #333; 
+  --white: #FFFFFF;/* Approximation of a lighter black, adjust as needed */
+}
 .menus .item .text {
   padding: 40px;
-  background: #000;
+  background: var(--light-black);
 }
 
 .menus .item .text h3 {
-  color: #fff;
+  color: var(--rich-gold);
   font-size: 22px;
   margin-bottom: 20px;
 }
 
 .menus .item .text p {
-  color: #fff;
+  color: var(--rich-gold);
   font-size: 13px;
   opacity: .5;
 }
 
 .menus .item .text .price {
   font-size: 30px;
-  color: #ff7a5c;
+  color: green;
   opacity: 1;
 }
 
@@ -1447,7 +1548,7 @@ textarea.form-control {
 }
 
 .accordion .btn-block[aria-expanded="true"] {
-  color: #ff7a5c;
+  color:green;
 }
 
 .accordion .btn-block[aria-expanded="true"] .icon:before {
@@ -1791,3 +1892,313 @@ textarea.form-control {
     stroke-dashoffset: -136px;
   }
 }
+/* Define light gold color */
+:root {
+  --rich-gold: #dcca62;
+}
+
+/* Overriding Bootstrap styles for the navbar */
+
+.navbar-light {
+  background-color: #000 !important; /* sets navbar to black */
+}
+
+.navbar-light .navbar-brand, 
+.navbar-light .nav-link {
+  color: var(--light-gold) !important; /* sets text and icons to light gold */
+}
+
+.navbar-light .navbar-toggler-icon {
+  -webkit-filter: invert(80%) sepia(90%) saturate(1000%) hue-rotate(-10deg) brightness(100%) contrast(85%);
+          filter: invert(80%) sepia(90%) saturate(1000%) hue-rotate(-10deg) brightness(100%) contrast(85%); /* adjusts for light gold */
+}
+
+.navbar-light .nav-link.active, 
+.navbar-light .nav-link:hover {
+  color: #ffd700 !important; /* sets hover and active link color to a slightly different shade for distinction */
+}
+.nav-link:hover, .nav-link:focus {
+  background-color: #e9e9e9;
+}
+
+.nav-link.active {
+  background-color: #2e2a02;
+  color: white;
+}
+
+/* Updating the color scheme for the Menu section */
+div#section-menu.section.bg-lig {
+  background-color: #000; /* setting the background to black */
+  color: var(--rich-gold); /* setting the text color to rich gold */
+}
+
+/* If you want to have specific titles or subheadings in rich gold */
+div#section-menu.section.bg-lig h1,  /* Assuming your "Menu" is an h1 tag */
+div#section-menu.section.bg-lig h2,  /* And your "Subheading here", "STARTERS", etc. are h2 tags */
+div#section-menu.section.bg-lig h3 { /* Just in case there are h3 tags */
+  color: var(--rich-gold);
+}
+
+/* If there are links within this section */
+div#section-menu.section.bg-lig a {
+  color: var(--rich-gold);
+  -webkit-transition: color 0.3s ease;
+  -o-transition: color 0.3s ease;
+  transition: color 0.3s ease; /* smooth transition for hover effect */
+}
+
+div#section-menu.section.bg-lig a:hover {
+  color: #EAC210; /* slightly different shade of gold for hover state */
+}
+
+/* Heading and Subheading Color Scheme */
+h2.heading,
+p.sub-heading {
+    color: var(--rich-gold);
+}
+
+/* Tab Navigation Color Scheme */
+.nav.site-tab-nav li a {
+    color: var(--light-black); /* Default text color */
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    -webkit-transition: color 0.3s ease, background-color 0.3s ease;
+    -o-transition: color 0.3s ease, background-color 0.3s ease;
+    transition: color 0.3s ease, background-color 0.3s ease; 
+}
+
+.nav.site-tab-nav li a.active,
+.nav.site-tab-nav li a:hover {
+    color: var(--rich-gold); 
+    background-color: var(--light-black);
+}
+
+/* Menu Items Color Scheme */
+/* Heading and Subheading Color Scheme */
+/* Heading and Subheading Color Scheme */
+/* Heading and Subheading Color Scheme */
+h2.heading,
+p.sub-heading {
+    color: var(--rich-gold);
+}
+
+/* Tab Navigation Color Scheme */
+.nav.site-tab-nav li a {
+    color: var(--rich-gold); 
+}
+
+.nav.site-tab-nav li a.active,
+.nav.site-tab-nav li a:hover {
+    background-color: var(--rich-gold);
+    color: var(--light-black);
+}
+
+/* Menu Items Color Scheme */
+.menu-food-item .text h3 a {
+    color: var(--rich-gold);
+}
+
+.menu-food-item .text p {
+  color: var(--light-gold);
+}
+
+.menu-food-item .d-flex.align-items-center strong {
+    color: var(--rich-gold);
+}
+
+.btn-primary {
+    background-color: var(--rich-gold);
+    color: var(--light-black);
+}
+
+.btn-primary:hover {
+    background-color: green;
+    color: var(--light-black);
+}
+/* Background color for the section */
+.bg-black {
+  background-color: var(--light-black);
+}
+
+/* Heading and Subheading Color Scheme */
+.section-heading h2.heading {
+  color: var(--rich-gold);
+}
+
+.section-heading p.sub-heading {
+  color: var(--white);
+}
+
+/* Icons color */
+.feature-icon .icon i {
+  color: var(--rich-gold);
+}
+
+/* Feature text color */
+.feature-icon h3 {
+  color: var(--white);
+}
+
+.feature-icon p {
+  color: var(--white);
+}
+
+/* For the search bar */
+.input-group {
+  border: 1px solid var(--rich-gold);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.input-group .form-control {
+  border: none;
+  background-color: var(--light-black);
+  color: var(--white);
+  border-radius: 0;
+}
+
+.input-group .btn-outline-secondary {
+  border: none;
+  background-color: var(--rich-gold);
+  color: var(--light-black);
+}
+
+/* To ensure there's space between the search results title and the meal item */
+.search-results {
+  margin-top: 20px;
+  padding: 15px 0;
+  clear: both; /* Clear any floating elements */
+}
+
+
+/* Styling for the meal item to prevent overlapping and fix alignment */
+.meal-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center; /* Vertically center the content */
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between; /* Space out the elements horizontally */
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.meal-item img {
+  margin-right: 15px; /* Add space between the image and the text */
+  max-width: 100px; /* Adjust the image width as per your needs */
+}
+
+/* Ensure the button is aligned properly and has enough padding */
+.add-to-basket-btn {
+  padding: 10px 15px;
+  border: none;
+  background-color: gol; /* Adjust color if needed */
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Ensure no text is overlapping with other elements */
+.clear-results-btn, .search-label, .meal-title {
+  clear: both; /* Clear floating elements */
+}
+
+.container {
+    padding-top: 400px;
+  }
+
+  /* Media query for screens smaller than 768px (adjust the breakpoint as needed) */
+  @media (max-width: 768px) {
+    .container {
+      padding-top: 200px; /* Adjust the value for smaller screens */
+    }
+    /* Add any other styles needed for smaller screens here */
+  }
+
+
+
+
+  #section-menu .container {
+    height: 50%; /* Set a fixed height (adjust as needed) */
+    padding-top: 20px; /* Adjust the top padding as needed */
+    padding-bottom: 20px; /* Adjust the bottom padding as needed */
+    overflow: hidden; /* Hide any overflowing content if necessary */
+}
+
+
+  #pills-tab .nav-link:hover {
+    color: #ffffff; /* This sets the text color to white when hovering */
+    background-color: #3498db; /* This sets the background color to a light blue when hovering */
+  }
+ 
+  .ftco-38-body {
+      font-family: 'Playfair Display', serif;
+      color: #fafad2;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+  }
+  
+  .ftco-38-body .introduction {
+      font-size: 2em;
+      margin-bottom: 15px;
+      line-height: 1.6;
+      font-weight: bold;
+  }
+  
+  .ftco-38-body .address {
+      font-size: 1.3em;
+      margin-bottom: 15px;
+      font-style: italic;
+      font-weight: lighter;
+  }
+  
+  .ftco-38-body .social-links {
+      font-size: 1em;
+      margin-top: 20px;
+  }
+  
+  .ftco-38-body .social-links .social-icon {
+      margin: 0 10px;
+      -webkit-transition: -webkit-transform 0.3s ease;
+      transition: -webkit-transform 0.3s ease;
+      -o-transition: transform 0.3s ease;
+      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+  }
+  
+  .ftco-38-body .social-links .social-icon:hover {
+      -webkit-transform: scale(1.2);
+          -ms-transform: scale(1.2);
+              transform: scale(1.2);
+      color: #ffd700;
+  }
+  
+  .ftco-38-body .social-links .social-icon span {
+      font-size: 2em;
+  }
+  
+  /* Mobile styles */
+  @media (max-width: 768px) {
+      .ftco-38-body {
+          padding: 15px;
+      }
+      
+      .ftco-38-body .introduction {
+          font-size: 1.5em;
+          margin-bottom: 12px;
+      }
+      
+      .ftco-38-body .address {
+          font-size: 1.1em;
+          margin-bottom: 10px;
+      }
+      
+      .ftco-38-body .social-links .social-icon span {
+          font-size: 1.5em;
+      }
+  }
+
+  

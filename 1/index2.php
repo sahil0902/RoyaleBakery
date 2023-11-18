@@ -1,14 +1,39 @@
 <?php
 include 'config.php';
+
+$searchQuery = $_GET['query'] ?? '';
+$searched_items = [];
+$grouped_items = [];
+
+if (!empty($searchQuery)) {
+    $stmt = $pdo->prepare("SELECT * FROM menu_items WHERE in_stock = 1 AND (name LIKE :searchQuery OR description LIKE :searchQuery OR category LIKE :searchQuery) ORDER BY category");
+    $stmt->execute(['searchQuery' => '%' . $searchQuery . '%']);
+    $searched_items = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+$stmt = $pdo->prepare("SELECT * FROM menu_items WHERE in_stock = 1 ORDER BY category");
+$stmt->execute();
+$menu_items = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+foreach ($menu_items as $item) {
+    $grouped_items[$item['category']][] = $item;
+}
+
+
 ?>
+
 <!doctype html>
 <html lang="en">
   <head>
+
     <title>Royale Bakery &mdash;  </title>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:300,400,700,800|Open+Sans:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/animate.css">
@@ -27,11 +52,21 @@ include 'config.php';
 
     <!-- Theme Style -->
     <link rel="stylesheet" href="css/style.css">
-
+    <link rel="stylesheet" href="css/darkmode.css">
     <link rel="stylesheet" type="text/css" href="css/basket.css">
+    <link rel="stylesheet" type="text/css" href="css/animation.css">
+    <link rel="stylesheet" type="text/css" href="css/adminmenu.css">
+    <link rel="stylesheet" type="text/css" href="css/intro.css">
 
-  </head>
-<body class="bg-light">
+</head>
+<body class="bg-black" >
+
+<div class="preloader">
+    <div class="animation royale-bakery">
+        <span>R</span><span>o</span><span>y</span><span>a</span><span>l</span><span>e</span> <span>B</span><span>a</span><span>k</span><span>e</span><span>r</span><span>y</span><span>🍰</span>
+    </div>
+    <!-- You can still add more animations if needed -->
+</div>
 
     <body data-spy="scroll" data-target=".navbar" data-offset="50">
 
@@ -59,13 +94,30 @@ include 'config.php';
                 </li>
             </ul>
         </div>
-    </nav>
+         <!-- Add the dark mode toggle icon
+    <div class="dark-mode-toggle" onclick="toggleDarkMode()">
+        <i class="fas fa-moon"></i>
+    </div> -->
+</nav>
+
 
     <script>
-        function collapseNavbar() {
-            var navbar = document.querySelector('.navbar-collapse');
-            navbar.classList.remove('show');
-        }
+//         function toggleDarkMode() {
+//           var body = document.body;
+
+// if (body.classList.contains('dark-mode')) {
+//     console.log("Removing dark-mode class...");
+//     body.classList.remove('dark-mode');
+// } else {
+//     console.log("Adding dark-mode class...");
+//     body.classList.add('dark-mode');
+// }
+// }
+
+function collapseNavbar() {
+    var navbar = document.querySelector('.navbar-collapse');
+    navbar.classList.remove('show');
+}
     </script>
     <div class="site-wrap">
         
@@ -84,26 +136,34 @@ include 'config.php';
                 </div>
             </div>
          
-        </header> <!-- site-header -->
-        -->
+        </header> < site-header -->
       
-      <div class="main-wrap " id="section-home">
+        <div class="main-wrap" id="section-home">
+  <div class="img_logo" style="background-image: url(images/paint.png); background-size: cover; background-repeat: no-repeat; background-position: center center;" data-stellar-background-ratio="0.5"> 
+    <div class="container" style="padding-top: 600px;">
+      <div class="row align-items-center justify-content-center text-center">
+        <div class="col-md-10" data-aos="fade-up">
+          <h2 class="heading mb-5" style="color: gold; text-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px gold, 0 0 40px #000, 0 0 70px #000, 0 0 80px #000, 0 0 100px #000;"> </h2>
+          <h2 class="heading mb-5" style="color: gold; text-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px gold, 0 0 40px #000, 0 0 70px #000, 0 0 80px #000, 0 0 100px #000;"></h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-        <div class="cover_1 overlay bg-slant-white bg-light">
-          <div class="img_bg" style="background-image: url(images/slider-1.jpg);" data-stellar-background-ratio="0.5">
-            <div class="container">
-              <div class="row align-items-center justify-content-center text-center">
-                <div class="col-md-10" data-aos="fade-up">
-                  <h2 class="heading mb-5">Royale Bakery </h2>
-                  <h2 class="heading mb-5">The Taste of royalty,at your fingertips</h2>
-                  <p><a href="#section-reservation" class="smoothscroll btn btn-outline-white px-5 py-3">Reserve A Table</a></p>
-                  <p><a href="#section-menu" class="smoothscroll btn btn-outline-white px-5 py-3">Menu</a></p>
-                
+
+
+
+
+                  <!-- .<p><a href="#section-reservation" class="smoothscroll btn btn-outline-white px-5 py-3">Reserve A Table</a></p>
+                  <p><a href="#section-menu" class="smoothscroll btn btn-outline-white px-5 py-3">Menu</a></p>-->
                 </div>
               </div>
             </div>
           </div>
-        </div> <!-- .cover_1 -->
+        </div>
+        
+        <!-- I have removef this section temporarily to see what it looks like wthiout - umama)
 
         <div class="section"  data-aos="fade-up">
           <div class="container">
@@ -146,8 +206,8 @@ include 'config.php';
 
             </div>
           </div>
-        </div> <!-- .section -->
-
+        </div>  section -->
+<!-- .section 
         <div class="section pb-3 bg-white" id="section-about" data-aos="fade-up">
           <div class="container">
             <div class="row align-items-center justify-content-center">
@@ -158,12 +218,17 @@ include 'config.php';
               </div>
             </div>
           </div>
-        </div> <!-- .section -->
-        
+        </div> 
+
 
         <div class="section bg-white pt-2 pb-2 text-center" data-aos="fade">
           <p><img src="images/bg_hero.png" alt="" class="img-fluid"></p>
-        </div> <!-- .section -->
+        </div> 
+        -->
+        
+        
+        <!-- 
+          UMAMA HAS REMOVED MEET THE CHEFS SECTION
 
         <div class="section bg-white" data-aos="fade-up">
           <div class="container">
@@ -190,6 +255,7 @@ include 'config.php';
                         <a href="#" class="p-2"><span class="fa fa-instagram"></span></a>
                       </p>
                     </div>
+                    
                   </div>
                 </div>
               </div>
@@ -201,14 +267,24 @@ include 'config.php';
                       <h3 class="ftco-38-heading">Nick Browning</h3>
                       <p class="ftco-38-subheading">Master Chef</p>
                     </div>
+                    .section -->
                     <div class="ftco-38-body">
-                      <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-                      <p>Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. It is a paradisematic country.</p>
-                      <p>
-                        <a href="#" class="p-2"><span class="fa fa-facebook"></span></a>
-                        <a href="#" class="p-2"><span class="fa fa-twitter"></span></a>
-                        <a href="#" class="p-2"><span class="fa fa-instagram"></span></a>
-                      </p>
+    <p class="introduction">Welcome to Royale Bakery - where tradition meets taste.</p>
+    <p class="address" itemscope itemtype="http://schema.org/PostalAddress">
+        Visit Us: <span itemprop="streetAddress">123 Main Street</span>,
+        <span itemprop="addressLocality">Anytown</span>,
+        <span itemprop="addressRegion">AN</span>
+    </p>
+    <div class="social-links">
+        Stay connected with our latest offerings and events:
+        <a href="https://www.facebook.com/RoyaleBakeryPage" class="p-2 social-icon" target="_blank" rel="noopener noreferrer" aria-label="Royale Bakery on Facebook"><span class="fa fa-facebook" alt="Facebook icon"></span></a>
+        <a href="https://twitter.com/RoyaleBakery" class="p-2 social-icon" target="_blank" rel="noopener noreferrer" aria-label="Royale Bakery on Twitter"><span class="fa fa-twitter" alt="Twitter icon"></span></a>
+        <a href="https://www.instagram.com/RoyaleBakery" class="p-2 social-icon" target="_blank" rel="noopener noreferrer" aria-label="Royale Bakery on Instagram"><span class="fa fa-instagram" alt="Instagram icon"></span></a>
+    </div>
+</div>
+
+
+
                     </div>
                   </div>
                 </div>
@@ -218,269 +294,243 @@ include 'config.php';
           </div>
         </div> <!-- .section -->
     
-<div id="floatingBasket"> 
-    <div id="basketIcon">🛒 <span id="itemCount">0</span></div>
-    <div id="basketDropdown" class="hidden">
+        <div id="floatingBasket">
+        <!-- <div id="bakeryLogo"></div>  Add this line for the bakery logo -->
+    <!-- ... -->
+    <!-- <div id="chatBubbleIcon">💬</div> -->
+    <div id="basketIcon">
+  <img src="images/basketicon.png" alt="Basket" style="height:50px; width:50px;"> 
+  <span id="itemCount">0</span>
+</div>
+
+  <div id="basketDropdown" class="hidden">
     <h4>Your Basket</h4>
     <ul id="basketItemsList"></ul>
-    <strong>Total: £<span id="basketTotal">0</span></strong>
-
+    <strong>Total: £<span id="basketTotal">0.00</span></strong>
     <!-- Checkout Area -->
     <div id="checkoutArea">
-        <strong>Email:</strong>
-        <input type="email" id="customerEmail" placeholder="Enter your email">
-        <button id="checkoutButton">Checkout</button>
+      <h3>Checkout</h3>
+      <form>
+        <div class="form-group">
+          <label for="customerEmail">Email address</label>
+          <input type="email" class="form-control" id="customerEmail" aria-describedby="emailHelp" placeholder="Enter your email">
+        </div>
+        <div class="form-group">
+          <label for="customerName">Name</label>
+          <input type="text" class="form-control" id="customerName" placeholder="Enter your name">
+        </div>
+        <button id="checkoutButton" type="button">Checkout</button>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- <div id="notificationModal" class="center" style="display:none; position:fixed; top:20%; left:50%; transform:translate(-50%, -50%); z-index:1000;">
+    <div class="info">
+        <i class="fa fa-info-circle spin"></i>
+        &nbsp; &nbsp;
+        <span>This feature is currently not available.</span>
+    </div>
+</div> -->
+
+
+<div class="section bg-black" id="section-menu" data-aos="fade-up">
+    <div class="container">
+        
+        <!-- Adding the search bar with icon -->
+       <!-- Adding the search bar with icon -->
+<div class="row justify-content-center mb-5">
+    <div class="col-md-8">
+    <form action="index2.php#section-menu" method="GET" class="text-center mb-4">
+    <input type="text" name="query" placeholder="Search for menu items..." value="<?= htmlspecialchars($_GET['query'] ?? '') ?>">
+    <input type="submit" value="Search">
+</form>
+
     </div>
 </div>
 
-
-</div>
-<script>
-document.getElementById('basketIcon').addEventListener('click', function() {
-    const dropdown = document.getElementById('basketDropdown');
-    if (dropdown.classList.contains('hidden')) {
-        dropdown.classList.remove('hidden');
-        dropdown.style.display = "block"; // this is just for testing
-        console.log("Dropdown should now be VISIBLE");
-    } else {
-        dropdown.classList.add('hidden');
-        dropdown.style.display = "none"; // this is just for testing
-        console.log("Dropdown should now be HIDDEN");
-    }
-});
-function toggleDropdown() {
-    const dropdown = document.getElementById('basketDropdown');
-    if (dropdown.classList.contains('hidden')) {
-        dropdown.classList.remove('hidden');
-        console.log("Dropdown should now be VISIBLE");
-    } else {
-        dropdown.classList.add('hidden');
-        console.log("Dropdown should now be HIDDEN");
-    }
-}
-
-document.getElementById('basketIcon').addEventListener('click', toggleDropdown);
-
-
-function updateBasketDisplay() {
-    const basketList = document.getElementById("basketItemsList");
-    const basketTotal = document.getElementById("basketTotal");
-    const itemCount = document.getElementById("itemCount");
-    
-    // Clear the current list
-    basketList.innerHTML = '';
-    
-    // Calculate the total price
-    let total = 0;
-
-    // Populate the basket list
-    basket.forEach(item => {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${item.name} - £${item.price}`;
-        basketList.appendChild(listItem);
-
-        total += parseFloat(item.price);
-    });
-
-    basketTotal.textContent = total.toFixed(2);
-    itemCount.textContent = basket.length;
-}
-document.getElementById('checkoutButton').addEventListener('click', function() {
-    const email = document.getElementById('customerEmail').value;
-    if (!email) {
-        alert("Please enter your email!");
-        return;
-    }
-
-    const items = JSON.stringify(basket);
-    const totalAmount = document.getElementById("basketTotal").textContent;
-
-    // Using fetch to make an AJAX request. You can use jQuery's $.ajax or any other method.
-    fetch('save_order.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            email: email,
-            items: items,
-            total_amount: totalAmount
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert("Order saved and email sent!");
-            basket = []; // Empty the basket
-            updateBasketDisplay(); // Refresh the basket display
-        } else {
-            alert("There was an error!");
-        }
-    });
-});
-
-</script>
-
-
-        <div class="section bg-light" id="section-menu" data-aos="fade-up">
-    <div class="container">
         <div class="row section-heading justify-content-center mb-5">
             <div class="col-md-8 text-center">
                 <h2 class="heading mb-3">Menu</h2>
-                <p class="sub-heading mb-5">Subheading here</p>
+                <p class="sub-heading mb-5">Deliciously curated just for you. Dive into our diverse selection.</p>
             </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <ul class="nav site-tab-nav" id="pills-tab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="pills-starters-tab" data-toggle="pill" href="#pills-starters" role="tab" aria-controls="pills-starters" aria-selected="true">Starters</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="pills-meal-tab" data-toggle="pill" href="#pills-meal" role="tab" aria-controls="pills-meal" aria-selected="false">Meal</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="pills-desserts-tab" data-toggle="pill" href="#pills-desserts" role="tab" aria-controls="pills-desserts" aria-selected="false">Desserts</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="pills-drinks-tab" data-toggle="pill" href="#pills-drinks" role="tab" aria-controls="pills-drinks" aria-selected="false">Drinks</a>
-                    </li>
-                </ul>
-
-                <div class="tab-content" id="pills-tabContent">
-                    <?php 
-                   include 'config.php';
-
-                   $query = "SELECT * FROM menu_items WHERE in_stock = 1 ORDER BY category";
-
-                   $result = $pdo->query($query);
-                   $menu_items = $result->fetchAll(PDO::FETCH_ASSOC);                   
-                    ?>
-
-                    <?php
-                    //echo "Categories in database: " . implode(", ", array_keys($menu_items));
-                    $grouped_items = [];
-                    foreach ($menu_items as $item) {
-                        $grouped_items[$item['category']][] = $item;
-                    }
-                    $sections = [
-                      'Starters' => 'pills-starters',
-                      'Meal' => 'pills-meal',
-                      'Desserts' => 'pills-desserts',
-                      'Drinks' => 'pills-drinks'
-                  ];
-                
-                    
-                foreach ($sections as $sectionName => $sectionId):
-                  ?>
-                      <div class="tab-pane fade <?= $sectionName === 'Starters' ? 'show active' : ''; ?>" id="<?= $sectionId ?>" role="tabpanel" aria-labelledby="<?= $sectionId ?>-tab">
-                          <?php if (isset($grouped_items[$sectionName])): ?>
-                            <?php foreach ($grouped_items[$sectionName] as $item): ?>
-    <div class="d-flex justify-content-between align-items-center menu-food-item">
-        <div class="text">
-            <img src="data:image/jpeg;base64,<?= base64_encode($item['image_data']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" style="max-width: 100px;"> <!-- adjust the max-width as per your needs -->
-            <h3><a href="#"><?= htmlspecialchars($item['name']) ?></a></h3>
-            <p><?= htmlspecialchars($item['description']) ?></p>
+            <?php if (!empty($searchQuery)): ?>
+    <div class="text-center mb-4">
+        <a href="index2.php#section-menu" class="btn btn-danger">Clear Search Results</a>
+    </div>
+<?php endif; ?>
+<?php if (empty($menu_items) && !empty($searchQuery)): ?>
+    <div class="text-center mb-4">
+        <p>No results found for "<?php echo htmlspecialchars($searchQuery); ?>"</p>
+    </div>
+<?php endif; ?>
+<?php if (!empty($_GET['query'])): ?>
+<?php if (!empty($searched_items)): ?>
+    <h4 class="mb-4">Search Results</h4>
+    <?php foreach ($searched_items as $item): ?>
+        <div class="d-flex justify-content-between align-items-center menu-food-item">
+            <div class="text">
+                <h4><?= htmlspecialchars($item['category']) ?></h4>
+                <img src="data:image/jpeg;base64,<?= base64_encode($item['image_data']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" style="max-width: 100px;">
+                <h3><a href="#"><?= htmlspecialchars($item['name']) ?></a></h3>
+                <p><?= htmlspecialchars($item['description']) ?></p>
+            </div>
+            <div class="d-flex align-items-center">
+                <strong class="mr-3">£<?= htmlspecialchars($item['price']) ?></strong>
+                <button class="btn btn-primary addToBasket" data-id="<?= $item['id'] ?>" data-name="<?= htmlspecialchars($item['name']) ?>" data-price="<?= htmlspecialchars($item['price']) ?>">Add to Basket</button>
+            </div>
         </div>
-        <div class="d-flex align-items-center">
-            <strong class="mr-3">£<?= htmlspecialchars($item['price']) ?></strong>
-            <button class="btn btn-primary addToBasket" data-id="<?= $item['id'] ?>" data-name="<?= htmlspecialchars($item['name']) ?>" data-price="<?= htmlspecialchars($item['price']) ?>">Add to Basket</button>
-        </div>
-    </div> <!-- .menu-food-item -->
-<?php endforeach; ?>
+    <?php endforeach; ?>
+    <hr>
+    
+<?php endif; ?>
+<?php endif; ?>
+             <?php
+include 'config.php';
 
-                            <?php else: ?>
-                                <p>No items available in this section.</p>
-                            <?php endif; ?>
-                        </div>
-                    <?php endforeach; ?>
+$query = "SELECT * FROM menu_items WHERE in_stock = 1 ORDER BY category";
+$result = $pdo->query($query);
+$menu_items = $result->fetchAll(PDO::FETCH_ASSOC);
+
+$grouped_items = [];
+foreach ($menu_items as $item) {
+    $grouped_items[$item['category']][] = $item;
+}
+
+$sections = [
+  'ALL' => 'pills-all',
+  'Starters' => 'pills-starters',
+  'Meal' => 'pills-meal',
+  'Desserts' => 'pills-desserts',
+  'Drinks' => 'pills-drinks'
+];
+?>
+
+<ul class="nav site-tab-nav" id="pills-tab" role="tablist">
+    <?php foreach ($sections as $sectionName => $sectionId): ?>
+    <li class="nav-item">
+        <a class="nav-link <?= $sectionName === 'ALL' ? 'active' : ''; ?>" id="<?= $sectionId ?>-tab" data-toggle="pill" href="#<?= $sectionId ?>" role="tab" aria-controls="<?= $sectionId ?>" aria-selected="<?= $sectionName === 'ALL' ? 'true' : 'false'; ?>"><?= $sectionName ?></a>
+    </li>
+    <?php endforeach; ?>
+</ul>
+
+<div class="tab-content" id="pills-tabContent">
+    <?php foreach ($sections as $sectionName => $sectionId): ?>
+    <div class="tab-pane fade <?= $sectionName === 'ALL' ? 'show active' : ''; ?>" id="<?= $sectionId ?>" role="tabpanel" aria-labelledby="<?= $sectionId ?>-tab">
+        <?php
+        $items_to_display = $sectionName === 'ALL' ? $menu_items : $grouped_items[$sectionName];
+        if (isset($items_to_display) && !empty($items_to_display)):
+            foreach ($items_to_display as $item):
+            ?>
+            <div class="d-flex justify-content-between align-items-center menu-food-item">
+                <div class="text">
+                    <img src="data:image/jpeg;base64,<?= base64_encode($item['image_data']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" style="max-width: 100px;">
+                    <h3><a href="#"><?= htmlspecialchars($item['name']) ?></a></h3>
+                    <p><?= htmlspecialchars($item['description']) ?></p>
+                </div>
+                <div class="d-flex align-items-center">
+                    <strong class="mr-3">£<?= htmlspecialchars($item['price']) ?></strong>
+                    <button class="btn btn-primary addToBasket" data-id="<?= $item['id'] ?>" data-name="<?= htmlspecialchars($item['name']) ?>" data-price="<?= htmlspecialchars($item['price']) ?>">Add to Basket</button>
+                </div>
+            </div>
+            <?php
+            endforeach;
+        else:
+        ?>
+        <p>No items available in this section.</p>
+        <?php endif; ?>
+    </div>
+    <?php endforeach; ?>
+</div>
+
+
+
+
+<div class="section bg-black services-section" data-aos="fade-up">
+    <div class="container">
+        <div class="row section-heading justify-content-center mb-5">
+            <div class="col-md-8 text-center">
+                <h2 class="heading mb-3">Desi Bakery Delights</h2>
+                <p class="sub-heading mb-5">Experience the taste of traditional baked goods</p>  
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-4" data-aos="fade-up">
+                <div class="media feature-icon d-block text-center">
+                    <div class="icon">
+                        <i class="fas fa-birthday-cake"></i>
+                    </div>
+                    <div class="media-body">
+                        <h3>Traditional Cakes</h3>
+                        <p>Delicious cakes baked with love, using age-old recipes passed down through generations.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+    <div class="media feature-icon d-block text-center">
+        <div class="icon">
+         <i class="fas fa-cookie-bite"></i>
+
+        </div>
+        <div class="media-body">
+            <h3>Desi Pastries</h3>
+            <p>Experience the crispy and savory pastries, a perfect companion for your tea.</p>
+        </div>
+    </div>
+</div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="media feature-icon d-block text-center">
+                    <div class="icon">
+                        <i class="fas fa-bread-slice"></i>
+                    </div>
+                    <div class="media-body">
+                        <h3>Fresh Breads</h3>
+                        <p>Soft, fluffy, and fresh breads baked daily, perfect for your breakfast or sandwiches.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="media feature-icon d-block text-center">
+                    <div class="icon">
+                        <i class="fas fa-cookie"></i>
+                    </div>
+                    <div class="media-body">
+                        <h3>Handmade Cookies</h3>
+                        <p>Crunchy, delightful cookies that melt in your mouth. Perfect with a cup of chai.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400">
+                <div class="media feature-icon d-block text-center">
+                    <div class="icon">
+                        <i class="fas fa-candy-cane"></i>
+                    </div>
+                    <div class="media-body">
+                        <h3>Desi Sweets</h3>
+                        <p>Sweeten your moments with our range of traditional desi sweets.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="500">
+                <div class="media feature-icon d-block text-center">
+                    <div class="icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="media-body">
+                        <h3>Place Your Order</h3>
+                        <p>Order your favorite bakery items and get them delivered to your doorstep.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div> <!-- .section -->
+</div> <!-- .
 
 
-        <div class="section bg-white services-section" data-aos="fade-up">
-          <div class="container">
-            <div class="row section-heading justify-content-center mb-5">
-              <div class="col-md-8 text-center">
-                <h2 class="heading mb-3">Other Services</h2>
-                <p class="sub-heading mb-5">Sub heading here</p>  
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-m mb-5d-6 col-lg-4" data-aos="fade-up">
-                <div class="media feature-icon d-block text-center">
-                  <div class="icon">
-                    <span class="flaticon-soup"></span>
-                  </div>
-                  <div class="media-body">
-                    <h3>Quality Cuisine</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="100">
-                <div class="media feature-icon d-block text-center">
-                  <div class="icon">
-                    <span class="flaticon-vegetables"></span>
-                  </div>
-                  <div class="media-body">
-                    <h3>Fresh Food</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="300">
-                <div class="media feature-icon d-block text-center">
-                  <div class="icon">
-                    <span class="flaticon-pancake"></span>
-                  </div>
-                  <div class="media-body">
-                    <h3>Bread &amp; Pancake</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="500">
-                <div class="media feature-icon d-block text-center">
-                  <div class="icon">
-                    <span class="flaticon-tray"></span>
-                  </div>
-                  <div class="media-body">
-                    <h3>Reserve Now</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="300">
-                <div class="media feature-icon d-block text-center">
-                  <div class="icon">
-                    <span class="flaticon-salad"></span>
-                  </div>
-                  <div class="media-body">
-                    <h3>Fresh Vegies Salad</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="500">
-                <div class="media feature-icon d-block text-center">
-                  <div class="icon">
-                    <span class="flaticon-chicken"></span>
-                  </div>
-                  <div class="media-body">
-                    <h3>Whole Chicken</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div> <!-- .section -->
 
         <div class="section bg-light" data-aos="fade-up" id="section-reservation">
           <div class="container">
@@ -553,8 +603,10 @@ document.getElementById('checkoutButton').addEventListener('click', function() {
               </div>
             </div>
           </div>
-        </div> <!-- .section -->
+        </div> section -->
 
+
+        <!--
          <div class="section bg-white"  data-aos="fade-up">
           <div class="container">
             <div class="row section-heading justify-content-center mb-5">
@@ -611,8 +663,8 @@ document.getElementById('checkoutButton').addEventListener('click', function() {
               </div>
             </div>
           </div>  
-        </div> <!-- .section -->
-
+        </div> .section -->
+<!--
         <div class="section" data-aos="fade-up" id="section-contact">
           <div class="container">
             <div class="row section-heading justify-content-center mb-5">
@@ -660,7 +712,7 @@ document.getElementById('checkoutButton').addEventListener('click', function() {
               </div>
             </div>
           </div>
-        </div> <!-- .section -->
+        </div> .section -->
 
         <div class="map-wrap" id="map"  data-aos="fade"></div>
 
@@ -720,14 +772,23 @@ document.getElementById('checkoutButton').addEventListener('click', function() {
         </footer>
       
     </div>
-    <div id="basketDisplay">
-    Items in Basket: <span id="basketCount">0</span>
-    <button id="checkoutButton">Checkout</button>
-</div>
+   
 
     <!-- loader -->
     <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#ff7a5c"/></svg></div>
+<!-- <script>
+ window.addEventListener("load", function() {
+  (function removeOverflow() {
+  if (document.body.style.overflow !== 'visible') {
+    document.body.style.overflow = 'visible';
+  }
+  // Keep checking at short intervals
+  setTimeout(removeOverflow, 100);
+})();
 
+});
+
+</script> -->
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/jquery-migrate-3.0.1.min.js"></script>
     <script src="js/popper.min.js"></script>
@@ -744,67 +805,12 @@ document.getElementById('checkoutButton').addEventListener('click', function() {
     <script src="js/aos.js"></script>
     
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script> -->
+    <script src="js/adminmenu.js"></script>
     <script src="js/main.js"></script>
-    <script>
-let basket = [];
-
-document.addEventListener('DOMContentLoaded', function() {
-    const addToBasketButtons = document.querySelectorAll('.addToBasket');
-    const basketIcon = document.getElementById('basketIcon');
-
-    addToBasketButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const itemId = this.getAttribute('data-id');
-            const itemName = this.getAttribute('data-name');
-            const itemPrice = parseFloat(this.getAttribute('data-price'));
-            
-            addToBasket(itemId, itemName, itemPrice);
-        });
-    });
-
-    basketIcon.addEventListener('click', function() {
-    const dropdown = document.getElementById('basketDropdown');
-    dropdown.classList.toggle('hidden');
-    console.log('Basket icon clicked. Dropdown class:', dropdown.className);
-});
-
-});
-
-function addToBasket(id, name, price) {
-    basket.push({id, name, price});
-    console.log("Item added:", id, name, price);
-    console.log("Current Basket:", basket);
-    updateBasketDisplay();
-}
-
-
-function updateBasketDisplay() {
-    const itemCount = document.getElementById('itemCount');
-    const basketItemsList = document.getElementById('basketItemsList');
-    const basketTotal = document.getElementById('basketTotal');
-
-    // Clear the current list
-    basketItemsList.innerHTML = '';
-
-    // Calculate the total price
-    let total = 0;
-
-    // Populate the basket list
-    basket.forEach(item => {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${item.name} - £${item.price}`;
-        basketItemsList.appendChild(listItem);
-
-        total += parseFloat(item.price);
-    });
-
-    basketTotal.textContent = total.toFixed(2);
-    itemCount.textContent = basket.length;
-}
-
-</script>
+    <script src = "js/basket.js"></script>
+    <script src="js/scrollPosition.js"></script>
+    <script src="js/test.js"></script>
 
   </body>
 </html>

@@ -9,6 +9,7 @@ include 'config.php';
     <title>Royale Bakery &mdash;  </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:300,400,700,800|Open+Sans:300,400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
@@ -30,7 +31,7 @@ include 'config.php';
 
     <!-- Theme Style -->
     <link rel="stylesheet" href="css/style.css">
-
+    <link rel="stylesheet" href="css/darkmode.css">
     <link rel="stylesheet" type="text/css" href="css/basket.css">
     <link rel="stylesheet" type="text/css" href="css/animation.css">
 
@@ -70,13 +71,30 @@ include 'config.php';
                 </li>
             </ul>
         </div>
-    </nav>
+         <!-- Add the dark mode toggle icon
+    <div class="dark-mode-toggle" onclick="toggleDarkMode()">
+        <i class="fas fa-moon"></i>
+    </div> -->
+</nav>
+
 
     <script>
-        function collapseNavbar() {
-            var navbar = document.querySelector('.navbar-collapse');
-            navbar.classList.remove('show');
-        }
+//         function toggleDarkMode() {
+//           var body = document.body;
+
+// if (body.classList.contains('dark-mode')) {
+//     console.log("Removing dark-mode class...");
+//     body.classList.remove('dark-mode');
+// } else {
+//     console.log("Adding dark-mode class...");
+//     body.classList.add('dark-mode');
+// }
+// }
+
+function collapseNavbar() {
+    var navbar = document.querySelector('.navbar-collapse');
+    navbar.classList.remove('show');
+}
     </script>
     <div class="site-wrap">
         
@@ -95,11 +113,11 @@ include 'config.php';
                 </div>
             </div>
          
-        </header> <!-- site-header -->
+        </header> < site-header -->
       
       <div class="main-wrap " id="section-home">
         <div class="cover_1 overlay bg-slant-white bg-light">
-          <div class="img_bg" style="background-image: url(images/bc.jpg);" data-stellar-background-ratio="0.5">
+          <div class="img_logo" style="background-image: url(images/logo.jpg);" data-stellar-background-ratio="0.5"> 
             <div class="container" style="padding-top: 100px;">
               <div class="row align-items-center justify-content-center text-center">
                 <div class="col-md-10" data-aos="fade-up">
@@ -116,7 +134,9 @@ include 'config.php';
               </div>
             </div>
           </div>
-        </div> <!-- .cover_1 -->
+        </div>
+        
+        <!-- I have removef this section temporarily to see what it looks like wthiout - umama)
 
         <div class="section"  data-aos="fade-up">
           <div class="container">
@@ -159,7 +179,7 @@ include 'config.php';
 
             </div>
           </div>
-        </div> <!-- .section -->
+        </div>  section -->
 
         <div class="section pb-3 bg-white" id="section-about" data-aos="fade-up">
           <div class="container">
@@ -176,7 +196,8 @@ include 'config.php';
 
         <div class="section bg-white pt-2 pb-2 text-center" data-aos="fade">
           <p><img src="images/bg_hero.png" alt="" class="img-fluid"></p>
-        </div> <!-- .section -->
+        </div> <!-- 
+          UMAMA HAS REMOVED MEET THE CHEFS SECTION
 
         <div class="section bg-white" data-aos="fade-up">
           <div class="container">
@@ -203,6 +224,7 @@ include 'config.php';
                         <a href="#" class="p-2"><span class="fa fa-instagram"></span></a>
                       </p>
                     </div>
+                    
                   </div>
                 </div>
               </div>
@@ -214,6 +236,7 @@ include 'config.php';
                       <h3 class="ftco-38-heading">Nick Browning</h3>
                       <p class="ftco-38-subheading">Master Chef</p>
                     </div>
+                    .section -->
                     <div class="ftco-38-body">
                       <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
                       <p>Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. It is a paradisematic country.</p>
@@ -231,108 +254,35 @@ include 'config.php';
           </div>
         </div> <!-- .section -->
     
-<div id="floatingBasket"> 
-    <div id="basketIcon">🛒 <span id="itemCount">0</span></div>
-    <div id="basketDropdown" class="hidden">
+        <div id="floatingBasket">
+        <!-- <div id="bakeryLogo"></div>  Add this line for the bakery logo -->
+    <!-- ... -->
+    <!-- <div id="chatBubbleIcon">💬</div> -->
+  <div id="basketIcon">🛒 <span id="itemCount">0</span></div>
+  <div id="basketDropdown" class="hidden">
     <h4>Your Basket</h4>
     <ul id="basketItemsList"></ul>
-    <strong>Total: £<span id="basketTotal">0</span></strong>
-
+    <strong>Total: £<span id="basketTotal">0.00</span></strong>
     <!-- Checkout Area -->
     <div id="checkoutArea">
-        <strong>Email:</strong>
-        <input type="email" id="customerEmail" placeholder="Enter your email">
-        <button id="checkoutButton">Checkout</button>
+      <h3>Checkout</h3>
+      <form>
+        <div class="form-group">
+          <label for="customerEmail">Email address</label>
+          <input type="email" class="form-control" id="customerEmail" aria-describedby="emailHelp" placeholder="Enter your email">
+        </div>
+        <div class="form-group">
+          <label for="customerName">Name</label>
+          <input type="text" class="form-control" id="customerName" placeholder="Enter your name">
+        </div>
+        <button id="checkoutButton" type="button">Checkout</button>
+
+      </form>
     </div>
+  </div>
 </div>
 
 
-</div>
-<script>
-document.getElementById('basketIcon').addEventListener('click', function() {
-    const dropdown = document.getElementById('basketDropdown');
-    if (dropdown.classList.contains('hidden')) {
-        dropdown.classList.remove('hidden');
-        dropdown.style.display = "block"; // this is just for testing
-        console.log("Dropdown should now be VISIBLE");
-    } else {
-        dropdown.classList.add('hidden');
-        dropdown.style.display = "none"; // this is just for testing
-        console.log("Dropdown should now be HIDDEN");
-    }
-});
-function toggleDropdown() {
-    const dropdown = document.getElementById('basketDropdown');
-    if (dropdown.classList.contains('hidden')) {
-        dropdown.classList.remove('hidden');
-        console.log("Dropdown should now be VISIBLE");
-    } else {
-        dropdown.classList.add('hidden');
-        console.log("Dropdown should now be HIDDEN");
-    }
-}
-
-document.getElementById('basketIcon').addEventListener('click', toggleDropdown);
-
-
-function updateBasketDisplay() {
-    const basketList = document.getElementById("basketItemsList");
-    const basketTotal = document.getElementById("basketTotal");
-    const itemCount = document.getElementById("itemCount");
-    
-    // Clear the current list
-    basketList.innerHTML = '';
-    
-    // Calculate the total price
-    let total = 0;
-
-    // Populate the basket list
-    basket.forEach(item => {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${item.name} - £${item.price}`;
-        basketList.appendChild(listItem);
-
-        total += parseFloat(item.price);
-    });
-
-    basketTotal.textContent = total.toFixed(2);
-    itemCount.textContent = basket.length;
-}
-document.getElementById('checkoutButton').addEventListener('click', function() {
-    const email = document.getElementById('customerEmail').value;
-    if (!email) {
-        alert("Please enter your email!");
-        return;
-    }
-
-    const items = JSON.stringify(basket);
-    const totalAmount = document.getElementById("basketTotal").textContent;
-
-    // Using fetch to make an AJAX request. You can use jQuery's $.ajax or any other method.
-    fetch('save_order.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            email: email,
-            items: items,
-            total_amount: totalAmount
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert("Order saved and email sent!");
-            basket = []; // Empty the basket
-            updateBasketDisplay(); // Refresh the basket display
-        } else {
-            alert("There was an error!");
-        }
-    });
-});
-
-</script>
 
 
         <div class="section bg-light" id="section-menu" data-aos="fade-up">
@@ -344,21 +294,21 @@ document.getElementById('checkoutButton').addEventListener('click', function() {
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <ul class="nav site-tab-nav" id="pills-tab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="pills-starters-tab" data-toggle="pill" href="#pills-starters" role="tab" aria-controls="pills-starters" aria-selected="true">Starters</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="pills-meal-tab" data-toggle="pill" href="#pills-meal" role="tab" aria-controls="pills-meal" aria-selected="false">Meal</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="pills-desserts-tab" data-toggle="pill" href="#pills-desserts" role="tab" aria-controls="pills-desserts" aria-selected="false">Desserts</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="pills-drinks-tab" data-toggle="pill" href="#pills-drinks" role="tab" aria-controls="pills-drinks" aria-selected="false">Drinks</a>
-                    </li>
-                </ul>
+    <div class="col-md-8">
+        <ul class="nav site-tab-nav" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="pills-starters-tab" data-toggle="pill" href="#pills-starters" role="tab" aria-controls="pills-starters" aria-selected="true">Starters</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-meal-tab" data-toggle="pill" href="#pills-meal" role="tab" aria-controls="pills-meal" aria-selected="false">Meal</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-desserts-tab" data-toggle="pill" href="#pills-desserts" role="tab" aria-controls="pills-desserts" aria-selected="false">Desserts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-drinks-tab" data-toggle="pill" href="#pills-drinks" role="tab" aria-controls="pills-drinks" aria-selected="false">Drinks</a>
+            </li>
+        </ul>
 
                 <div class="tab-content" id="pills-tabContent">
                     <?php 
@@ -758,82 +708,7 @@ document.getElementById('checkoutButton').addEventListener('click', function() {
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 
     <script src="js/main.js"></script>
-    <script>
-let basket = [];
-
-document.addEventListener('DOMContentLoaded', function() {
-    const addToBasketButtons = document.querySelectorAll('.addToBasket');
-    const basketIcon = document.getElementById('basketIcon');
-
-    addToBasketButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const itemId = this.getAttribute('data-id');
-            const itemName = this.getAttribute('data-name');
-            const itemPrice = parseFloat(this.getAttribute('data-price'));
-            
-            addToBasket(itemId, itemName, itemPrice);
-        });
-    });
-
-    basketIcon.addEventListener('click', function() {
-    const dropdown = document.getElementById('basketDropdown');
-    dropdown.classList.toggle('hidden');
-    console.log('Basket icon clicked. Dropdown class:', dropdown.className);
-});
-
-});
-
-function addToBasket(id, name, price) {
-    basket.push({id, name, price});
-    console.log("Item added:", id, name, price);
-    console.log("Current Basket:", basket);
-    updateBasketDisplay();
-}
-
-
-function updateBasketDisplay() {
-    const itemCount = document.getElementById('itemCount');
-    const basketItemsList = document.getElementById('basketItemsList');
-    const basketTotal = document.getElementById('basketTotal');
-
-    // Clear the current list
-    basketItemsList.innerHTML = '';
-
-    // Calculate the total price
-    let total = 0;
-
-    // Populate the basket list
-    basket.forEach(item => {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${item.name} - £${item.price}`;
-        basketItemsList.appendChild(listItem);
-
-        total += parseFloat(item.price);
-    });
-
-    basketTotal.textContent = total.toFixed(2);
-    itemCount.textContent = basket.length;
-}
-document.addEventListener('DOMContentLoaded', function() {
-  let currentAnimation = 0;
-    const animations = document.querySelectorAll('.preloader .animation');
-
-    // Function to switch between animations (if you have more than one)
-    function switchAnimation() {
-        animations[currentAnimation].style.display = 'none';
-        currentAnimation = (currentAnimation + 1) % animations.length;
-        animations[currentAnimation].style.display = 'block';
-    }
-
-    // You can adjust or remove this interval if you're only showing "Royale Bakery"
-    setInterval(switchAnimation, 2000);
-
-    // Hide preloader once the website is fully loaded
-    const preloader = document.querySelector('.preloader');
-    preloader.style.display = 'none';
-    document.body.style.overflow = 'auto'; // Restore scroll
-});
-</script>
+    <script src = "js/basket.js"></script>
 
   </body>
 </html>

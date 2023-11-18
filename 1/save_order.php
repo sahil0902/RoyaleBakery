@@ -1,27 +1,47 @@
 <?php
+ini_set('log_errors', 1);
+ini_set('error_log', 'php-errors.log');
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+header('Content-Type: application/json');
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: Content-Type");
+
 require 'vendor/autoload.php';
+include 'config.php'; // Include your config file with a database connection
 
-// Include your config file with database connection
-include 'config.php';
+$requestBody = file_get_contents('php://input');
 
+// Check if request body is empty
+if (empty($requestBody)) {
+    echo json_encode(["success" => false, "error" => "Empty request body."]);
+    exit;
+}
 
-$data = json_decode(file_get_contents('php://input'), true);
-file_put_contents('data.log', print_r($data, true)); 
+$data = json_decode($requestBody, true);
+
+// Ensure data is an array and contains the necessary keys
+if (!is_array($data) || !isset($data['email']) || !isset($data['customerName']) || !isset($data['items']) || !isset($data['total_amount'])) {
+    echo json_encode(["success" => false, "error" => "Invalid request data."]);
+    exit;
+}
 
 $email = $data['email'];
-$items = isset($data['items']) ? $data['items'] : [];  // ensure items is set and default to empty array if not
+$customerName = isset($data['customerName']) ? $data['customerName'] : ''; // Default to empty if not set
+$items = isset($data['items']) ? $data['items'] : [];  // ensure items is set and default to an empty array if not
 $total_amount = $data['total_amount'];
 
-// Extract name from email (assuming name before @)
-$nameParts = explode("@", $email);
-$customerName = ucfirst($nameParts[0]);
+// Save order to the database
+$stmt = $pdo->prepare("INSERT INTO orders (email, customerName, items, total_amount) VALUES (?, ?, ?, ?)");
+if (!$stmt->execute([$email, $customerName, json_encode($items), $total_amount])) {
+    echo json_encode(["success" => false, "error" => "Database error: " . implode(", ", $stmt->errorInfo())]);
+    exit;
+}
 
-// Save order to database
-$stmt = $pdo->prepare("INSERT INTO orders (email, items, total_amount) VALUES (?, ?, ?)");
-$stmt->execute([$email, json_encode($items), $total_amount]);
-
-// Start email content generation
+// Send email
 ob_start();
+
 
 ?>
 <!DOCTYPE html>
@@ -136,7 +156,6 @@ endforeach;
 
 <?php
 
-// ... (Your existing code)
 
 $emailContent = ob_get_clean();
 
@@ -144,23 +163,36 @@ $emailContent = ob_get_clean();
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetTitle('Royale Bakery Order Receipt');
-$pdf->SetFont('dejavusans', '', 12);  // Example: DejaVu Sans supports a wide range of characters.
+$pdf->SetFont('dejavusans', '', 12);
 $pdf->AddPage();
 $pdf->writeHTML($emailContent, true, false, true, false, '');
-$pdfContent = $pdf->Output('', 'S');  // 'S' means return as a string
+$pdfContent = $pdf->Output('', 'S');
 
 // Send the email using PHPMailer with PDF attachment
 use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception as PHPMailerException;
 
 $mail = new PHPMailer(true);
+$mail->CharSet = 'UTF-8';
+$mail->Encoding = 'base64';
 $mail->setFrom('noreply@royalebakery.com', 'Royale Bakery');
 $mail->addAddress($email, $customerName);
-$mail->isHTML(true);                                 
+$mail->isHTML(true);
 $mail->Subject = "Your Order Details from Royale Bakery";
 $mail->Body = $emailContent;
-$mail->addStringAttachment($pdfContent, "receipt_$customerName.pdf");  // Attach the PDF content directly
-$mail->send();
+$mail->addStringAttachment($pdfContent, "receipt_$customerName.pdf");
 
-echo json_encode(["success" => true]);
-
+try {
+    $sent = $mail->send();
+    if (!$sent) {
+        error_log("Error sending email: " . $mail->ErrorInfo);
+        echo json_encode(["success" => false, "error" => "Mail Error: " . $mail->ErrorInfo]);
+    } else {
+        // Separate JSON response
+        echo json_encode(["success" => true]);
+    }
+} catch (Exception $e) {
+    error_log("Error sending email: " . $e->getMessage());
+    echo json_encode(["success" => false, "error" => "Mail Error: " . $e->getMessage()]);
+}
 ?>

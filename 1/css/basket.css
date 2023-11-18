@@ -1,64 +1,233 @@
+/* Style for menu food items */
+
+
+element.style {
+  overflow: hidden !important;
+}
 
 .menu-food-item {
-    flex-wrap: wrap;
-}
-
-@media (max-width: 768px) {
-    .menu-food-item .text, .menu-food-item .price {
-        width: 100%;
-        text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 10px;
+  border-bottom: 1px solid #e0e0e0;
+  }
+  
+  /* Responsive style for menu food items */
+  @media (max-width: 768px) {
+    .menu-food-item .text,
+    .menu-food-item .price {
+      width: 100%;
+      text-align: left;
     }
-}
-#floatingBasket {
+  }
+  
+  /* Styling for the floating basket container */
+  #floatingBasket {
     position: fixed;
-    bottom: 20px;  /* Adjust according to where you want it on the screen */
-    right: 20px;   /* Adjust according to where you want it on the screen */
-    z-index: 1000; /* Ensures the basket stays above other elements */
+    bottom: 25px;
+    right: 25px;
+    z-index: 1000;
+    /*background-color: #f7f7f7;*/
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  #basketIcon {
+   /* background-color: #f7f7f7;
+    border: 1px solid #e0e0e0;*/
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    }
+  
+  #basketIcon::before {
+    content: "";
+    position: absolute;
+    top: -2px; /* Adjust the position to not cover the whole icon */
+    left: -2px; /* Adjust the position to not cover the whole icon */
+    width: calc(100% - 4px); /* Adjust the size to not cover the whole icon */
+    height: calc(100% - 4px); /* Adjust the size to not cover the whole icon */
+    background-color: transparent; /* Make it transparent */
+    border-radius: inherit; /* Inherit the border-radius from the parent */
+    z-index: -1;  /* Place it behind the icon's content */
+  }
+  
+  #basketIcon:hover {
+    background-color: #e6e6e6;
 }
 
+  
+  
+  /* Styling for the item count inside the basket icon */
+  #itemCount {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #007BFF; /* This is just a suggested color, you can adjust as needed */
+    color: #fff;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    }
+    
 
-#basketIcon {
-background-color: #f7f7f7;
-border: 1px solid #e0e0e0;
-padding: 10px 20px;
-border-radius: 50px;
-cursor: pointer;
-display: flex;
-align-items: center;
+ 
+  
+  /* Styling for the basket dropdown */
+  #basketDropdown {
+    position: absolute;
+    bottom: 60px;
+    right: 0;
+    background-color: #dcca62eb;
+    border: 1px solid #ddd;
+    padding: 15px;
+    width: 300px;
+    box-shadow: -11px 4px 8px rgba(0, 0, 0, 0.2);
+    display: none;
+
+    padding: 20px;
+    border-radius: 10px;
+    overflow-y: auto;
+    max-height: 400px; /* To handle long lists, this will add a scroll */
+  }
+  
+  /* Styling for the "Your Basket" heading */
+  #basketDropdown h4 {
+    margin-top: 0;
+    font-size: 18px;
+  }
+  
+  /* Styling for the basket items list */
+  #basketItemsList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Styling for the total amount */
+  #basketTotal {
+    font-weight: bold;
+  }
+  
+  /* Styling for the checkout form */
+  #checkoutArea {
+    margin-top: 20px;
+  }
+  
+  /* Styling for form labels */
+  label {
+    font-weight: bold;
+  }
+  
+  /* Styling for form inputs */
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #cdbc00;
+    border-radius: 4px;
+  }
+  
+  /* Styling for the checkout button */
+  #checkoutButton {
+    background-color: #4CAF50; /* Green background for better visibility and contrast */
+    color: #ffffff; /* White text for contrast */
+    border: 2px solid transparent; /* Adds definition without color, can change on hover */
+    padding: 15px 30px; /* More padding for a larger, more clickable area */
+    border-radius: 5px; /* Slightly rounded corners for a modern look */
+    cursor: pointer;
+    width: auto; /* Auto width to size according to content, providing enough space around the text */
+    text-align: center;
+    font-size: 18px; /* Larger font size for readability */
+    font-weight: bold; /* Bold font for emphasis */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2); /* Subtle text shadow for depth */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Box shadow for depth */
+    display: inline-block; /* Allows the button to resize according to its content */
+}
+  
+#checkoutButton:hover {
+  background-color: #45a049; /* Darker shade of button color on hover for feedback */
+  border: 2px solid #4CAF50; /* Border color changes to original background color on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Larger box shadow for lift effect on hover */
+  transform: translateY(-2px); /* Slight lift effect on hover */
+}
+#checkoutButton:active {
+  transform: translateY(1px); /* Slight press-down effect on click */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reset box shadow to give a pressed effect */
+}
+.checkoutButton-icon {
+  margin-right: 10px; /* Space between icon and text */
+  /* You can use a font icon library like Font Awesome here */
 }
 
-#itemCount {
-margin-left: 10px;
+  .quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Adds a gap between children elements */
+}
+/* Updated form controls styling */
+.form-control:focus {
+  outline: none;
+  border-color: #FFD700; /* Golden color */
+  box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+.quantity-controls button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%; /* Making the buttons circular */
+}
+.remove-item:hover {
+  color: darkred;
+}
+.quantity-controls button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(255, 215, 0, 0.5); /* Golden color focus shadow */
+}
+.remove-item {
+    color: red;
+    cursor: pointer;
 }
 
-#basketDropdown {
-position: absolute;
-bottom: 60px;
-right: 0;
-background-color: #f7f7f7;
-border: 1px solid #e0e0e0;
-padding: 10px;
-width: 250px;
-box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+/* Add styles for the bakery logo at the top-left of the basket */
+#bakeryLogo {
+  display: inline-block;
+  background-image: url('path-to-croissant-logo.png'); /* Replace with your logo path */
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+  margin-right: 10px;
+}
+
+/* Add styles for the chat bubble icon at the bottom-right */
+#chatBubbleIcon {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: #0099cc;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+}
+#basketIcon img {
+  height: 40px;
+  width: 40px;
+  /* Add any additional styling here */
 }
 
 .hidden {
-    display: none !important; 
+  display: none 
 }
 
-#checkoutArea {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-}
 
-#customerEmail {
-    margin: 10px 0;
-    padding: 5px;
-    width: 100%;
-}
-
-#checkoutButton {
-    padding: 5px 10px;
-    cursor: pointer;
-}
