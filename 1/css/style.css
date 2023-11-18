@@ -90,56 +90,47 @@ textarea.form-control {
 /* Site Menu*/
 .site-menu {
   display: block;
-  background: #fff;
+  background: #fff4e6; /* Cream background to match .ftco-38-body */
+  color: #5c3a0d; /* Brown text to match .ftco-38-body */
+  font-family: 'Playfair Display', serif; /* Traditional font as in .ftco-38-body */
   right: 0;
   z-index: 101;
   position: fixed;
   width: 300px;
-  -webkit-transform: translateX(100%);
-  -ms-transform: translateX(100%);
   transform: translateX(100%);
-  -webkit-transition: .3s all ease;
-  -o-transition: .3s all ease;
   transition: .3s all ease;
   bottom: 0;
   top: 0;
-  -webkit-box-shadow: 0 -20px 20px -5px rgba(0, 0, 0, 0.05);
-  box-shadow: 0 -20px 20px -5px rgba(0, 0, 0, 0.05);
-  min-height: 300px;
-  overflow-y: hidden; /* Changed from overflow to overflow-y */
-  max-height: 100vh; /* Limit the height to viewport height */
+  box-shadow: 0 0 10px #ccc; /* Soft shadow as in .ftco-38-body */
+  border-radius: 5px; /* Rounded corners as in .ftco-38-body */
+  overflow-y: hidden;
+  max-height: 100vh;
 }
-
 
 .site-menu ul {
   position: relative;
-  margin-top: 150px;
-  margin-bottom: 50px;
+  padding-top: 20px; /* Adjust padding to match .ftco-38-body */
+  padding-bottom: 20px; /* Adjust padding to match .ftco-38-body */
 }
 
 .site-menu ul > li {
   list-style: none;
-  visibility: hidden;
-  opacity: 0;
+  opacity: 1; /* Changed to make visible by default, remove is-show class if not needed */
   padding: 0;
   margin: 0 0 10px 0;
-  top: -20px;
   position: relative;
   text-align: center;
-  -webkit-transition: .3s all ease;
-  -o-transition: .3s all ease;
   transition: .3s all ease;
 }
 
-.site-menu ul > li.is-show {
-  visibility: visible;
-  opacity: 1;
-  top: 0px;
-}
-
 .site-menu ul > li a {
-  color: var(--rich-gold);
-  font-size: 20px;
+  color: #5c3a0d; /* Brown text to match .ftco-38-body */
+  font-size: 20px; /* Size to match .ftco-38-body, adjust as needed */
+  font-family: 'Playfair Display', serif; /* Ensure font family is consistent */
+  transition: color 0.3s ease; /* Smooth transition for color change */
+}
+.site-menu ul > li a:hover {
+  color: #e0a96d; /* Lighter brown on hover, to match .social-icon:hover */
 }
 
 .site-menu.site-menu-show {
@@ -154,7 +145,7 @@ textarea.form-control {
 
 .bg-slant-white:after {
   z-index: 1;
-  background: #fff;
+  background: #fff4e6; 
   content: "";
   -webkit-transform: rotate(-5deg) translateX(-50%);
   -ms-transform: rotate(-5deg) translateX(-50%);
@@ -735,59 +726,77 @@ textarea.form-control {
   transform: scale(1.02);
   opacity: 0.9;
 }
-/* Existing menu-food-item style with some modifications */
 .menu-food-item {
-  border-bottom: 1px dotted #ccc;  /* Retained the border style */
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;                   /* Changed from float to flex for better alignment */
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;  /* Aligns content space-wise */
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;             /* Vertically aligns items in the center */
-  width: 100%;
-  padding: 20px 0;                /* Adjusted padding for top and bottom */
-  margin-bottom: 30px;
-  -webkit-transition: background-color 0.3s ease, -webkit-transform 0.3s ease;
-  transition: background-color 0.3s ease, -webkit-transform 0.3s ease;
-  -o-transition: background-color 0.3s ease, transform 0.3s ease;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  transition: background-color 0.3s ease, transform 0.3s ease, -webkit-transform 0.3s ease; /* Added transform to transition properties */
-  background-color: #fff;         /* Added a default background color */
+  background-color: #fff4e6; /* Cream background similar to .ftco-38-body */
+  color: #5c3a0d; /* Brown text to match .ftco-38-body */
+  font-family: 'Playfair Display', serif; /* Traditional font as in .ftco-38-body */
+  border-radius: 5px; /* Rounded corners as in .ftco-38-body */
+  box-shadow: 0px 0px 10px #ccc; /* Soft shadow as in .ftco-38-body */
+  padding: 20px; /* Padding as in .ftco-38-body */
+  margin-bottom: 30px; /* Space between menu items */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease; /* Smooth transition for effects */
 }
 
+
+/* Hover effect for menu items */
 .menu-food-item:hover {
-  border: 1px solid rgba(255, 215, 0, 0.5); /* Semi-transparent gold border */
-  background-color: transparent;
-  -webkit-transform: scale(1.02);
-      -ms-transform: scale(1.02);
-          transform: scale(1.02);
-  opacity: 0.9; /* Slightly less opaque */
-  transform: scale(1.02);
-  background-color: rgba(50, 50, 50, 0.2); /* Warm gray for a subtle look */
-  color: #ffd700; /* Gold text */
-  transform: scale(1.02);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02); /* Slight scale to give feedback */
+  background-color: #f3e9dc; /* Slight change in background */
+}
+.menu-food-item img:hover {
+  opacity: 0.9; /* Slight transparency effect */
+  transform: scale(1.05); /* Slightly larger to indicate interactivity */
+}
+/* Hover effect for the menu item's title and description */
+.menu-food-item h3:hover,
+.menu-food-item p:hover {
+  color: #6d4e18; /* Darker shade of brown for better visibility */
+}
+.menu-food-item h3 {
+  font-size: 1.5em; /* Larger font size to match .introduction */
+  font-weight: bold; /* Bold font weight as in .introduction */
+  margin-bottom: 15px; /* Bottom margin as in .introduction */
+  color: #5c3a0d; /* Text color as in .ftco-38-body */
+  flex-grow: 1; /* Allows title to fill available space */
 }
 
 
-
-.menu-food-item h3 a {
-  color: #000;
-  -webkit-transition: color 0.3s ease;
-  -o-transition: color 0.3s ease;
-  transition: color 0.3s ease;
-  margin: 0;                      /* Removes default margin */
-  font-size: 1.4em; 
-  text-decoration: none;         /* Removes underline from link */
-}
-
-/* Style for the menu item's image */
+/* Adjustments for image size and spacing */
 .menu-food-item img {
-  margin-right: 15px;             /* Adds space between the image and the text */
-  max-width: 80px;               /* Adjust to your preference */
-  border-radius: 5px;            /* Optional: Adds a rounded corner to images */
+  margin-right: 15px; /* Space between image and text */
+  width: 120px; /* Increased width for the image */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 5px; /* Rounded corners as in .ftco-38-body */
+}
+
+/* Style for the price and 'Add to Basket' button */
+.menu-food-item .price {
+  font-size: 1em;
+  color: #5c3a0d; /* Color to match the theme */
+  margin-right: 10px; /* Space before the button */
+}
+/* Adjusting the button to match the theme */
+.menu-food-item .add-to-basket {
+  background-color: #ffd700; /* Gold background */
+  color: #5c3a0d; /* Brown text to match .ftco-38-body */
+  border: none; /* No border for a cleaner look */
+  padding: 10px 20px; /* Sufficient padding for clickable area */
+  border-radius: 5px; /* Rounded edges as in .ftco-38-body */
+  font-family: 'Playfair Display', serif; /* Consistent font family */
+  cursor: pointer; /* Indicates the element is clickable */
+  transition: all 0.3s ease; /* Transition for interactive effect */
+}
+
+
+.menu-food-item .add-to-basket:hover {
+  background-color: #e0a96d; /* Lighter brown on hover */
+  color: #fff; /* White text for contrast */
+  /* Slight scale increase for interactive feedback */
+  transform: scale(1.05);
 }
 
 /* Style for the price and button container */

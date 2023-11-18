@@ -71,7 +71,7 @@ foreach ($menu_items as $item) {
     <body data-spy="scroll" data-target=".navbar" data-offset="50">
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <a class="navbar-brand" href="index.php">🍰</a>
+        <a class="navbar-brand" href="index2.php">👑</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -277,14 +277,12 @@ function collapseNavbar() {
         <a href="https://www.google.com/maps?q=203+Otley+Road,+Bradford,+BD3+0JF" target="_blank" rel="noopener noreferrer">View on Google Maps</a>
     </p>
     <div class="social-links">
-        Stay connected with our latest offerings and events:
-        <a href="https://www.facebook.com/RoyaleBakeryPage" class="p-2 social-icon" target="_blank" rel="noopener noreferrer" aria-label="Royale Bakery on Facebook"><span class="fa fa-facebook" alt="Facebook icon"></span></a>
-        <a href="https://twitter.com/RoyaleBakery" class="p-2 social-icon" target="_blank" rel="noopener noreferrer" aria-label="Royale Bakery on Twitter"><span class="fa fa-twitter" alt="Twitter icon"></span></a>
-        <a href="https://www.instagram.com/RoyaleBakery" class="p-2 social-icon" target="_blank" rel="noopener noreferrer" aria-label="Royale Bakery on Instagram"><span class="fa fa-instagram" alt="Instagram icon"></span></a>
+      Stay connected with our latest offerings and events:
+      <a href="https://www.facebook.com/RoyaleBakeryPage" class="p-2 social-icon" target="_blank" rel="noopener noreferrer" aria-label="Royale Bakery on Facebook"><span class="fa fa-facebook" alt="Facebook icon"></span></a>
+      <a href="https://www.instagram.com/rb_bakeryuk?igshid=OGQ5ZDc2ODk2ZA%3D%3D" class="p-2 social-icon" target="_blank" rel="noopener noreferrer" aria-label="Royale Bakery on Instagram"><span class="fa fa-instagram" alt="Instagram icon"></span></a>
+      <a href="https://www.tiktok.com/@royale.bakery?_t=8hSXnm0GT5O&_r=1" class="p-2 social-icon" target="_blank" rel="noopener noreferrer" aria-label="Royale Bakery on TikTok"><span class="fa fa-tiktok" alt="TikTok icon"></span></a>
     </div>
 </div>
-
-
 
                     </div>
                   </div>
@@ -807,7 +805,7 @@ $sections = [
     
 
     <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script> -->
-    <script src="js/adminmenu.js"></script>
+    <script src="js/notification.js"></script>
     <script src="js/main.js"></script>
     <script src = "js/basket.js"></script>
     <script src="js/scrollPosition.js"></script>
