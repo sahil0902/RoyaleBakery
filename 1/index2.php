@@ -52,6 +52,7 @@ foreach ($menu_items as $item) {
 
     <!-- Theme Style -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/menufood.css">
     <link rel="stylesheet" href="css/darkmode.css">
     <link rel="stylesheet" type="text/css" href="css/basket.css">
     <link rel="stylesheet" type="text/css" href="css/animation.css">
@@ -380,7 +381,7 @@ function collapseNavbar() {
             </div>
             <div class="d-flex align-items-center">
                 <strong class="mr-3">£<?= htmlspecialchars($item['price']) ?></strong>
-                <button class="btn btn-primary addToBasket" data-id="<?= $item['id'] ?>" data-name="<?= htmlspecialchars($item['name']) ?>" data-price="<?= htmlspecialchars($item['price']) ?>">Add to Basket</button>
+               <i class="fas fa-shopping-basket btn btn-primary addToBasket" data-id="<?= $item['id'] ?>" data-name="<?= htmlspecialchars($item['name']) ?>" data-price="<?= htmlspecialchars($item['price']) ?>"></i>
             </div>
         </div>
     <?php endforeach; ?>
@@ -423,6 +424,7 @@ $sections = [
         <?php
         $items_to_display = $sectionName === 'ALL' ? $menu_items : $grouped_items[$sectionName];
         if (isset($items_to_display) && !empty($items_to_display)):
+          echo '<div class="menu-container">';
             foreach ($items_to_display as $item):
             ?>
             <div class="d-flex justify-content-between align-items-center menu-food-item interactive-item">
@@ -433,11 +435,12 @@ $sections = [
                 </div>
                 <div class="d-flex align-items-center">
                     <strong class="mr-3">£<?= htmlspecialchars($item['price']) ?></strong>
-                    <button class="btn btn-primary addToBasket" data-id="<?= $item['id'] ?>" data-name="<?= htmlspecialchars($item['name']) ?>" data-price="<?= htmlspecialchars($item['price']) ?>">Add to Basket</button>
+                   <i class="fas fa-shopping-basket btn btn-primary addToBasket" data-id="<?= $item['id'] ?>" data-name="<?= htmlspecialchars($item['name']) ?>" data-price="<?= htmlspecialchars($item['price']) ?>"></i>
                 </div>
             </div>
             <?php
             endforeach;
+            echo '</div>';
         else:
         ?>
         <p>No items available in this section.</p>
@@ -801,15 +804,15 @@ $sections = [
 
     <script src="js/jquery.easing.1.3.js"></script>    
 
-    <script src="js/aos.js"></script>
+    <script src="js/aos.js" defer></script>
     
 
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script> -->
-    <script src="js/notification.js"></script>
-    <script src="js/main.js"></script>
-    <script src = "js/basket.js"></script>
-    <script src="js/scrollPosition.js"></script>
-    <script src="js/test.js"></script>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&sensor=false" defer></script> -->
+    <script src="js/notification.js" defer></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/basket.js" defer></script>
+    <script src="js/scrollPosition.js" defer></script>
+    <script src="js/test.js" defer></script>
 
   </body>
 </html>
