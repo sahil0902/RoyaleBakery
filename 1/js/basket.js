@@ -83,6 +83,8 @@ let basket = [];
 
 document.addEventListener('DOMContentLoaded', function() {
     const addToBasketButtons = document.querySelectorAll('.addToBasket');
+    console.log(addToBasketButtons); // Check if buttons are selected
+
     const basketIcon = document.getElementById('basketIcon');
 
     addToBasketButtons.forEach(button => {

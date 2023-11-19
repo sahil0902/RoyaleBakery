@@ -72,7 +72,7 @@ foreach ($menu_items as $item) {
     <body data-spy="scroll" data-target=".navbar" data-offset="50">
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <a class="navbar-brand" href="index2.php">👑</a>
+        <a class="navbar-brand" href="index3.php">👑</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -342,7 +342,7 @@ function collapseNavbar() {
        <!-- Adding the search bar with icon -->
 <div class="row justify-content-center mb-5">
     <div class="col-md-8">
-    <form action="index2.php#section-menu" method="GET" class="text-center mb-4">
+    <form action="index3.php#section-menu" method="GET" class="text-center mb-4">
     <input type="text" name="query" placeholder="Search for menu items..." value="<?= htmlspecialchars($_GET['query'] ?? '') ?>">
     <input type="submit" value="Search">
 </form>
@@ -384,8 +384,8 @@ function collapseNavbar() {
   
   <!-- Price and Add to Basket -->
   <div class="menu-item-action">
-    <span class="menu-item-price">£<?= htmlspecialchars($item['price']) ?></span>
-    <i class="fas fa-shopping-basket add-to-basket-icon" data-id="<?= $item['id'] ?>" data-name="<?= htmlspecialchars($item['name']) ?>" data-price="<?= htmlspecialchars($item['price']) ?>"></i>
+       <strong class="mr-3">£<?= htmlspecialchars($item['price']) ?></strong>
+                   <i class="fas fa-shopping-basket btn btn-primary addToBasket" data-id="<?= $item['id'] ?>" data-name="<?= htmlspecialchars($item['name']) ?>" data-price="<?= htmlspecialchars($item['price']) ?>"></i>
   </div>
 </div>
 
@@ -444,8 +444,8 @@ $sections = [
   
   <!-- Price and Add to Basket -->
   <div class="menu-item-action">
-    <span class="menu-item-price">£<?= htmlspecialchars($item['price']) ?></span>
-    <i class="fas fa-shopping-basket add-to-basket-icon" data-id="<?= $item['id'] ?>" data-name="<?= htmlspecialchars($item['name']) ?>" data-price="<?= htmlspecialchars($item['price']) ?>"></i>
+       <strong class="mr-3">£<?= htmlspecialchars($item['price']) ?></strong>
+                   <i class="fas fa-shopping-basket btn btn-primary addToBasket" data-id="<?= $item['id'] ?>" data-name="<?= htmlspecialchars($item['name']) ?>" data-price="<?= htmlspecialchars($item['price']) ?>"></i>
   </div>
 </div>
 
