@@ -1,7 +1,9 @@
 /* Style for menu food items */
 
 
-
+element.style {
+  overflow: hidden !important;
+}
 
 .menu-food-item {
   display: flex;
@@ -20,16 +22,18 @@
     }
   }
   
-  /* Styling for the floating basket container */
   #floatingBasket {
+    background-color: #fff4e6; /* Cream background to match .ftco-38-body */
+    color: #5c3a0d; /* Brown text to match .ftco-38-body */
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); /* Softer shadow to match .ftco-38-body */
     position: fixed;
     bottom: 25px;
     right: 25px;
     z-index: 1000;
     /*background-color: #f7f7f7;*/
     padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
   }
   
   #basketIcon {
@@ -52,11 +56,9 @@
     border-radius: inherit; /* Inherit the border-radius from the parent */
     z-index: -1;  /* Place it behind the icon's content */
   }
-  
   #basketIcon:hover {
-    background-color: #e6e6e6;
-}
-
+    background-color: #e0a96d; /* Lighter brown on hover to match .social-icon */
+  }
   
   
   /* Styling for the item count inside the basket icon */
@@ -64,7 +66,7 @@
     position: absolute;
     top: 5px;
     right: 5px;
-    background-color: #007BFF; /* This is just a suggested color, you can adjust as needed */
+    background-color: #5c3a0d; 
     color: #fff;
     border-radius: 50%;
     padding: 2px 6px;
@@ -79,11 +81,11 @@
     position: absolute;
     bottom: 60px;
     right: 0;
-    background-color: #dcca62eb;
-    border: 1px solid #ddd;
+    background-color: #fff4e6;
+    border: 1px solid #e6dcc3;
     padding: 15px;
     width: 300px;
-    box-shadow: -11px 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
     display: none;
 
     padding: 20px;
@@ -125,14 +127,16 @@
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
-    border: 1px solid #cdbc00;
+    background-color: #fff; /* White background for the input */
+    color: #5c3a0d; /* Brown text to match .ftco-38-body */
+    border: 1px solid #e0a96d; /* Border color to match hover effects */
     border-radius: 4px;
   }
   
   /* Styling for the checkout button */
   #checkoutButton {
-    background-color: #4CAF50; /* Green background for better visibility and contrast */
-    color: #ffffff; /* White text for contrast */
+    background-color: #5c3a0d; /* Brown background to match .ftco-38-body */
+    color: #fff; /* White text for contrast *//* White text for contrast */
     border: 2px solid transparent; /* Adds definition without color, can change on hover */
     padding: 15px 30px; /* More padding for a larger, more clickable area */
     border-radius: 5px; /* Slightly rounded corners for a modern look */
@@ -146,9 +150,15 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Box shadow for depth */
     display: inline-block; /* Allows the button to resize according to its content */
 }
-  
+.quantity-controls button:hover,
+.remove-item:hover,
+#chatBubbleIcon:hover {
+  background-color: #e0a96d; /* Lighter brown on hover to match .social-icon */
+  color: #fff; /* White text for contrast */
+}
 #checkoutButton:hover {
-  background-color: #45a049; /* Darker shade of button color on hover for feedback */
+  background-color: #e0a96d; /* Lighter brown on hover to match .social-icon */
+  color: #fff; /* White text for contrast */
   border: 2px solid #4CAF50; /* Border color changes to original background color on hover */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Larger box shadow for lift effect on hover */
   transform: translateY(-2px); /* Slight lift effect on hover */
@@ -170,8 +180,8 @@
 /* Updated form controls styling */
 .form-control:focus {
   outline: none;
-  border-color: #FFD700; /* Golden color */
-  box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+  border-color: #5c3a0d; /* Brown border on focus to match .ftco-38-body text */
+  box-shadow: 0 0 0 0.2rem rgba(252, 209, 134, 0.5);
 }
 .quantity-controls button {
   background: none;
@@ -228,4 +238,72 @@
   display: none 
 }
 
+/* Container for the toast notifications */
+#notification-container {
+  position: fixed;
+  top: 20px; /* Adjust as necessary */
+  right: 20px; /* Adjust as necessary */
+  z-index: 9999;
+  width: 300px; /* Adjust width as necessary */
+}
 
+/* General style for all toast notifications */
+.toast-notification {
+  background-color: #fff4e6; /* Cream background */
+  color: #5c3a0d; /* Brown text */
+  padding: 15px;
+  margin-bottom: 10px; /* Space between notifications */
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-left: 5px solid; /* Side border to indicate type, color will be set by type */
+  opacity: 0; /* Start with the notification invisible */
+  transform: translateX(100%);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Animations for notification appearance */
+.toast-notification.animate-in {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Different styles for each type of notification */
+.toast-notification.info {
+  border-color: #009BDF; /* Blue border for info messages */
+}
+
+.toast-notification.success {
+  border-color: #4CAF50; /* Green border for success messages */
+}
+
+.toast-notification.warning {
+  border-color: #FF9800; /* Orange border for warning messages */
+}
+
+.toast-notification.error {
+  border-color: #F44336; /* Red border for error messages */
+}
+
+/* Style for the close button */
+.toast-close-button {
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Hover style for the close button */
+.toast-close-button:hover {
+  color: #F44336; /* Red color on hover for attention */
+}
+
+/* When notification is being removed */
+.toast-notification.animate-out {
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 0.3s ease-in-out;
+}

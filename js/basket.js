@@ -83,6 +83,8 @@ let basket = [];
 
 document.addEventListener('DOMContentLoaded', function() {
     const addToBasketButtons = document.querySelectorAll('.addToBasket');
+    console.log(addToBasketButtons); // Check if buttons are selected
+
     const basketIcon = document.getElementById('basketIcon');
 
     addToBasketButtons.forEach(button => {
@@ -96,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     basketIcon.addEventListener('click', toggleDropdown);
-    initializePreloaderAnimations();
+    // initializePreloaderAnimations();
 });
 
 function addToBasket(id, name, price) {
@@ -201,26 +203,7 @@ function updateItemCount() {
     itemCountElement.textContent = totalItems;
 }
 
-function initializePreloaderAnimations() {
-    let currentAnimation = 0;
-    const animations = document.querySelectorAll('.preloader .animation');
 
-    function switchAnimation() {
-        animations[currentAnimation].style.display = 'none';
-        currentAnimation = (currentAnimation + 1) % animations.length;
-        animations[currentAnimation].style.display = 'block';
-    }
-
-    const animationInterval = setInterval(switchAnimation, 2000);
-
-    window.onload = function() {
-        clearInterval(animationInterval);
-        const preloader = document.querySelector('.preloader');
-        preloader.style.display = 'none';
-        document.body.style.overflow = 'auto';
-    }
-    
-}
 
 // Assuming there's an endpoint named 'save_order.php' on the server
 document.getElementById('checkoutButton').addEventListener('click', function() {

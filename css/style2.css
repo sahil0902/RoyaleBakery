@@ -400,12 +400,7 @@ textarea.form-control {
   width: 40%
 }
 
-@media (max-width:767.98px) {
-  .media>a {
-    width: 100%;
-    margin-bottom: 30px
-  }
-}
+
 
 .media.media-bg-white {
   -webkit-box-shadow: 0 10px 20px -5px rgba(0, 0, 0, .1);
@@ -517,10 +512,6 @@ textarea.form-control {
   margin: 0 0 20px
 }
 
-@media (max-width:991.98px) {
-  .half .image {
-    height: 250px
-  }
 
   .section-heading h2 {
     font-size: 30px
@@ -553,7 +544,7 @@ textarea.form-control {
   .owl-carousel.home-slider-loop-false .slider-item .slider-text h1 {
     font-size: 40px
   }
-}
+
 
 .ftco-38 .ftco-38-header img {
   width: 200px;
@@ -1272,11 +1263,7 @@ textarea.form-control {
   margin: 0 auto
 }
 
-@media (max-width:991.98px) {
-  .cover_1 .sub-heading {
-    font-size: 20px
-  }
-}
+
 
 .cover_1 .heading {
   color: #fff;
@@ -1301,21 +1288,8 @@ textarea.form-control {
   flex-wrap: wrap
 }
 
-@media (min-width:576px) {
-  .menus .item {
-    -webkit-box-flex: 0;
-    -ms-flex: 0 0 100%;
-    flex: 0 0 100%;
-    max-width: 100%
-  }
-}
 
-@media (min-width:768px) {
-  .cover_1 .heading {
-    font-size: 70px;
-    font-weight: 900;
-    line-height: 1.2
-  }
+
 
   .menus .item {
     -webkit-box-flex: 0;
@@ -1323,14 +1297,9 @@ textarea.form-control {
     flex: 0 0 50%;
     max-width: 50%
   }
-}
+/* Add your code here */
 
-@media (min-width:992px) {
 
-  .half .image,
-  .half .text {
-    width: 50%
-  }
 
   .media figure.horizontal {
     width: 150px
@@ -1346,16 +1315,8 @@ textarea.form-control {
     flex: 0 0 50%;
     max-width: 50%
   }
-}
 
-@media (min-width:1200px) {
-  .menus .item {
-    -webkit-box-flex: 0;
-    -ms-flex: 0 0 33.33333%;
-    flex: 0 0 33.33333%;
-    max-width: 33.33333%
-  }
-}
+
 
 .menus .item .image,
 .menus .item .text {
@@ -2012,14 +1973,7 @@ div#section-menu.section.bg-lig a:hover {
   font-size: 2em
 }
 
-@media (max-width:768px) {
 
-  .search-form .form-group input[type=submit],
-  .search-form .form-group input[type=text] {
-    width: auto;
-    display: block;
-    margin-bottom: 10px
-  }
 
   .container {
     padding-top: 200px
@@ -2042,4 +1996,36 @@ div#section-menu.section.bg-lig a:hover {
   .ftco-38-body .social-links .social-icon span {
     font-size: 1.5em
   }
-}
+
+
+
+
+@keyframes fadeEffect {
+    0%, 100% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+  }
+
+  .responsive-container .dynamic-background {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  .container {
+      padding-top: 295px;
+  }
+  
+  .heading {
+      color: gold;
+      text-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px gold, 0 0 40px #000, 0 0 70px #000, 0 0 80px #000, 0 0 100px #000;
+  }
+  
+
+  
+  
+
+

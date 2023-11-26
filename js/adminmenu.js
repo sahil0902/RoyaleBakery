@@ -38,28 +38,41 @@ function displayNextNotification() {
     const closeButton = document.createElement('button');
     closeButton.textContent = '×';
     closeButton.className = 'toast-close-button';
-    closeButton.onclick = () => notification.remove();
+    closeButton.onclick = () => {
+        notification.classList.add('animate-out');
+        notification.addEventListener('transitionend', () => notification.remove());
+    };
 
     // Append the close button to the notification
     notification.appendChild(closeButton);
 
-      // Find or create the notification container
-      let notificationContainer = document.getElementById('notification-container');
-      if (!notificationContainer) {
-          notificationContainer = document.createElement('div');
-          notificationContainer.id = 'notification-container';
-          document.body.appendChild(notificationContainer);
-      }
-  
-      // Append the notification to the container
-      notificationContainer.appendChild(notification);
-  
-      // Remove the notification after 3 seconds and display the next one
-      setTimeout(() => {
-          notification.remove();
-          displayNextNotification();
-      }, 3000);
-  
+    // Find or create the notification container
+    let notificationContainer = document.getElementById('notification-container');
+    if (!notificationContainer) {
+        notificationContainer = document.createElement('div');
+        notificationContainer.id = 'notification-container';
+        document.body.appendChild(notificationContainer);
+    }
+
+    // Append the notification to the container
+    notificationContainer.appendChild(notification);
+
+    // Add the 'animate-in' class to start the show animation
+    setTimeout(() => {
+        notification.classList.add('animate-in');
+    }, 100); // Timeout ensures the element is in the DOM so the animation can occur
+
+    // Remove the notification after 3 seconds with an animation
+    setTimeout(() => {
+        // Trigger the hide animation
+        notification.classList.add('animate-out');
+        // Wait for the animation to finish before removing the notification
+        notification.addEventListener('transitionend', () => {
+            notification.remove();
+            // Display the next notification in the queue if any
+            displayNextNotification();
+        });
+    }, 3000); // You can adjust timing to match your CSS animation
 }
 
 
