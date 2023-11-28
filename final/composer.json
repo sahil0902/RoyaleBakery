@@ -1,0 +1,7 @@
+{
+    "require": {
+        "tecnickcom/tcpdf": "^6.6",
+        "phpmailer/phpmailer": "^6.8",
+        "whichbrowser/parser": "^2.1"
+    }
+}

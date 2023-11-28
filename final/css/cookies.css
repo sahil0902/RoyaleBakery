@@ -1,0 +1,55 @@
+#cookieConsentOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Dim the background */
+    display: flex; /* Re-introduce flexbox layout */
+    justify-content: center; /* Center horizontally */
+    align-items: flex-start; /* Align to the top */
+    z-index: 9999; /* Make sure it's on top of other content */
+}
+
+#cookieConsentBanner {
+    background-color: #fff4e6; /* Soft cream background color */
+    color: #5c3a0d; /* Dark brown text color for contrast */
+    border-radius: 16px;
+    box-shadow: 0 0 10px #ccc;
+    padding: 20px;
+    margin-top: 20px; /* Adjust if necessary for top spacing */
+    /* Center the banner horizontally */
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 600px; /* Set a max-width for the banner */
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s; /* Smooth transition for hover effects */
+}
+
+#cookieConsentBanner p {
+    margin-bottom: 20px; /* Spacing between text and buttons */
+}
+
+
+
+#cookieConsentBanner button {
+    background-color: #5c3a0d; /* Dark brown background color for buttons */
+    color: #fff4e6; /* Soft cream text color for buttons */
+    margin: 0 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+#cookieConsentBanner button:hover {
+    background-color: #403026; /* A darker shade of brown for button hover */
+}
+
+#cookieConsentBanner button#declineCookies {
+    background-color: #c97a63; /* A complementary color for the decline button */
+}
+
+#cookieConsentBanner button#declineCookies:hover {
+    background-color: #a65b46; /* A darker shade for decline button hover */
+}

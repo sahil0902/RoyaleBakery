@@ -1,0 +1,126 @@
+/* Search Form Styles */
+#ajax-search-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  #ajax-search-form input[type="text"] {
+    flex-grow: 1;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 20px;
+    transition: border-color 0.3s;
+  }
+  
+  #ajax-search-form input[type="text"]:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+  
+  #ajax-search-form button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  #ajax-search-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Clear Search Button Styles */
+  #clear-search {
+    background-color: #f8f9fa;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+ 
+  
+  #clear-search:hover {
+    background-color: #e2e6ea;
+  }
+  #parent-container {
+    position: relative;
+}
+  #loading {
+    display: none;
+    position: absolute;
+    top: 50px; /* Adjust this value to position the spinner below the search input */
+    left: 0;
+    right: 0;
+    margin: auto; /* Centers the spinner horizontally */
+    width: 80px; /* Set the width of the spinner */
+    height: 80px; /* Set the height of the spinner */
+    background: transparent;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+#loading.show {
+    display: flex;
+}
+
+.dual-ring {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    position: relative;
+}
+
+.dual-ring::after {
+    content: " ";
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border-radius: 50%;
+    border: 6px solid #007bff;
+    border-color: #007bff transparent #007bff transparent;
+    animation: dual-ring-spin 1.2s linear infinite;
+}
+
+@keyframes dual-ring-spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767px) {
+    .dual-ring {
+        width: 60px;
+        height: 60px;
+    }
+    .dual-ring::after {
+        width: 48px;
+        height: 48px;
+        margin: 6px;
+        border-width: 4px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .dual-ring {
+        width: 70px;
+        height: 70px;
+    }
+    .dual-ring::after {
+        width: 56px;
+        height: 56px;
+        margin: 7px;
+        border-width: 5px;
+    }
+}
