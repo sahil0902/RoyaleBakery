@@ -1,0 +1,44 @@
+.ftco-38-body {
+  color: #333; /* A neutral color for text */
+  text-align: center; /* Center the text */
+  padding: 1rem; /* Add some padding around the text */
+}
+
+.introduction {
+  font-family: 'Playfair Display', serif; /* A font that might fit a bakery theme */
+  font-size: 1.5rem; /* A larger size for the introduction text */
+  font-weight: 700; /* Make it bold */
+  margin-bottom: 0.5rem; /* Space below the introduction text */
+}
+
+.address {
+  font-family: 'Lato', sans-serif; /* A sans-serif font for contrast */
+  color: #555; /* Slightly lighter color for the address */
+  margin-bottom: 1rem; /* Space below the address */
+}
+
+.social-links {
+  font-size: 0.9rem; /* Smaller font size for social links prompt */
+  margin-bottom: 1rem; /* Space below the social links prompt */
+}
+
+.social-icon span {
+  font-size: 1.5rem; /* Larger size for the icons */
+  color: #444; /* Icon color */
+  margin: 0 0.3rem; /* Space around icons */
+}
+
+.social-icon:hover {
+  color: #DAA520; /* Gold color on hover for icons */
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+  .introduction {
+    font-size: 1.3rem; /* Smaller font size on mobile */
+  }
+
+  .social-icon span {
+    font-size: 1.2rem; /* Smaller icons on mobile */
+  }
+}

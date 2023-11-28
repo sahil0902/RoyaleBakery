@@ -28,6 +28,7 @@ foreach ($menu_items as $item) {
 
     <title>Royale Bakery &mdash;  </title>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -51,10 +52,12 @@ foreach ($menu_items as $item) {
 
     <!-- Theme Style -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/menufood.css">
     <link rel="stylesheet" href="css/darkmode.css">
     <link rel="stylesheet" type="text/css" href="css/basket.css">
     <link rel="stylesheet" type="text/css" href="css/animation.css">
-    <link rel="stylesheet" type="text/css" href="css/adminmenu.css">
+    <!-- <link rel="stylesheet" type="text/css" href="css/adminmenu.css"> -->
+    <link rel="stylesheet" type="text/css" href="css/intro.css">
 
 </head>
 <body class="bg-black" >
@@ -69,7 +72,7 @@ foreach ($menu_items as $item) {
     <body data-spy="scroll" data-target=".navbar" data-offset="50">
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <a class="navbar-brand" href="index.php">🍰</a>
+        <a class="navbar-brand" href="index2.php">👑</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -268,15 +271,19 @@ function collapseNavbar() {
                     .section -->
                     <div class="ftco-38-body">
     <p class="introduction">Welcome to Royale Bakery - where tradition meets taste.</p>
-    <p class="address">Visit Us: [Your Bakery's Address Here]</p>
+    <p class="address" itemscope itemtype="http://schema.org/PostalAddress">
+        Visit Us: <span itemprop="streetAddress">203 Otley Road</span>,
+        <span itemprop="addressLocality">Bradford</span>,
+        <span itemprop="addressRegion">BD3 0JF</span>
+        <a href="https://www.google.com/maps?q=203+Otley+Road,+Bradford,+BD3+0JF" target="_blank" rel="noopener noreferrer">View on Google Maps</a>
+    </p>
     <div class="social-links">
-        Stay connected with our latest offerings and events:
-        <a href="https://www.facebook.com/YourBakeryPage" class="p-2 social-icon"><span class="fa fa-facebook"></span></a>
-        <a href="https://twitter.com/YourBakeryHandle" class="p-2 social-icon"><span class="fa fa-twitter"></span></a>
-        <a href="https://www.instagram.com/YourBakeryHandle" class="p-2 social-icon"><span class="fa fa-instagram"></span></a>
+      Stay connected with our latest offerings and events:
+      <a href="https://www.facebook.com/RoyaleBakeryPage" class="p-2 social-icon" target="_blank" rel="noopener noreferrer" aria-label="Royale Bakery on Facebook"><span class="fa fa-facebook" alt="Facebook icon"></span></a>
+      <a href="https://www.instagram.com/rb_bakeryuk?igshid=OGQ5ZDc2ODk2ZA%3D%3D" class="p-2 social-icon" target="_blank" rel="noopener noreferrer" aria-label="Royale Bakery on Instagram"><span class="fa fa-instagram" alt="Instagram icon"></span></a>
+      <a href="https://www.tiktok.com/@royale.bakery?_t=8hSXnm0GT5O&_r=1" class="p-2 social-icon" target="_blank" rel="noopener noreferrer" aria-label="Royale Bakery on TikTok"><span class="fa fa-tiktok" alt="TikTok icon"></span></a>
     </div>
 </div>
-
 
                     </div>
                   </div>
@@ -365,7 +372,7 @@ function collapseNavbar() {
 <?php if (!empty($searched_items)): ?>
     <h4 class="mb-4">Search Results</h4>
     <?php foreach ($searched_items as $item): ?>
-        <div class="d-flex justify-content-between align-items-center menu-food-item">
+        <div class="d-flex justify-content-between align-items-center menu-food-item interactive-item">
             <div class="text">
                 <h4><?= htmlspecialchars($item['category']) ?></h4>
                 <img src="data:image/jpeg;base64,<?= base64_encode($item['image_data']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" style="max-width: 100px;">
@@ -374,7 +381,7 @@ function collapseNavbar() {
             </div>
             <div class="d-flex align-items-center">
                 <strong class="mr-3">£<?= htmlspecialchars($item['price']) ?></strong>
-                <button class="btn btn-primary addToBasket" data-id="<?= $item['id'] ?>" data-name="<?= htmlspecialchars($item['name']) ?>" data-price="<?= htmlspecialchars($item['price']) ?>">Add to Basket</button>
+               <i class="fas fa-shopping-basket btn btn-primary addToBasket" data-id="<?= $item['id'] ?>" data-name="<?= htmlspecialchars($item['name']) ?>" data-price="<?= htmlspecialchars($item['price']) ?>"></i>
             </div>
         </div>
     <?php endforeach; ?>
@@ -417,9 +424,10 @@ $sections = [
         <?php
         $items_to_display = $sectionName === 'ALL' ? $menu_items : $grouped_items[$sectionName];
         if (isset($items_to_display) && !empty($items_to_display)):
+          echo '<div class="menu-container">';
             foreach ($items_to_display as $item):
             ?>
-            <div class="d-flex justify-content-between align-items-center menu-food-item">
+            <div class="d-flex justify-content-between align-items-center menu-food-item interactive-item">
                 <div class="text">
                     <img src="data:image/jpeg;base64,<?= base64_encode($item['image_data']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" style="max-width: 100px;">
                     <h3><a href="#"><?= htmlspecialchars($item['name']) ?></a></h3>
@@ -427,11 +435,12 @@ $sections = [
                 </div>
                 <div class="d-flex align-items-center">
                     <strong class="mr-3">£<?= htmlspecialchars($item['price']) ?></strong>
-                    <button class="btn btn-primary addToBasket" data-id="<?= $item['id'] ?>" data-name="<?= htmlspecialchars($item['name']) ?>" data-price="<?= htmlspecialchars($item['price']) ?>">Add to Basket</button>
+                   <i class="fas fa-shopping-basket btn btn-primary addToBasket" data-id="<?= $item['id'] ?>" data-name="<?= htmlspecialchars($item['name']) ?>" data-price="<?= htmlspecialchars($item['price']) ?>"></i>
                 </div>
             </div>
             <?php
             endforeach;
+            echo '</div>';
         else:
         ?>
         <p>No items available in this section.</p>
@@ -769,7 +778,19 @@ $sections = [
 
     <!-- loader -->
     <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#ff7a5c"/></svg></div>
+<!-- <script>
+ window.addEventListener("load", function() {
+  (function removeOverflow() {
+  if (document.body.style.overflow !== 'visible') {
+    document.body.style.overflow = 'visible';
+  }
+  // Keep checking at short intervals
+  setTimeout(removeOverflow, 100);
+})();
 
+});
+
+</script> -->
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/jquery-migrate-3.0.1.min.js"></script>
     <script src="js/popper.min.js"></script>
@@ -783,15 +804,15 @@ $sections = [
 
     <script src="js/jquery.easing.1.3.js"></script>    
 
-    <script src="js/aos.js"></script>
+    <script src="js/aos.js" defer></script>
     
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-    <script src="js/adminmenu.js"></script>
-    <script src="js/main.js"></script>
-    <script src = "js/basket.js"></script>
-    <script src="js/scrollPosition.js"></script>
-   
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&sensor=false" defer></script> -->
+    <script src="js/notification.js" defer></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/basket.js" defer></script>
+    <script src="js/scrollPosition.js" defer></script>
+    <script src="js/test.js" defer></script>
 
   </body>
 </html>
