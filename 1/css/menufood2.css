@@ -1,33 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 .menu-container {
-    display: grid;
-    /* Adjust the 'minmax' values to allow more items per row */
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
-    gap: 10px; /* Reduce the gap if necessary */
-    /* ... other styles ... */
-  }
-  
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Increased min-width for larger screens */
+  gap: 20px; /* Increased gap for more space between items */
+  padding: 20px; /* Add padding to container */
+}
 
 /* Card Layout */
 .menu-food-item {
-    background-color:#fff4e6;
-    color:#5c3a0d;
+  background-color: #fff4e6;
+  color: #5c3a0d;
   border-radius: 16px;
-  box-shadow:0 0 10px #ccc;
-  padding: 10px;
-  margin-bottom: 10px; /* Reduce space between rows */
+  box-shadow: 0 0 10px #ccc;
+  padding: 20px; /* Increased padding for better spacing */
+  margin: 10px; /* Added some margin to prevent items from touching */
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s; /* Smooth transition for hover effects */
 }
+
+#search-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+  /* ... other styles ... */
+}
+
+
 .menu-food-item:hover {
-    box-shadow:0 0 15px #0003;
-    transform:scale(1.05);
-    background-color:#f3e9dc
-    }
+  box-shadow: 0 0 15px #0003;
+  transform: scale(1.05);
+  background-color: #f3e9dc;
+}
+
 .menu-item-img {
   width: 100%;
-  max-width: 100%; 
-  max-height: 150px;
+  height: auto; /* Maintain aspect ratio */
   border-radius: 8px;
   margin-bottom: 1rem;
 }
@@ -35,6 +47,7 @@
 .menu-item-details {
   text-align: center;
 }
+
 .menu-food-item h3,
 .menu-food-item p {
   font-size: 0.8em; /* Smaller font size for text */
@@ -51,6 +64,12 @@
   font-size: 1rem;
   color: #666;
   margin-bottom: 1rem;
+}
+
+.menu-item-action,
+.menu-item-description {
+  text-align: center; /* Centers text in their containers */
+  width: 100%; /* Ensures they span the full width of the card */
 }
 
 .menu-item-action {
@@ -70,48 +89,195 @@
   cursor: pointer;
 }
 
+@media (max-width: 1024px) {
+  .menu-container {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
 /* Responsive Adjustments */
 @media (max-width: 767px) {
-    .menu-container {
-        grid-template-columns: repeat(3, 1fr);/* Full width on smaller screens */
-    }
+  .menu-container {
+    grid-template-columns: repeat(3, 1fr); /* Full width on smaller screens */
+  }
 
-    .menu-food-item {
-        margin: 0.5rem; /* Reduce margin for smaller screens */
-    }
+  .menu-food-item {
+    margin: 0.5rem; /* Reduce margin for smaller screens */
+  }
 
-    .menu-item-img {
-        width: 80%; /* Reduce image width for smaller screens */
-    }
+  .menu-item-img {
+    width: 80%; /* Reduce image width for smaller screens */
+  }
 
-    .menu-item-title {
-        font-size: 1rem; /* Decrease font size for smaller screens */
-    }
+  .menu-item-title {
+    font-size: 1rem; /* Decrease font size for smaller screens */
+  }
 
-    .menu-item-description {
-        font-size: 0.875rem; /* Decrease font size for smaller screens */
-    }
+  .menu-item-description {
+    font-size: 0.875rem; /* Decrease font size for smaller screens */
+  }
 }
 
 @media (max-width: 480px) {
-    .menu-container {
-        /* For very small screens, adjust columns accordingly */
-        grid-template-columns: repeat(2, 1fr); /* Example: 2 columns for mobile phones */
-      }
-    /* Adjustments for very small devices */
-    .menu-food-item {
-        margin: 0.25rem; /* Reduce margin even further for very small devices */
-    }
+  .menu-container {
+    /* For very small screens, adjust columns accordingly */
+    grid-template-columns: repeat(2, 1fr); /* Example: 2 columns for mobile phones */
+  }
+  /* Adjustments for very small devices */
+  .menu-food-item {
+    margin: 0.25rem; /* Reduce margin even further for very small devices */
+  }
 
-    .menu-item-img {
-        width: 70%; /* Reduce image width even further for very small devices */
-    }
+  .menu-item-img {
+    width: 70%; /* Reduce image width even further for very small devices */
+  }
 
-    .menu-item-title {
-        font-size: 0.875rem; /* Decrease font size for very small devices */
-    }
+  .menu-item-title {
+    font-size: 0.875rem; /* Decrease font size for very small devices */
+  }
 
-    .menu-item-description {
-        font-size: 0.75rem; /* Decrease font size for very small devices */
-    }
+  .menu-item-description {
+    font-size: 0.75rem; /* Decrease font size for very small devices */
+  }
 }
+
+@media (max-width: 414px) {
+  /* iPhone 6, 7, 8 Plus, XR, XS Max, etc. */
+  .menu-container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .menu-food-item {
+    /* Target the individual items */
+    margin: 0 auto; /* Auto margins can help center blocks */
+    /* Adjust size, padding, and margins as needed */
+  }
+}
+
+@media (max-width: 375px) {
+  /* iPhone 6, 7, 8, X, XS, 11 Pro, 12 Mini */
+  .menu-food-item-container {
+    /* Replace with the actual container class */
+    display: flex;
+    justify-content: center;
+  }
+}
+
+/* For larger devices, the layout might be correct, so no changes needed */
+/* End of responsive adjustments */
+/* Additional Styles for Same Look */
+@media (max-width: 1024px) {
+  .menu-food-item {
+    padding: 20px; /* Maintain the same padding for consistency */
+  }
+
+  .menu-item-details {
+    text-align: center; /* Center the details for consistency */
+  }
+
+  .menu-item-action {
+    justify-content: space-between; /* Maintain the same alignment for consistency */
+  }
+
+  .menu-item-price {
+    font-weight: bold; /* Maintain the same font weight for consistency */
+  }
+
+  .add-to-basket-icon {
+    color: #ffd700; /* Maintain the same color for consistency */
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 767px) {
+  .menu-food-item {
+    padding: 20px; /* Maintain the same padding for consistency */
+  }
+
+  .menu-item-details {
+    text-align: center; /* Center the details for consistency */
+  }
+
+  .menu-item-action {
+    justify-content: space-between; /* Maintain the same alignment for consistency */
+  }
+
+  .menu-item-price {
+    font-weight: bold; /* Maintain the same font weight for consistency */
+  }
+
+  .add-to-basket-icon {
+    color: #ffd700; /* Maintain the same color for consistency */
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-food-item {
+    padding: 20px; /* Maintain the same padding for consistency */
+  }
+
+  .menu-item-details {
+    text-align: center; /* Center the details for consistency */
+  }
+
+  .menu-item-action {
+    justify-content: space-between; /* Maintain the same alignment for consistency */
+  }
+
+  .menu-item-price {
+    font-weight: bold; /* Maintain the same font weight for consistency */
+  }
+
+  .add-to-basket-icon {
+    color: #ffd700; /* Maintain the same color for consistency */
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 414px) {
+  .menu-food-item {
+    padding: 20px; /* Maintain the same padding for consistency */
+  }
+
+  .menu-item-details {
+    text-align: center; /* Center the details for consistency */
+  }
+
+  .menu-item-action {
+    justify-content: space-between; /* Maintain the same alignment for consistency */
+  }
+
+  .menu-item-price {
+    font-weight: bold; /* Maintain the same font weight for consistency */
+  }
+
+  .add-to-basket-icon {
+    color: #ffd700; /* Maintain the same color for consistency */
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 375px) {
+  .menu-food-item {
+    padding: 20px; /* Maintain the same padding for consistency */
+  }
+
+  .menu-item-details {
+    text-align: center; /* Center the details for consistency */
+  }
+
+  .menu-item-action {
+    justify-content: space-between; /* Maintain the same alignment for consistency */
+  }
+
+  .menu-item-price {
+    font-weight: bold; /* Maintain the same font weight for consistency */
+  }
+
+  .add-to-basket-icon {
+    color: #ffd700; /* Maintain the same color for consistency */
+    cursor: pointer;
+  }
+}
+

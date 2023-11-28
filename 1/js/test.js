@@ -21,3 +21,7 @@ observer.observe(targetNode, config);
 
 // Later, you can stop observing
 // observer.disconnect();
+function collapseNavbar() {
+    var navbar = document.querySelector('.navbar-collapse');
+    navbar.classList.remove('show');
+}

@@ -14,30 +14,29 @@ if (!empty($message)) {
 }
 
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST['name'];
-    $description = $_POST['description'];
-    $price = $_POST['price'];
-    $category = $_POST['category'];
+// if ($_SERVER["REQUEST_METHOD"] == "POST") {
+//     $name = $_POST['name'];
+//     $description = $_POST['description'];
+//     $price = $_POST['price'];
+//     $category = $_POST['category'];
 
-    // $in_stock = isset($_POST['in_stock']) ? 1 : 0;
+//     // $in_stock = isset($_POST['in_stock']) ? 1 : 0;
 
-    if (!is_numeric($price)) {
-        $message = 'Error: Price must be a valid number.';
-    } elseif ($_FILES["image"]["error"] !== UPLOAD_ERR_OK) {
-        $message = 'Error uploading the file.';
-    } else {
-        $image_data = file_get_contents($_FILES["image"]["tmp_name"]);
-        $stmt = $pdo->prepare("INSERT INTO menu_items (name, description, image_data, price, category) VALUES (?, ?, ?, ?, ?)");
-        if ($stmt->execute([$name, $description, $image_data, $price, $category])) {
-            $message = 'Menu item added successfully!';
-        } else {
-            $message = 'Error adding menu item to the database.';
-        }
-    }
-    header("Location: adminmenu.php?message=" . urlencode($message));
-    exit;
-}
+//     if (!is_numeric($price)) {
+//         $message = 'Error: Price must be a valid number.';
+//     } elseif ($_FILES["image"]["error"] !== UPLOAD_ERR_OK) {
+//         $message = 'Error uploading the file.';
+//     } else {
+//         $image_data = file_get_contents($_FILES["image"]["tmp_name"]);
+//         $stmt = $pdo->prepare("INSERT INTO menu_items (name, description, image_data, price, category) VALUES (?, ?, ?, ?, ?)");
+//         if ($stmt->execute([$name, $description, $image_data, $price, $category])) {
+//             echo json_encode(['success' => true, 'message' => 'Menu item added successfully!']);
+//         } else {
+//             echo json_encode(['success' => false, 'message' => 'Error adding menu item to the database.']);
+//         }
+//         exit;
+//     }
+// }
 
 // Fetch menu items from the database
 $menu_items = $pdo->query("SELECT * FROM menu_items ORDER BY category")->fetchAll();
@@ -68,6 +67,37 @@ $menu_items = $pdo->query("SELECT * FROM menu_items ORDER BY category")->fetchAl
     <div id="loadingBar"></div>
     <span id="loadingPercentage">0%</span>
 </div>
+<div class="progress" style="display:none;">
+    <div id="uploadProgress" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+</div>
+
+<style>
+.progress {
+    height: 20px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+    float: left;
+    width: 0;
+    height: 100%;
+    font-size: 12px;
+    line-height: 20px;
+    color: #fff;
+    text-align: center;
+    background-color: #337ab7;
+    -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+    -webkit-transition: width 0.6s ease;
+    -o-transition: width 0.6s ease;
+    transition: width 0.6s ease;
+}
+</style>
 <div id="pageContent" style="display: none;"> <!-- Initially hidden -->
     <div class="container py-5">
         <h1 class="text-center mb-4">Royale Bakery Menu</h1>
@@ -248,20 +278,8 @@ if (isset($notification)) {
     ?>
     </div>
     <!-- Bootstrap JS -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="js/adminmenu.js"></script>
 <script src="loading.js"></script>
-<!-- <script>
-            document.addEventListener('DOMContentLoaded', (event) => {
-                const saveChangesBtns = document.querySelectorAll('.save-changes-btn');
-                saveChangesBtns.forEach(btn => {
-                    btn.addEventListener('click', (event) => {
-                        console.log('Save changes button clicked!');
-                        const itemId = btn.dataset.itemId;
-                        editMenuItem(itemId, event);
-                    });
-                });
-            });
-            </script> -->
 </body>
 </html>

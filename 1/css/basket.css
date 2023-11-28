@@ -4,23 +4,6 @@
 element.style {
   overflow: hidden !important;
 }
-
-.menu-food-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 5px 10px;
-  border-bottom: 1px solid #e0e0e0;
-  }
-  
-  /* Responsive style for menu food items */
-  @media (max-width: 768px) {
-    .menu-food-item .text,
-    .menu-food-item .price {
-      width: 100%;
-      text-align: left;
-    }
-  }
   
   #floatingBasket {
     background-color: #fff4e6; /* Cream background to match .ftco-38-body */
