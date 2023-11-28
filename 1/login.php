@@ -121,25 +121,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username']) && isset(
         </div>
       </div>
     </div>
-<!-- Toast Notification -->
-<div class="toast" id="toast">
-  <div class="toast-content">
-    <i class="fas fa-solid fa-check check"></i>
-    <div class="message">
-      <span class="text text-1" id="toast-header">Success</span>
-      <span class="text text-2" id="toast-body">You're now logged in!</span>
-    </div>
-  </div>
-  <i class="fa-solid fa-xmark close" onclick="closeToast()"></i>
-  <div class="progress"></div>
-</div>
-<script type="text/javascript">
-  // These variables are set from the PHP code and should be available to the login.js
-  var isLoginError = <?php echo json_encode($isLoginError); ?>;
-  var isLoginSuccessful = <?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>;
-  var loginMessage = <?php echo json_encode($loginMessage); ?>;
-</script>
 <!-- Load your external JS file after the variables are set -->
 <script src="js/login.js"></script>
+<script> src="js/adminmenu.js"</script>
   </body>
 </html>
