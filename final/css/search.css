@@ -16,22 +16,26 @@
   
   #ajax-search-form input[type="text"]:focus {
     outline: none;
-    border-color: #007bff;
+    border-color: #e0c2a2; /* Gold-like color to match the hover state of the button */
+    box-shadow: 0 0 0 2px #f3e9dc; /* Soft outer glow matching the button color */
   }
-  
   #ajax-search-form button {
     padding: 10px 20px;
     border: none;
     border-radius: 20px;
-    background-color: #007bff;
-    color: white;
+    background-color: #f3e9dc; /* Creamy color similar to menu item hover state */
+    color: #5c3a0d; /* Dark coffee text color for contrast */
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 4px #00000030; /* Subtle shadow for depth */
   }
   
   #ajax-search-form button:hover {
-    background-color: #0056b3;
+    background-color: #e0c2a2; /* Gold-like color for hover state */
+    color: white; /* White text color for better visibility on hover */
+    box-shadow: 0 4px 8px #00000050; /* Stronger shadow for a lifted effect */
   }
+  
   
   /* Clear Search Button Styles */
   #clear-search {

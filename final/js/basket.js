@@ -82,6 +82,24 @@ addStyles();
 let basket = [];
 
 document.addEventListener('DOMContentLoaded', function() {
+    const parentContainer = document.getElementById('parent-container');
+
+    parentContainer.addEventListener('click', function(event) {
+        // Find the clicked "Add to Basket" button
+        let button = event.target;
+        while (button !== null && !button.classList.contains('addToBasket')) {
+            button = button.parentElement;
+        }
+
+        // If a button was clicked, handle the event
+        if (button !== null && button.classList.contains('addToBasket')) {
+            console.log("Add to Basket button clicked");
+            const itemId = button.getAttribute('data-id');
+            const itemName = button.getAttribute('data-name');
+            const itemPrice = parseFloat(button.getAttribute('data-price'));
+            addToBasket(itemId, itemName, itemPrice);
+        }
+    });
     const addToBasketButtons = document.querySelectorAll('.addToBasket');
     console.log(addToBasketButtons); // Check if buttons are selected
 
@@ -253,3 +271,38 @@ document.getElementById('checkoutButton').addEventListener('click', function() {
         showNotification("There was a problem with the network.");
     });
 });
+function showReservationNotification() {
+    showNotification("The reservation feature will be available in the near future.");
+    
+    // Collapse the navbar after showing the notification
+    var navbarCollapse = document.querySelector('.navbar-collapse');
+    if (navbarCollapse.classList.contains('show')) {
+      new bootstrap.Collapse(navbarCollapse, {
+        toggle: true
+      });
+    }
+  }
+  $(document).ready(function() {
+    $('#feedback-form').on('submit', function(event) {
+        event.preventDefault(); // Prevent the form from submitting via the browser.
+
+        var formData = $(this).serialize(); // Serialize the form data.
+
+        $.ajax({
+            type: 'POST',
+            url: 'send_feedback.php',
+            data: formData,
+            dataType: 'json',
+            success: function(response) {
+                // Call your showNotification function with the response message.
+                showNotification(response.message);
+            },
+            error: function(xhr, status, error) {
+                // Call your showNotification function with any error message.
+                var errorMessage = xhr.status + ': ' + xhr.statusText;
+                showNotification('Error - ' + errorMessage);
+            }
+        });
+    });
+});
+  

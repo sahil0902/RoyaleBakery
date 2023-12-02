@@ -16,14 +16,32 @@ if (!empty($searchQuery)) {
 <html lang="en">
   <head>
 
-    <title>Royale Bakery &mdash;  </title>
-    <meta charset="utf-8">
+  title>Royale Bakery &mdash; Delight in Every Bite</title>
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Royale Bakery - Experience the exquisite taste of traditional and contemporary baked goods crafted with love.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourwebsite.com/">
+    <meta property="og:title" content="Royale Bakery &mdash; Delight in Every Bite">
+    <meta property="og:description" content="Delve into the world of delectable bakery delights at Royale Bakery. From classic pastries to innovative creations, we've got something for every taste.">
+    <meta property="og:image" content="https://yourwebsite.com/path/to/image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://yourwebsite.com/">
+    <meta property="twitter:title" content="Royale Bakery &mdash; Delight in Every Bite">
+    <meta property="twitter:description" content="Delve into the world of delectable bakery delights at Royale Bakery. From classic pastries to innovative creations, we've got something for every taste.">
+    <meta property="twitter:image" content="https://yourwebsite.com/path/to/image.jpg">
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:300,400,700,800|Open+Sans:300,400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/animate.css">
@@ -72,11 +90,13 @@ if (!empty($searchQuery)) {
                     <a class="nav-link" href="#section-menu" onclick="collapseNavbar()">Our Menu</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#section-reservation" onclick="collapseNavbar()">Reserve A Table</a>
-                </li>
+  <a class="nav-link" href="#section-reservation" onclick="showReservationNotification()">Reserve A Table</a>
+</li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="#section-contact" onclick="collapseNavbar()">Contact</a>
-                </li>
+  <a class="nav-link" href="#feedback-section" onclick="collapseNavbar()">Contact</a>
+</li>
+
             </ul>
         </div>
   
@@ -334,96 +354,56 @@ $sections = [
     </div>
 </div> <!-- .section -->
 
-        <div class="map-wrap" id="map"  data-aos="fade"></div>
+<footer class="ftco-footer" id = "feedback-section">
+  <div class="container">
+    <div class="row">
+      <!-- About Us Section -->
+      <div class="col-md-4 mb-5">
+        <div class="footer-widget">
+          <h3 class="mb-4">About Royale Bakery</h3>
+          <p>At Royale Bakery, we blend tradition with the taste of homemade goodness. Our artisanal bakery delights are crafted with the finest ingredients and a pinch of love. Come visit us and indulge in the sweet symphony of our baked creations.</p>
+        </div>
+      </div>
 
-
-        <footer class="ftco-footer">
-          <div class="container">
-            
-            <div class="row">
-            <div class="col-md-4 mb-5">
-              <div class="footer-widget">
-                <div class="col-md-4 mb-5">
-                  <div class="footer-widget">
-                    <h3 class="mb-4">Lunch Service</h3>
-                    <p>Booking from 12:00pm &mdash; 1:30pm</p>
-                    <h3 class="mb-4">Dinner Service</h3>
-                    <p>Everyday: <br> Booking from 6:00pm &mdash; 9:00pm</p>
-                  </div>
-                </div>
-
-                <div class="col-md-4">
-                  <div class="footer-widget">
-                    <h3 class="mb-4">Follow Along</h3>
-                    <ul class="list-unstyled social">
-                      <li><a href="#"><span class="fa fa-tripadvisor"></span></a></li>
-                      <li><a href="#"><span class="fa fa-twitter"></span></a></li>
-                      <li><a href="#"><span class="fa fa-facebook"></span></a></li>
-                      <li><a href="#"><span class="fa fa-instagram"></span></a></li>
-                    </ul>
-                  </div>
-                  <div class="footer-widget">
-                    <h3 class="mb-4">Newsletter</h3>
-                    <form action="#" class="ftco-footer-newsletter">
-                      <!-- Add your newsletter form code here -->
-                    </form>
-                  </div>
-                </div>
-
-                <div class="col-md-4 mb-5">
-                  <div class="footer-widget">
-                    <h3 class="mb-4">About US</h3>
-                    <p class="lead">Royale Bakery is a premier bakery that offers a delightful range of traditional and artisanal baked goods. Our skilled bakers use the finest ingredients and time-honored recipes to create mouthwatering cakes, pastries, breads, and cookies.</p>
-                    <p class="lead">Whether you're celebrating a special occasion or simply craving a sweet treat, our bakery has something for everyone. We take pride in delivering exceptional quality and taste to our customers.</p>
-                  </div>
-                </div>
+      <!-- Feedback Form Section -->
+        <div class="col-md-8">
+          <div class="footer-widget">
+            <h3 class="mb-4">We'd Love Your Feedback</h3>
+            <p>Share your thoughts with us. Your feedback helps us serve you better!</p>
+            <form id="feedback-form" method="POST">
+              <div class="form-group">
+                <input type="text" name="name" class="form-control" placeholder="Your Name" required>
               </div>
-            </div>
-            <div class="col-md-4 mb-5">
-              <div class="footer-widget">
-                <h3 class="mb-4">Lunch Service</h3>
-                <p>Booking from 12:00pm &mdash; 1:30pm</p>
-                <h3 class="mb-4">Dinner Service</h3>
-                <p>Everyday: <br> Booking from 6:00pm &mdash; 9:00pm</p>
+              <div class="form-group">
+                <input type="email" name="email" class="form-control" placeholder="Your Email" required>
               </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="footer-widget">
-                <h3 class="mb-4">Follow Along</h3>
-                <ul class="list-unstyled social">
-                  <li><a href="#"><span class="fa fa-tripadvisor"></span></a></li>
-                  <li><a href="#"><span class="fa fa-twitter"></span></a></li>
-                  <li><a href="#"><span class="fa fa-facebook"></span></a></li>
-                  <li><a href="#"><span class="fa fa-instagram"></span></a></li>
-                </ul>
+              <div class="form-group">
+                <textarea name="message" class="form-control" rows="4" placeholder="Your Message" required></textarea>
               </div>
-              <div class="footer-widget">
-                <h3 class="mb-4">Newsletter</h3>
-                <form action="#" class="ftco-footer-newsletter">
-                  <div class="form-group">
-                    <button class="button"><span class="fa fa-envelope"></span></button>
-                    <input type="email" class="form-control" placeholder="Enter Email">
-                  </div>
-                </form>
+              <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Send Feedback">
               </div>
-            </div>
-
-            </div>
-
-            <div class="row pt-5">
-              <div class="col-md-12 text-center">
-                     <div class="text-center bg-dark py-4">
-              <p class="text-center text-md-end text-xl-start"> 
-                All Rights Reserved
-              </p>
-	 </div>
-              </div>
-            </div>
+            </form>
+            <p>Currently, we are experiencing some issues with sending feedback. Please <a href="mailto:royalbakery.co.uk">click here</a> to send us an email with your feedback.</p>
           </div>
-        </footer>
-      
+        </div>
+      </div>
+
+    <!-- Social and CopyRight Section -->
+    <div class="row pt-5">
+      <div class="col-md-12 text-center">
+        <ul class="list-unstyled social">
+          <li><a href="#"><span class="fa fa-tripadvisor"></span></a></li>
+          <li><a href="#"><span class="fa fa-twitter"></span></a></li>
+          <li><a href="#"><span class="fa fa-facebook"></span></a></li>
+          <li><a href="#"><span class="fa fa-instagram"></span></a></li>
+        </ul>
+        <p>All Rights Reserved</p>
+      </div>
     </div>
+  </div>
+</footer>
+
    
 <!-- Consent Banner (placed at the end of your body tag) -->
 <div id="cookieConsentOverlay">
@@ -454,6 +434,9 @@ $sections = [
     <script src="js/test.js" defer></script>
     <script src="js/search_results.js" defer></script>
     <script src="js/cookieConsent.js" defer></script>
-
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.7.0/dist/umd/popper.min.js" defer></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
   </body>
 </html>
